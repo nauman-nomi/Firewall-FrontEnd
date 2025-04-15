@@ -1,0 +1,53 @@
+<div class="flex flex-auto p-3 sm:p-5">
+    <div class="flex flex-col flex-auto w-full">
+        <div class="mb-8" *ngIf="showAlert">
+            <fuse-alert
+                class="mt-0 -mb-2"
+                *ngIf="showAlert"
+                [appearance]="'outline'"
+                [showIcon]="true"
+                [type]="alert.type">
+                    {{alert.message}}
+            </fuse-alert>
+        </div>
+        <div *ngIf="loading" class="flex justify-center items-center mb-4">
+            <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols              -1 lg:grid-cols-1 mb-4"> 
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-xl bg-primary-500">
+                <div class="justify-self-start flex items-center">
+                    <div class="text-xl font-bold leading-none tracking-tight text-white pl-5">Bandwidth Management</div>
+                </div>
+                
+                <div class="justify-self-end mb-2 mr-4">
+                    <button *ngIf="!loading" (click)="refreshPage()" [disabled]="loading" class="px-2 pt-1 bg-white text-white rounded-3xl">
+                        <mat-icon class="text-primary">refresh</mat-icon>
+                    </button>
+                </div>
+            </div>  
+            <div class="grid grid-cols-3 sm:grid-cols-1 lg:grid-cols-3 rounded-xl">
+                <div class="col-span-3 flex flex-col px-5 pt-2 pb-2 shadow rounded-2xl overflow-hidden bg-card mt-4">
+                    <div class="flex text-xl font-bold justify-start border-b-2 border-primary-200 text-primary">Queue Configuration</div>
+                    <div class="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2">
+                        <div>a</div>
+                        <div>v</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-6 space-y-8">
+            <div *ngFor="let scheduler of queueConfigs" class="space-y-4">
+              <h2 class="text-2xl font-bold capitalize text-indigo-600">{{ scheduler.type }}</h2>
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div *ngFor="let queue of scheduler.queues" class="bg-white rounded-2xl shadow p-4 border border-gray-200">
+                  <h3 class="text-lg font-semibold text-gray-800">{{ queue.name }}</h3>
+                  <p class="text-sm text-gray-600">Bandwidth: {{ queue.bandwidth }}</p>
+                  <p class="text-sm text-gray-600">Type: {{ queue.details }}</p>
+                  <p *ngIf="queue.priority" class="text-sm text-gray-600">Priority: {{ queue.priority }}</p>
+                  <p *ngIf="queue.default" class="text-sm text-green-600 font-medium">Default</p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>

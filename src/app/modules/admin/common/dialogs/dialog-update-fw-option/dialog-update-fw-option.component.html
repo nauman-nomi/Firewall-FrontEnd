@@ -1,0 +1,191 @@
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            Firewall Options
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+    <fuse-alert
+        class="mt-3 mb-2"
+        *ngIf="showAlert"
+        [appearance]="'outline'"
+        [showIcon]="true"
+        [type]="alert.type">
+        {{alert.message}}
+    </fuse-alert>
+
+    <form [formGroup]="pfForm" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-4 gap-y-1 mt-3">
+            <!-- Block Policy -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label class="text-black">Block Policy</mat-label>
+                <mat-select formControlName="blockPolicy">
+                    <mat-option *ngFor="let policy of policy" [value]="policy">
+                        {{ policy }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Log Interface -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Log Interface</mat-label>
+                <mat-select formControlName="logInterface" multiple>
+                    <mat-option *ngFor="let macro of macros" [value]="macro">
+                        {{ macro }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Optimization -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Optimization</mat-label>
+                <mat-select formControlName="optimization">
+                    <mat-option *ngFor="let option of optimizationOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Ruleset Optimization -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Ruleset Optimization</mat-label>
+                <mat-select formControlName="rulesetOptimization">
+                    <mat-option *ngFor="let option of rulesetOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Limit Section -->
+            <h3 class="text-lg col-span-4 font-bold text-secondary border-b-2 border-gray-300">Set Limit</h3>
+            <div formGroupName="limits" class="col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-x-4">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>States</mat-label>
+                    <input matInput type="number" formControlName="states" placeholder="Number of states" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Frags</mat-label>
+                    <input matInput type="number" formControlName="frags" placeholder="Number of frags" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Src Nodes</mat-label>
+                    <input matInput type="number" formControlName="srcNodes" placeholder="Number of src nodes" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Table Entries</mat-label>
+                    <input matInput type="number" formControlName="tableEntries" placeholder="Number of table entries" />
+                </mat-form-field>
+            </div>
+
+            <!-- Skip on lo and Fingerprints -->
+            <div class="col-span-4 grid grid-cols-1 lg:grid-cols-2 gap-4 border-b-2 pb-4">
+                <mat-checkbox formControlName="skipOnLo">Skip on lo</mat-checkbox>
+                <mat-checkbox formControlName="fingerprints">Fingerprints ("/etc/pf.os")</mat-checkbox>
+            </div>
+
+            <!-- Debug -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Debug</mat-label>
+                <mat-select formControlName="debug">
+                    <mat-option *ngFor="let option of debugOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- State Policy -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>State Policy</mat-label>
+                <mat-select formControlName="statePolicy">
+                    <mat-option *ngFor="let option of statePolicyOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Require Order -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Require Order</mat-label>
+                <mat-select formControlName="requireOrder">
+                    <mat-option *ngFor="let option of requireOrderOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Syncookies -->
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Syncookies</mat-label>
+                <mat-select formControlName="syncookies">
+                    <mat-option *ngFor="let option of syncookiesOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Timeout Section -->
+            <h3 class="text-lg col-span-4 font-bold text-secondary border-b-2 border-gray-300">Set Timeout</h3>
+            <div formGroupName="timeouts" class="col-span-4 grid grid-cols-1 lg:grid-cols-5 gap-x-2">
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP First</mat-label>
+                    <input matInput type="number" formControlName="tcpFirst" placeholder="Timeout for TCP First"/>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP Opening</mat-label>
+                    <input matInput type="number" formControlName="tcpOpening" placeholder="Timeout for TCP Opening" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP Established</mat-label>
+                    <input matInput type="number" formControlName="tcpEstablished" placeholder="Timeout for TCP Established" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP Closing</mat-label>
+                    <input matInput type="number" formControlName="tcpClosing" placeholder="Timeout for TCP Closing" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP Finwait</mat-label>
+                    <input matInput type="number" formControlName="tcpFinwait" placeholder="Timeout for TCP Finwait" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>TCP Closed</mat-label>
+                    <input matInput type="number" formControlName="tcpClosed" placeholder="Timeout for TCP Closed" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>UDP First</mat-label>
+                    <input matInput type="number" formControlName="udpFirst" placeholder="Timeout for UDP First" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>UDP Single</mat-label>
+                    <input matInput type="number" formControlName="udpSingle" placeholder="Timeout for UDP Single" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>ICMP First</mat-label>
+                    <input matInput type="number" formControlName="icmpFirst" placeholder="Timeout for ICMP First" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>ICMP Error</mat-label>
+                    <input matInput type="number" formControlName="icmpError" placeholder="Timeout for ICMP Error" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end border-t-2 p-2">
+            <!-- <button mat-raised-button color="primary" type="submit">
+                Update
+            </button> -->
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
+                [color]="'primary'" 
+                [disabled]="pfForm.invalid">
+                <span> Update </span>
+                <mat-progress-spinner class="ml-3"
+                    *ngIf="isSubmitting"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+        </div>
+    </form>
+</mat-dialog-content>
+

@@ -1,0 +1,44 @@
+.dialog-content {
+  height: auto;
+  // max-height: 90vh; // Ensures the dialog doesn't exceed 90% of viewport height
+  display: flex;
+  flex-direction: column;
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    // padding: 8px 16px;
+  }
+
+  .dialog-body {
+    flex-grow: 1; // Allows dynamic expansion
+    // padding: 10px 16px;
+    overflow-y: auto; // Enables scrolling only when necessary
+    // max-height: calc(90vh - 120px); // Adjust height dynamically to keep buttons visible
+  }
+
+  .dialog-footer{
+    border-top: 1px solid #ddd;
+    // padding: 10px 16px;
+    flex-shrink: 0; // Prevents the footer from being pushed out
+    background: white; // Ensures visibility if body scrolls
+    position: sticky;
+    bottom: 0;
+  }
+}
+
+mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  // max-height: 90vh;
+  overflow: hidden;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}

@@ -1,0 +1,88 @@
+<fuse-card class="flex flex-col border-none shadow-none rounded-none">
+    <div>
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2">
+            <div class="flex text-xl font-bold text-primary">Macros Management</div>
+            <div class="justify-self-end mt-2 ">
+                <button *ngIf="!loading" (click)="updateMacros()" class=" bg-primary text-white rounded-3xl h-6">
+                    <mat-icon class="text-white text-2xl " matTooltip="Edit Macros">edit</mat-icon>
+                </button>
+            </div>  
+        </div>
+        
+        
+        <div class="flex items-center mt-2">
+            <div class="font-medium text-secondary">Internal</div>
+            <div class="flex-auto ml-2 border-b-2"></div>
+        </div>
+        <!-- Features -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 ml-5 my-2">
+            <div class="flex items-center" *ngFor="let interface of internalinterfaces">
+                <mat-icon class="icon-size-5 text-orange-600" [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                <div class="ml-2 inline-block"><b class="text-primary">Int{{ interface.split(',')[0].trim() }}:</b> {{ interface.split(',')[1].trim()  }}</div>
+            </div>
+            <div class="col-span-3" *ngIf="internalinterfaces.length==0">
+                No Interface Defined as <b>Internal</b>.
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="flex items-center mt-2">
+            <div class="font-medium text-secondary">External</div>
+            <div class="flex-auto ml-2 border-b-2"></div>
+        </div>
+        <!-- Features -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 ml-5 my-2">
+            <div class="flex items-center" *ngFor="let interface of externalinterfaces">
+                <mat-icon
+                    class="icon-size-5 text-orange-600"
+                    [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                <div class="ml-2 inline-block"><b  class="text-primary">Ext{{ interface.split(',')[0].trim() }}:</b> {{ interface.split(',')[1].trim()  }}</div>
+            </div>
+            <div class="col-span-3" *ngIf="externalinterfaces.length==0">
+                No Interface Defined as <b>External</b>.
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="flex items-center mt-2">
+            <div class="font-medium text-secondary">sdWAN</div>
+            <div class="flex-auto ml-2 border-b-2"></div>
+        </div>
+        <!-- Features -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 ml-5 my-2">
+            <div class="flex items-center" *ngFor="let interface of sdWaninterfaces">
+                <mat-icon
+                    class="icon-size-5 text-orange-600"
+                    [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                <div class="ml-2 inline-block"><b  class="text-primary">sdwan{{ interface.split(',')[0].trim() }}:</b> {{ interface.split(',')[1].trim()  }}</div>
+            </div>
+            <div class="col-span-3" *ngIf="sdWaninterfaces.length==0">
+                No Interface Defined as <b>sdWAN</b>.
+            </div>
+        </div>
+    </div>
+    
+
+    <div>
+        <div class="flex items-center mt-2">
+            <div class="font-medium text-secondary">VPN</div>
+            <div class="flex-auto ml-2 border-b-2"></div>
+        </div>
+        <!-- Features -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 ml-5 my-2">
+            <div class="flex items-center" *ngFor="let interface of vpninterfaces">
+                <mat-icon
+                    class="icon-size-5 text-orange-600"
+                    [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+                    <div class="ml-2 inline-block"><b class="text-primary">VPN{{ interface.split(',')[0].trim() }}:</b> {{ interface.split(',')[1].trim()  }}</div>
+            </div>
+            <div class="col-span-3" *ngIf="vpninterfaces.length==0">
+                No Interface Defined as <b>VPN</b>.
+            </div>
+        </div>
+    </div>
+
+    
+</fuse-card>

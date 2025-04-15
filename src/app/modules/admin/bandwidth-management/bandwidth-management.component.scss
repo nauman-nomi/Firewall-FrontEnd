@@ -1,0 +1,22 @@
+.container {
+    width: 50%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .rule {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 10px;
+  }

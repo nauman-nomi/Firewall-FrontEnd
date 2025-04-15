@@ -1,0 +1,16 @@
+<h2 mat-dialog-title class="rounded-t-lg font-semibold">{{data.title}} "{{data.row.nic_name}}"</h2>
+<hr class="border-gray-300 -mt-3 mb-2">
+<fuse-alert class="mt-2 mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type">
+    {{alert.message}}
+</fuse-alert>
+
+<div *ngIf="isSubmitting" class="flex justify-center items-center my-4">
+    <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
+</div>
+<mat-dialog-content class=" px-8">
+    {{data.message}}
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end space-x-4 p-4">
+    <button mat-button mat-dialog-close cdkFocusInitial [disabled]="isSubmitting" class="px-4 py-2 border hover:bg-primary rounded-md bg-gray-200">No</button>
+    <button mat-button  [disabled]="isSubmitting" class="px-4 py-2 border rounded-md hover:bg-warn bg-gray-200" (click)="onYesClick()">Yes</button>
+</mat-dialog-actions>

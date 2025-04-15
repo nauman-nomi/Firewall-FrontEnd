@@ -1,0 +1,57 @@
+<mat-dialog-content class="dialog-content pb-1">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }} - {{this.data.row.nic_name}}
+        </div>
+        <button mat-icon-button (click)="closeDialog()" [disabled]="isSubmitting">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+    <!-- Alert -->
+    <fuse-alert
+        class="mt-8 -mb-4"
+        *ngIf="showAlert"
+        [appearance]="'outline'"
+        [showIcon]="false"
+        [type]="alert.type">
+        {{alert.message}}
+    </fuse-alert>
+    <form [formGroup]="networkForm" (ngSubmit)="onSubmit()" class="p-6   rounded-lg">
+        <div class="dialog-body">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">IP Address</label>
+                    <input type="text" class="input-field" formControlName="ip_address" />
+                    <small class="error" *ngIf="networkForm.get('ip_address')?.invalid && networkForm.get('ip_address')?.touched">
+                        Invalid IP address (Format: 192.168.1.1)
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Subnet Mask</label>
+                    <input type="text" class="input-field" formControlName="subnet_mask" />
+                    <small class="error" *ngIf="networkForm.get('subnet_mask')?.invalid && networkForm.get('subnet_mask')?.touched">
+                        Invalid Subnet Mask (Format: 255.255.255.0)
+                    </small>
+                </div>
+                
+            </div>
+        </div>
+        <!-- <div class="dialog-footer"></div> -->
+  
+        <mat-dialog-actions align="end">
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
+                    [color]="'primary'" [disabled]="networkForm.invalid || isSubmitting">
+                <span> Update </span>
+                <mat-progress-spinner class="ml-3"
+                                *ngIf="isSubmitting"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+            <button type="button" mat-flat-button class="fuse-mat-button-medium w-28"
+                    [color]="'accent'" (click)="resetForm()" [disabled]="isSubmitting">
+                    <span> Reset </span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>
+  

@@ -1,0 +1,93 @@
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Alert Message -->
+    <fuse-alert class="mt-2" *ngIf="showAlert"
+        [appearance]="'soft'" [showIcon]="true" [type]="errorAlert.type" >
+        {{ errorAlert.message }}
+    </fuse-alert>
+    
+
+    <form [formGroup]="updateMacroForm" (ngSubmit)="onSubmit()" class="rounded-lg">
+        <div class="dialog-body mt-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <!-- Internal NIC -->
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Internal NIC</mat-label>
+                    <mat-select formControlName="InternalInterface" multiple>
+                        <mat-option *ngFor="let nicLi of nicList" [value]="nicLi">
+                            {{ nicLi }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- External NIC -->
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>External NIC</mat-label>
+                    <mat-select formControlName="ExternalInterface" multiple>
+                        <mat-option *ngFor="let nicLi of nicList" [value]="nicLi">
+                            {{ nicLi }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- sdWAN NIC -->
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>sdWAN NIC</mat-label>
+                    <mat-select formControlName="sdWANInterface" multiple>
+                        <mat-option *ngFor="let nicLi of nicList" [value]="nicLi">
+                            {{ nicLi }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- VPN NIC -->
+                <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>VPN NIC</mat-label>
+                    <mat-select formControlName="vpnInterface" multiple>
+                        <mat-option *ngFor="let nicLi of nicList" [value]="nicLi">
+                            {{ nicLi }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Validation Message -->
+        <!-- <div *ngIf="updateMacroForm.hasError('nonUniqueSelection')" class="text-red-600 mt-2">
+            Each NIC selection must be unique across all fields.
+        </div> -->
+        <fuse-alert class="mt-2" *ngIf="updateMacroForm.hasError('nonUniqueSelection')"
+            [appearance]="'soft'" [showIcon]="true" [type]="alert.type" >
+            {{ alert.message }}
+        </fuse-alert>
+
+        <fuse-alert class="mt-2" *ngIf="!updateMacroForm.hasError('nonUniqueSelection')"
+            [appearance]="'soft'" [showIcon]="true" [type]="info.type" >
+            {{ info.message }}
+        </fuse-alert>
+        <!-- Submit Button -->
+      
+        <div class="mt-2" align="end">
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
+                [color]="'primary'" 
+                [disabled]="updateMacroForm.invalid || updateMacroForm.hasError('nonUniqueSelection')">
+                <span> Update </span>
+                <mat-progress-spinner class="ml-3"
+                    *ngIf="isSubmitting"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+           
+        </div>
+    </form>
+    
+    
+</mat-dialog-content>

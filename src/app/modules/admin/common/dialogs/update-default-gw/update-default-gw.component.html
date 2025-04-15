@@ -1,0 +1,51 @@
+<mat-dialog-content class="dialog-content pb-1">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()" [disabled]="isSubmitting">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+    <!-- Alert -->
+    <fuse-alert
+        class="mt-8 -mb-4"
+        *ngIf="showAlert"
+        [appearance]="'outline'"
+        [showIcon]="false"
+        [type]="alert.type">
+        {{alert.message}}
+    </fuse-alert>
+    <div *ngIf="isSubmitting" class="flex justify-center items-center my-4">
+        <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
+    </div>
+    <form [formGroup]="gatewayForm" (ngSubmit)="onSubmit()" class="p-6 rounded-lg">
+        <div class="dialog-body">
+            <div class="grid grid-cols-1 gap-2">
+                <!-- Default Gateway Field -->
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Default Gateway</label>
+                    <input type="text" class="input-field" formControlName="gateway" />
+                    <small class="error" *ngIf="gatewayForm.get('gateway')?.invalid && gatewayForm.get('gateway')?.touched">
+                        Invalid Gateway (Format: 192.168.1.1)
+                    </small>
+                </div>
+            </div>
+        </div>
+  
+        <mat-dialog-actions align="end">
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
+                    [color]="'primary'" [disabled]="gatewayForm.invalid || isSubmitting">
+                <span> Update </span>
+                <mat-progress-spinner class="ml-3"
+                                *ngIf="isSubmitting"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+            <button type="button" mat-flat-button class="fuse-mat-button-medium w-28"
+                    [color]="'accent'" (click)="resetForm()" [disabled]="isSubmitting">
+                    <span> Reset </span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

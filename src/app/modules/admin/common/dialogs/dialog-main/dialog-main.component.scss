@@ -1,0 +1,103 @@
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    max-height: auto;
+    overflow: auto;
+  
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+  
+      h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+  
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        mat-icon {
+          font-size: 24px;
+        }
+      }
+    }
+  
+    .dialog-body {
+      padding-top: 10px;
+      p {
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .dialog-footer {
+    border-top: 1px solid #ddd;
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 5px;
+  
+    button {
+      margin-left: 8px;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  
+    button {
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+  
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+    }
+  
+    button[type="button"] {
+      background-color: #ccc;
+    }
+  
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  }
+  
+  
