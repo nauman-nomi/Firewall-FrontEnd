@@ -13,7 +13,7 @@
         <div *ngIf="loading" class="flex justify-center items-center mb-4">
             <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols              -1 lg:grid-cols-1 mb-4"> 
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4"> 
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-xl bg-primary-500">
                 <div class="justify-self-start flex items-center">
                     <div class="text-xl font-bold leading-none tracking-tight text-white pl-5">Bandwidth Management</div>
@@ -30,24 +30,33 @@
                     <div class="flex text-xl font-bold justify-start border-b-2 border-primary-200 text-primary">Queue Configuration</div>
                     <div class="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-2">
                         <div>a</div>
-                        <div>v</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div *ngFor="let type of queueTypes" class="bg-white rounded-2xl shadow p-4 border border-gray-200">
+                              <h2 class="text-xl font-bold capitalize text-indigo-600 mb-4 border-b pb-2">{{ type }}</h2>
+                        
+                              <div class="space-y-4">
+                                <div *ngFor="let queue of queueDef[type]" class="bg-gray-50 rounded-xl p-3 border border-gray-100">
+                                  <h3 class="text-md font-semibold text-gray-800">{{ queue.name }}</h3>
+                                  <p *ngIf="queue.bandwidth" class="text-sm text-gray-600">Bandwidth: {{ queue.bandwidth }}</p>
+                                  <p *ngIf="queue.options" class="text-sm text-gray-600">Options: {{ queue.options }}</p>
+                                  <p *ngIf="queue.priority !== undefined" class="text-sm text-gray-600">Priority: {{ queue.priority }}</p>
+                                  <p *ngIf="queue.realtime" class="text-sm text-gray-600">Realtime: {{ queue.realtime }}</p>
+                                  <p *ngIf="queue.linkshare" class="text-sm text-gray-600">Linkshare: {{ queue.linkshare }}</p>
+                                  <p *ngIf="queue.limit" class="text-sm text-gray-600">Limit: {{ queue.limit }}</p>
+                                  <p *ngIf="queue.flowmax" class="text-sm text-gray-600">Flowmax: {{ queue.flowmax }}</p>
+                                  <p *ngIf="queue.default" class="text-sm text-green-600 font-medium">Default</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="p-6 space-y-8">
-            <div *ngFor="let scheduler of queueConfigs" class="space-y-4">
-              <h2 class="text-2xl font-bold capitalize text-indigo-600">{{ scheduler.type }}</h2>
-              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div *ngFor="let queue of scheduler.queues" class="bg-white rounded-2xl shadow p-4 border border-gray-200">
-                  <h3 class="text-lg font-semibold text-gray-800">{{ queue.name }}</h3>
-                  <p class="text-sm text-gray-600">Bandwidth: {{ queue.bandwidth }}</p>
-                  <p class="text-sm text-gray-600">Type: {{ queue.details }}</p>
-                  <p *ngIf="queue.priority" class="text-sm text-gray-600">Priority: {{ queue.priority }}</p>
-                  <p *ngIf="queue.default" class="text-sm text-green-600 font-medium">Default</p>
-                </div>
-              </div> 
-            </div>
+        <div class="p-6">
+            
           </div>
+          
+          
     </div>
 </div>

@@ -20,6 +20,10 @@ export class NicService {
 
     private getRoutingtableapiUrl = environment.apiUrl + '/getRoutingTable.php';
 
+    // Python APIs
+
+    private getQueueDefApiUrl = environment.apiUrl + '/masterApi.py/getQueueDefination';
+
     public apiKey = environment.apiKey;
     
     constructor(private http: HttpClient) { }
@@ -111,6 +115,16 @@ export class NicService {
         });
     
         return this.http.get<any>(this.getMacrosapiUrl, { headers });
+    }
+
+    //PythonAPI
+
+    getQueueDefList(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+    
+        return this.http.get<any>(this.getQueueDefApiUrl, { headers });
     }
     
 }

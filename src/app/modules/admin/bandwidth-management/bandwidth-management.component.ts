@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseAlertType } from '@fuse/components/alert';
+import { NicService } from 'app/api/nic-info.service';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Component({
@@ -10,53 +13,79 @@ import { FuseAlertType } from '@fuse/components/alert';
 })
 export class BandwidthManagementComponent 
 {
-
-    queueConfigs = [
-        {
-          type: 'cbq',
-          queues: [
-            { name: 'main', bandwidth: '50%', details: 'cbq(default)', default: true },
-            { name: 'web', bandwidth: '30%', details: 'cbq(borrow)' },
-            { name: 'ssh', bandwidth: '10%', details: 'cbq(red)', priority: 7 },
-            { name: 'bulk', bandwidth: '10%', details: 'cbq(ecn, rio)', priority: 1 },
-            { name: 'voip', bandwidth: '10%', details: 'cbq(fifo)' }
-          ]
-        },
-        {
-          type: 'priq',
-          queues: [
-            { name: 'high', details: 'priq(priority 7)', priority: 7 },
-            { name: 'medium', details: 'priq(priority 3)', priority: 3 },
-            { name: 'low', details: 'priq(priority 1)', priority: 1, default: true }
-          ]
-        },
-        {
-          type: 'hfsc',
-          queues: [
-            { name: 'hfsc_main', bandwidth: '50%', details: 'hfsc(default)', default: true },
-            { name: 'hfsc_voip', bandwidth: '20%', details: 'hfsc(realtime 5Mb)' },
-            { name: 'hfsc_web', bandwidth: '30%', details: 'hfsc(linkshare 10Mb)' }
-          ]
-        },
-        {
-          type: 'fairq',
-          queues: [
-            { name: 'default', bandwidth: '50%', details: 'fairq(default)', default: true },
-            { name: 'gaming', bandwidth: '30%', details: 'fairq(limit 50 flowmax 5Mb)' },
-            { name: 'downloads', bandwidth: '20%', details: 'fairq(limit 20 flowmax 2Mb)' }
-          ]
-        }
-      ];
+    queueDef:any;    
+    queueTypes: string[] = [];
 
     alert: { type: FuseAlertType; message: string } = {type   : 'success',message: 'Alert Message'};
     showAlert: boolean = false;
     
     loading: boolean = false;
 
-    constructor(private fb: FormBuilder) {
-    
+    constructor(private ApiService: NicService, private cdr: ChangeDetectorRef) 
+    {
+        this.getQueueDefData();
       
     }
+
+    showTimedAlert(type: FuseAlertType, message: string) {
+        this.alert.type = type;
+        this.alert.message = message;
+        this.showAlert = true;
+    
+        // Automatically hide the alert after 5 seconds
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 2000);
+    }
+
+    getQueueDefData(): void 
+    {
+        this.ApiService.getQueueDefList()
+            .pipe(
+                catchError(error => {
+                    this.showTimedAlert("error", "Error Fetching Data")
+                    // this.showAlert = true;
+                    // this.alert.type="error";
+                    // this.alert.message = "Error Fetching Data";
+                    this.loading = false;
+                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                })
+            )
+            .subscribe(response => 
+            {
+                this.showAlert = false;
+                if (response.api_status === 'success') 
+                {
+                    // Assign values to individual variables
+                    this.queueDef = response.queues;
+                    this.queueTypes = Object.keys(response.queues);
+                    this.loading = false;
+                    //this.showAlert = true;
+                    this.showTimedAlert("success", "Updated Successfully")
+                    // this.alert.message = "Updated Successfully";
+                    // this.alert.type = "success";
+                } 
+                else 
+                {
+                    this.showTimedAlert("error", response.message || "Unknown error")
+                    // this.showAlert = true;
+                    // this.alert.message = response.message || "Unknown error";
+                    // this.alert.type = "error";
+                    this.loading = false;
+                }
+                
+            });
+        this.cdr.detectChanges(); 
+    }
+
+    getUniqueKeys(queueList: any[]): string[] {
+        const keySet = new Set<string>();
+        queueList.forEach(queue => {
+          Object.keys(queue).forEach(key => keySet.add(key));
+        });
+        return Array.from(keySet);
+    }
+
     refreshPage()
     {
 
