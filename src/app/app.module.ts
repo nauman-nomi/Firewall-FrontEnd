@@ -12,8 +12,6 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
-import { DynamicTableComponent } from './modules/admin/common/data-tables/dynamic-table/dynamic-table.component';
-import { DynamicTableModule } from './modules/admin/common/data-tables/dynamic-table/dynamic-table.module';
 import { DialogMainComponent } from './modules/admin/common/dialogs/dialog-main/dialog-main.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';

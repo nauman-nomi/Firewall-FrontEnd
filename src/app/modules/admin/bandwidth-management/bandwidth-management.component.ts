@@ -75,7 +75,7 @@ export class BandwidthManagementComponent
                 }
                 
             });
-        this.cdr.detectChanges(); 
+        // this.cdr.detectChanges(); 
     }
 
     getUniqueKeys(queueList: any[]): string[] {

@@ -1,0 +1,23 @@
+<div class="flex flex-auto p-3 sm:p-5">
+    <div class="flex flex-col flex-auto w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4">         
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-xl bg-primary-500">
+                <div class="justify-self-start flex items-center">
+                    <div class="text-xl font-bold leading-none tracking-tight text-white pl-5"> Log Management  </div>
+                </div>
+                
+                <div class="justify-self-end m-2 mr-4">
+                    <button *ngIf="loading" (click)="refreshTable()" [disabled]="!loading" class="px-2 pt-1 bg-white text-white rounded-md">
+                        <mat-icon class="text-primary">refresh</mat-icon>
+                    </button>
+                </div>
+            </div>  
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4 rounded-2xl">
+            <div class="bg-card aspect-w-16 aspect-h-7 rounded-2xl">
+                <iframe class="w-full h-full rounded-xl" [src]="rspamd" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+        

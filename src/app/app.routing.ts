@@ -78,6 +78,8 @@ export const appRoutes: Route[] = [
             {path: 'networkInteface', loadChildren: () => import('app/modules/admin/network-inteface/network-inteface.modules').then(m => m.NetworkInterfaceModule)},
             {path: 'routing', loadChildren: () => import('app/modules/admin/routing/routing.modules').then(m => m.RoutingModule)},
             {path: 'BandwidthManagement', loadChildren: () => import('app/modules/admin/bandwidth-management/bandwidth-management.module').then(m => m.BandwidthManagementModule)},
+            {path: 'malware', loadChildren: () => import('app/modules/admin/threatProtection/malware/malware.modules').then(m => m.MalwareModule)},
+            {path: 'logManagement', loadChildren: () => import('app/modules/admin/log-management/log-management.modules').then(m => m.LogManagementModule)},
             
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
 
