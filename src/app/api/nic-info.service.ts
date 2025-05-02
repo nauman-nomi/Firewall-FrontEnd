@@ -23,10 +23,42 @@ export class NicService {
     // Python APIs
 
     private getQueueDefApiUrl = environment.apiUrl + '/masterApi.py/getQueueDefination';
+    private getMalwareListApiUrl = environment.apiUrl + '/masterApi.py/maliciousFiles';
+    private updatetMalwareListApiUrl = environment.apiUrl + '/masterApi.py/updateMalwareFile';
+    private updateMalwareStatusApiUrl = environment.apiUrl + '/masterApi.py/UpdateMalwareIPStatus';
 
     public apiKey = environment.apiKey;
     
     constructor(private http: HttpClient) { }
+
+    UpdateMalwareData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+    
+        return this.http.get<any>(this.updatetMalwareListApiUrl, { headers });
+    }
+
+    updateMalwareIPStatus(ip: string, status: string): Observable<any> {
+        const headers = new HttpHeaders({
+          'X-API-KEY': this.apiKey,  // Your API Key
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+      
+        const body = new URLSearchParams();
+        body.set('ip', ip);
+        body.set('status', status);
+      
+        return this.http.post<any>(this.updateMalwareStatusApiUrl, body.toString(), { headers });
+      }
+
+    getMalwareListData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+    
+        return this.http.get<any>(this.getMalwareListApiUrl, { headers });
+    }
 
     getNicData(): Observable<any> {
         const headers = new HttpHeaders({

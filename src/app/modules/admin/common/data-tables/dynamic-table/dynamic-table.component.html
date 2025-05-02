@@ -46,6 +46,14 @@
                             </button> -->
                         </div>
                     </ng-container>
+                    <ng-container *ngIf="column === 'malware_action'">
+                        <div class="flex justify-center space-x-2"> 
+                            <mat-slide-toggle (change)="onMalwareToggleChange(row)" class="custom-toggle" [checked]="row.status=='active'" >
+                                
+                            </mat-slide-toggle>
+                            
+                        </div>
+                    </ng-container>
                 </td>
             </ng-container>
 

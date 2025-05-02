@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // const DynamicTableRoutes: Route[] = [
 //     {
@@ -24,7 +25,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTableModule,
         MatIconModule,
         MatTooltipModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSlideToggleModule
     ],
     exports: [DynamicTableComponent]
 })

@@ -9,3 +9,20 @@ th, td {
 tr:hover {
   @apply bg-gray-100;
 }
+
+.custom-toggle .mat-slide-toggle-bar {
+  background-color: #ef4444; /* Red (default when off) */
+}
+
+.custom-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: #22c55e !important; /* Green when enabled */
+}
+
+/* OPTIONAL: if you want to color the circle (thumb) too */
+.custom-toggle .mat-slide-toggle-thumb {
+  background-color: white; /* Default thumb color */
+}
+
+.custom-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #22c55e !important; /* Green thumb when enabled */
+}
