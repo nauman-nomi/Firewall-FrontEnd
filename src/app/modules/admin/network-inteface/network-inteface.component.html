@@ -146,25 +146,25 @@
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4">  
-            <div class="col-span-4"> <!-- Make col-span-3 when shoing macros and  firewall options-->
+            <div class="col-span-3"> <!-- Make col-span-3 when shoing macros and  firewall options-->
                 <div class=" flex flex-col px-5 pt-4 pb-2 shadow rounded-2xl overflow-hidden bg-card">
                     <div class="flex text-xl font-bold justify-start mx-3 border-b-2 border-primary-200 text-primary">NIC Management</div>
                     <app-dynamic-table [data]="interfaces" [displayedColumns]="displayedColumns" [headerMapping]="headerMapping " (editRow)="onEditRow($event)"></app-dynamic-table>    
                 </div>
             </div>
             
-            <!-- <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
                 <div>
                     <div class="col-span-1 flex flex-col px-5 pt-4 pb-5 shadow rounded-2xl overflow-hidden bg-card ">
                         <app-macros-management-component [externalinterfaces]="externalinterfaces" 
                             [internalinterfaces]="internalinterfaces" [sdWaninterfaces]="sdWaninterfaces" 
                             [vpninterfaces]="vpninterfaces" [nicList]="nicList" (editRow)="onEditRow($event)"></app-macros-management-component>
                     </div>
-                    <div class="col-span-1 flex flex-col px-5 pt-4 pb-5 mt-3 shadow rounded-2xl overflow-hidden bg-card ">
+                    <!-- <div class="col-span-1 flex flex-col px-5 pt-4 pb-5 mt-3 shadow rounded-2xl overflow-hidden bg-card ">
                         <app-fw-options (editRow)="onEditRow($event)"></app-fw-options>
-                    </div>
+                    </div> -->
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

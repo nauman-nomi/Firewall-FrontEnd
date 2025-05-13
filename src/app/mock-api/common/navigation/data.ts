@@ -4,30 +4,30 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const compactNavigation: FuseNavigationItem[] = [
         //Dashboard Menu Start
-    // {
-    //     id      : 'db',
-    //     title   : 'Dashboard',
-    //     subtitle: 'dashboard',
-    //     type    : 'aside',
-    //     icon    : 'mat_solid:dashboard',
-    //     children: 
-    //     [
-    //         {
-    //         id   : 'db.threat',
-    //         title: 'Threat Dashboard',
-    //         type : 'basic',
-    //         icon : 'mat_solid:shield',
-    //         link : '/maintainance/Threat Dashboard'
-    //         },
-    //         {
-    //             id   : 'db.event',
-    //             title: 'Event Monitoring',
-    //             type : 'basic',
-    //             icon : 'mat_solid:event',
-    //             link : '/maintainance/Event Dashboard'
-    //         }
-    //     ]
-    // },
+    {
+        id      : 'db',
+        title   : 'Dashboard',
+        subtitle: 'dashboard',
+        type    : 'aside',
+        icon    : 'mat_solid:dashboard',
+        children: 
+        [
+            {
+                id   : 'db.threat',
+                title: 'Dashboard',
+                type : 'basic',
+                icon : 'mat_solid:shield',
+                link : '/mainDashboard'
+            },
+            // {
+            //     id   : 'db.event',
+            //     title: 'Event Dashboard',
+            //     type : 'basic',
+            //     icon : 'mat_solid:event',
+            //     link : '/maintainance/Event Dashboard'
+            // }
+        ]
+    },
     //Dashboard Menu END
 
     //Network Menu Start
@@ -46,6 +46,7 @@ export const compactNavigation: FuseNavigationItem[] = [
                 icon : 'mat_solid:settings_input_hdmi',
                 link : '/networkInteface'
             },
+            
             // {
             //     id   : 'nic.routing',
             //     title: 'Routing',
@@ -73,28 +74,35 @@ export const compactNavigation: FuseNavigationItem[] = [
     
     //Network Security Menu Start
 
-    // {
-    //     id      : 'ns',
-    //     title   : 'Network Security',
-    //     subtitle: 'Network Security ',
-    //     type    : 'aside',
-    //     icon    : 'mat_solid:security',
-    //     children: 
-    //     [
-    //         {
-    //             id   : 'ns.pf',
-    //             title: 'Packet Filtering',
-    //             type : 'basic',
-    //             icon : 'mat_solid:tune',
-    //             link : '/maintainance/Packet Filtering'
-    //         },
-    //         {
-    //             id   : 'ns.nat',
-    //             title: 'NAT',
-    //             type : 'basic',
-    //             icon : 'mat_solid:transform',
-    //             link : '/maintainance/NAT'
-    //         },
+    {
+        id      : 'ns',
+        title   : 'Network Security',
+        subtitle: 'Network Security ',
+        type    : 'aside',
+        icon    : 'mat_solid:security',
+        children: 
+        [
+            // {
+            //     id   : 'ns.pf',
+            //     title: 'Packet Filtering',
+            //     type : 'basic',
+            //     icon : 'mat_solid:tune',
+            //     link : '/maintainance/Packet Filtering'
+            // },
+            {
+                id   : 'nic.fwmgmt',
+                title: 'Firewall Management',
+                type : 'basic',
+                icon : 'mat_solid:settings',
+                link : '/fwManagement'
+            },
+            {
+                id   : 'ns.nat',
+                title: 'NAT',
+                type : 'basic',
+                icon : 'mat_solid:transform',
+                link : '/nat'
+            },
     //         {
     //             id   : 'ns.gb',
     //             title: 'Geo-Blocking',
@@ -109,8 +117,8 @@ export const compactNavigation: FuseNavigationItem[] = [
     //             icon : 'mat_solid:security_update_warning',
     //             link : '/maintainance/D-DOS'
     //         }
-    //     ]
-    // },
+         ]
+    },
 
     //Network Security Menu END
     
@@ -377,7 +385,14 @@ export const compactNavigation: FuseNavigationItem[] = [
             // },
             {
                 id   : 'sm.log',
-                title: 'Log',
+                title: 'RSPAMD Log',
+                type : 'basic',
+                icon : 'mat_solid:description',
+                link : '/rspamdlog'
+            },
+            {
+                id   : 'sm.log',
+                title: 'Logs',
                 type : 'basic',
                 icon : 'mat_solid:description',
                 link : '/logManagement'

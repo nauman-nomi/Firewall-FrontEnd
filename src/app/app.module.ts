@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { FuseCardModule } from '@fuse/components/card';
+import { NatManagementComponent } from './modules/admin/nat/nat-management/nat-management.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,

@@ -16,9 +16,12 @@
             </div>
 
             <div *ngIf="options.other_settings && getKeys(options.other_settings).length > 0; else emptyGeneralSettingTemplate">
-                <div class="justify-self-start mx-4 my-1 ml-3 mt-2" *ngFor="let setting of options.other_settings | keyvalue">
-                    <span class="text-base font-medium">{{ setting.key }}:</span> <span class="ml-3 bg-primary-700 text-on-primary px-2 py-1  rounded-xl ">{{ setting.value }}</span>
+                <div class="grid sm:grid-cols-1 lg:grid-cols-4">
+                    <div class="justify-self-start mx-4 my-1 ml-3 mt-2" *ngFor="let setting of options.other_settings | keyvalue">
+                        <span class="text-base font-medium">{{ setting.key }}:</span> <span class="ml-3 bg-primary-700 text-on-primary px-2 py-1  rounded-xl ">{{ setting.value }}</span>
+                    </div>
                 </div>
+                
             </div>
               
             <ng-template #emptyGeneralSettingTemplate>
@@ -48,7 +51,7 @@
                 <span class="text-lg font-medium">Limits:</span> 
             </div>
             <div *ngIf="options.limit && getKeys(options.limit).length > 0; else noLimitTemplate">
-                <div class="grid sm:grid-cols-1 lg:grid-cols-2">
+                <div class="grid sm:grid-cols-1 lg:grid-cols-4">
                     <div class="justify-self-start mx-4 ml-3 mt-1" *ngFor="let limit of options.limit | keyvalue">
                         <span class="font-medium text-base">{{ limit.key }}:</span> 
                         <span class="ml-1 bg-primary-700 text-md text-on-primary px-1 py-1 rounded-xl">{{ limit.value }}</span>
@@ -64,7 +67,7 @@
                 <span class="text-lg font-medium">Timeout:</span> 
             </div>
             <div *ngIf="options.timeout && getKeys(options.timeout).length > 0; else noTimeoutTemplate">
-                <div class="grid sm:grid-cols-1 lg:grid-cols-2">
+                <div class="grid sm:grid-cols-1 lg:grid-cols-5">
                     <div class="justify-self-start mx-4 ml-3 mt-1" *ngFor="let timeout of options.timeout | keyvalue">
                         <span class="font-medium text-base">{{ timeout.key }}:</span> 
                         <span class="ml-3 bg-primary-700 text-md text-on-primary px-2 py-1 rounded-xl">{{ timeout.value }}</span>

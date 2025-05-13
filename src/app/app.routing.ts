@@ -17,7 +17,7 @@ export const appRoutes: Route[] = [
     // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'example'},
+    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'mainDashboard'},
 
     // Auth routes for guests
     {
@@ -75,11 +75,16 @@ export const appRoutes: Route[] = [
         },
         children   : [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
+            {path: 'mainDashboard', loadChildren: () => import('app/modules/admin/dashboard/main-dashboard/main-dashboard.module').then(m => m.MainDashboardModule)},
             {path: 'networkInteface', loadChildren: () => import('app/modules/admin/network-inteface/network-inteface.modules').then(m => m.NetworkInterfaceModule)},
+            {path: 'fwManagement', loadChildren: () => import('app/modules/admin/firewall-management/firewall-management.module').then(m => m.FirewallManagementModule)},
             {path: 'routing', loadChildren: () => import('app/modules/admin/routing/routing.modules').then(m => m.RoutingModule)},
             {path: 'BandwidthManagement', loadChildren: () => import('app/modules/admin/bandwidth-management/bandwidth-management.module').then(m => m.BandwidthManagementModule)},
             {path: 'malware', loadChildren: () => import('app/modules/admin/threatProtection/malware/malware.modules').then(m => m.MalwareModule)},
-            {path: 'logManagement', loadChildren: () => import('app/modules/admin/log-management/log-management.modules').then(m => m.LogManagementModule)},
+            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/log-management/log-management.modules').then(m => m.LogManagementModule)},
+            {path: 'logManagement', loadChildren: () => import('app/modules/admin/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
+
+            {path: 'nat', loadChildren: () => import('app/modules/admin/nat/nat-management/nat-management.module').then(m => m.NATManagementModule)},
             
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
 

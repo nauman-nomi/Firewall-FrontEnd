@@ -181,8 +181,6 @@ export class NetworkIntefaceComponent implements OnInit{
                 this.showTimedAlert("success","Sub-NIC Added Successfully")
                 
                // console.log('Dialog closed nauman', result);
-                
-                
                 // this.showAlert = true;
                 // this.alert.message = "Sub-NIC Added Successfully";//result.message;
                 // this.alert.type = "success";
@@ -206,28 +204,24 @@ export class NetworkIntefaceComponent implements OnInit{
         else if(row.sep=== "updateMacros")
         {
             this.refreshTable()
-            
         }
         else if(row.sep=== "updateFwOption")
         {
             this.refreshTable()
-            
         }
-
-        
     }
 
     updateGW(): void{
         const dialogRef = this.dialog.open(UpdateDefaultGwComponent, {
-                width: '700px',
-                disableClose: true,
-                data: { title: 'Update Default Gateway', gateway:this.defaultGateway ,old_ip:this.allIpAddresses}
-            });
+            width: '700px',
+            disableClose: true,
+            data: {title: 'Update Default Gateway', gateway:this.defaultGateway ,old_ip:this.allIpAddresses}
+        });
       
-            dialogRef.afterClosed().subscribe(result => {
-                //console.log('Dialog closed', result);
-                this.refreshTable();
-                this.showTimedAlert("success","Default Gateway updated Successfully");
-            });
+        dialogRef.afterClosed().subscribe(result => {
+            //console.log('Dialog closed', result);
+            this.refreshTable();
+            this.showTimedAlert("success","Default Gateway updated Successfully");
+        });
     }
 }

@@ -26,6 +26,7 @@ export class NicService {
     private getMalwareListApiUrl = environment.apiUrl + '/masterApi.py/maliciousFiles';
     private updatetMalwareListApiUrl = environment.apiUrl + '/masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + '/masterApi.py/UpdateMalwareIPStatus';
+    private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs'
 
     public apiKey = environment.apiKey;
     
@@ -50,7 +51,14 @@ export class NicService {
         body.set('status', status);
       
         return this.http.post<any>(this.updateMalwareStatusApiUrl, body.toString(), { headers });
-      }
+    }
+
+    getlogs(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+        return this.http.get<any>(this.getLogsApiUrl, { headers });
+    }
 
     getMalwareListData(): Observable<any> {
         const headers = new HttpHeaders({
