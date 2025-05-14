@@ -4,7 +4,7 @@ import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DialogAddRouteComponent } from '../common/dialogs/dialog-add-route/dialog-add-route.component';
+import { DialogAddRouteComponent } from '../../common/dialogs/dialog-add-route/dialog-add-route.component';
 
 @Component({
     selector: 'app-routing',

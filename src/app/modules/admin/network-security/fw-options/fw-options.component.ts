@@ -5,7 +5,7 @@ import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DialogUpdateFwOptionComponent } from '../common/dialogs/dialog-update-fw-option/dialog-update-fw-option.component';
+import { DialogUpdateFwOptionComponent } from '../../common/dialogs/dialog-update-fw-option/dialog-update-fw-option.component';
 
 
 
@@ -48,8 +48,14 @@ export class FwOptionsComponent implements OnInit
         }, 2000);
     }
 
+    refresh()
+    {
+        this.getFWOptions();
+    }
+
     getFWOptions()
     {
+        this.loading = true;
         this.getNicInfoService.getFWOPtionsData()
             .pipe(
                 catchError(error => {

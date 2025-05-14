@@ -5,7 +5,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { DynamicTableModule } from '../common/data-tables/dynamic-table/dynamic-table.module';
+import { DynamicTableModule } from '../../common/data-tables/dynamic-table/dynamic-table.module';
 
 const routing_Routes: Route[] = [
     {

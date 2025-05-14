@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // const DynamicTableRoutes: Route[] = [
 //     {
@@ -41,6 +42,8 @@ import { FuseAlertModule } from '@fuse/components/alert';
      MatIconModule,
      MatFormFieldModule,
      FuseCardModule,
+     MatProgressBarModule,
+     MatTooltipModule,
      FuseAlertModule
     ],
     exports: [FwOptionsComponent]

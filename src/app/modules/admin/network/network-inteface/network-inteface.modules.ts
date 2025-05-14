@@ -11,12 +11,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseCardModule } from '@fuse/components/card';
-import { DynamicTableModule } from '../common/data-tables/dynamic-table/dynamic-table.module';
+import { DynamicTableModule } from '../../common/data-tables/dynamic-table/dynamic-table.module';
 import { CommonModule } from '@angular/common';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MacrosManagementModule } from '../macros-management-component/macros-management-component.module';
-import { FWOptionsModule } from '../fw-options/fw-options.module';
+import { FWOptionsModule } from '../../network-security/fw-options/fw-options.module';
 
 const networkIntefaceRoutes: Route[] = [
     {

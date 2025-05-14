@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
-import { DialogUpdateMacrosComponent } from '../common/dialogs/dialog-update-macros/dialog-update-macros.component';
+import { DialogUpdateMacrosComponent } from '../../common/dialogs/dialog-update-macros/dialog-update-macros.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

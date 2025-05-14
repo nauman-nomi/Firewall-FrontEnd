@@ -6,6 +6,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { FirewallManagementComponent } from './firewall-management.component';
 import { FWOptionsModule } from '../fw-options/fw-options.module';
 
+
 const FirewallManagementRoutes: Route[] = [
     {
         path     : '',

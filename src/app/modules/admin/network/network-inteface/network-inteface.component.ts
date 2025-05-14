@@ -3,13 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { NicService } from 'app/api/nic-info.service';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DialogMainComponent } from '../common/dialogs/dialog-main/dialog-main.component';
+import { DialogMainComponent } from '../../common/dialogs/dialog-main/dialog-main.component';
 import { FuseAlertType } from '@fuse/components/alert';
-import { WarningDialogComponent } from '../common/dialogs/warning-dialog/warning-dialog.component';
-import { UpdateDefaultGwComponent } from '../common/dialogs/update-default-gw/update-default-gw.component';
-import { DialogAddSubNicComponent } from '../common/dialogs/dialog-add-sub-nic/dialog-add-sub-nic.component';
-import { DialogAddVlanComponent } from '../common/dialogs/dialog-add-vlan/dialog-add-vlan.component';
-import { FwOptionsComponent } from '../fw-options/fw-options.component';
+import { WarningDialogComponent } from '../../common/dialogs/warning-dialog/warning-dialog.component';
+import { UpdateDefaultGwComponent } from '../../common/dialogs/update-default-gw/update-default-gw.component';
+import { DialogAddSubNicComponent } from '../../common/dialogs/dialog-add-sub-nic/dialog-add-sub-nic.component';
+import { DialogAddVlanComponent } from '../../common/dialogs/dialog-add-vlan/dialog-add-vlan.component';
+import { FwOptionsComponent } from '../../network-security/fw-options/fw-options.component';
 
 @Component({
     selector: 'app-network-inteface',
