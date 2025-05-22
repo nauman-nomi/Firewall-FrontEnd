@@ -110,6 +110,13 @@ export const compactNavigation: FuseNavigationItem[] = [
                 icon : 'mat_solid:public_off',
                 link : '/geoBlock'
             },
+            {
+                id   : 'ns.mod',
+                title: 'Mod Security',
+                type : 'basic',
+                icon : 'mat_solid:security_update_warning',
+                link : '/geoBlock1'
+            },
     //         {
     //             id   : 'ns.ddos',
     //             title: 'D-DOS',
