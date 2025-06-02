@@ -26,7 +26,10 @@ export class NicService {
     private getMalwareListApiUrl = environment.apiUrl + '/masterApi.py/maliciousFiles';
     private updatetMalwareListApiUrl = environment.apiUrl + '/masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + '/masterApi.py/UpdateMalwareIPStatus';
-    private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs'
+    private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs';
+
+    private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
+    private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
 
     public apiKey = environment.apiKey;
     
@@ -83,7 +86,6 @@ export class NicService {
     
         return this.http.get<any>(this.apigetFWOptions, { headers });
     }
-
 
     // New method to update NIC information
     updateNicInfo(data: any): Observable<any> {
@@ -165,6 +167,24 @@ export class NicService {
         });
     
         return this.http.get<any>(this.getQueueDefApiUrl, { headers });
+    }
+
+    getDateTimeAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+    
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getDateTimeApiUrl);
+    }
+
+    getSystemInfoAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+    
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getSystemInfoApiUrl);
     }
     
 }

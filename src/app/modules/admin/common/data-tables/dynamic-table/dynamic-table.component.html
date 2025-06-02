@@ -46,6 +46,19 @@
                             </button> -->
                         </div>
                     </ng-container>
+
+                    <ng-container *ngIf="column === 'modSec_action'">
+                        <div class="flex justify-center space-x-2"> 
+                            <button mat-button (click)="onEditWebModSec(row)" matTooltip="Edit">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-primary p-0.5">edit</i>
+                            </button>
+                            <button mat-button (click)="onDeleteWebModSec(row)" matTooltip="Delete Website">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+                            
+                            
+                        </div>
+                    </ng-container>
                     <ng-container *ngIf="column === 'malware_action'">
                         <div class="flex justify-center space-x-2"> 
                             <mat-slide-toggle (change)="onMalwareToggleChange(row)" class="custom-toggle" [checked]="row.status=='active'" >

@@ -72,7 +72,12 @@ export class WarningDialogComponent implements OnInit {
 
             console.log("Deleting sub-interface:", this.data.row.nic_name);
             // Add logic to handle sub-interface deletion
-        } else {
+        } 
+        else if(this.data.action === 'delete-web-mod-sec')
+        {
+            console.log("deleted action");
+        }
+        else {
             console.log("Unhandled action:", this.data.action);
             // Handle other actions if necessary
         }

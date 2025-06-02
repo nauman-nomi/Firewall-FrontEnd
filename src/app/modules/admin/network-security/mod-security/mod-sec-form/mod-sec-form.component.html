@@ -1,0 +1,128 @@
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Alert Message -->
+    <fuse-alert class="mt-2" *ngIf="showAlert"
+        [appearance]="'soft'" [showIcon]="true" [type]="errorAlert.type" >
+        {{ errorAlert.message }}
+    </fuse-alert>
+    
+
+    <form [formGroup]="modSecForm" (ngSubmit)="onSubmit()" class="rounded-lg">
+        <div class="dialog-body mt-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 px-4">
+                <div class="form-group">
+                    <div class="flex flex-row justify-start">
+                        <span class="font-semibold">Website Type:</span>
+                        <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="webtype" [value]="">
+                            <mat-radio-button class="" [value]="'https'">
+                                HTTPS
+                            </mat-radio-button>
+                            <mat-radio-button class=" ml-4" [value]="'http'">
+                                HTTP
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="flex flex-row justify-start">
+                    <span class="font-semibold">MOD Security:</span>
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="modSec" [value]="">
+                        <mat-radio-button class="" [value]="'on'">
+                            ON
+                        </mat-radio-button>
+                        <mat-radio-button class=" ml-4" [value]="'off'">
+                            OFF
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <!-- Internal NIC -->
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Listen IP</label>
+                    <mat-select formControlName="listenIP" multiple>
+                        <mat-option *ngFor="let method of methodList" [value]="method">
+                            {{ method }}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Domain Name</label>
+                    <input type="text" class="input-field" formControlName="domain" placeholder="abc.com"/>
+                    <small class="error" *ngIf="modSecForm.get('domain')?.invalid && modSecForm.get('domain')?.touched">
+                        Invalid Domain Name.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Local IP & Part:</label>
+                    <input type="text" class="input-field" formControlName="localip" placeholder="192.168.1.1:1234"/>
+                    <small class="error" *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
+                        Invalid IP and Port (e.g. 192.168.1.1:1234).
+                    </small>
+                </div>
+
+                
+                
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Certificate</label>
+                    <input type="file" class="input-field" formControlName="certificate" placeholder="abc.crt"/>
+                    <small class="error" *ngIf="modSecForm.get('certificate')?.invalid && modSecForm.get('certificate')?.touched">
+                        Invalid certificate.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Certificate Key</label>
+                    <input type="file" class="input-field" formControlName="certificateKey" placeholder="abc.key"/>
+                    <small class="error" *ngIf="modSecForm.get('certificateKey')?.invalid && modSecForm.get('certificateKey')?.touched">
+                        Invalid key.
+                    </small>
+                </div>
+
+                
+                
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">IP Whitelisting</label>
+                    <input type="text" class="input-field" formControlName="ipwhitelist" placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24"/>
+                    <small class="error" *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
+                        Invalid Entries.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Whitelist Method</label>
+                    <mat-select formControlName="whiteMethod" multiple>
+                        <mat-option *ngFor="let method of methodList" [value]="method">
+                            {{ method }}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+      
+        <div class="mt-2" align="end">
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
+                [color]="'primary'" 
+                [disabled]="modSecForm.invalid || modSecForm.hasError('nonUniqueSelection')">
+                <span> Update </span>
+                <mat-progress-spinner class="ml-3"
+                    *ngIf="isSubmitting"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+           
+        </div>
+    </form>
+    
+    
+</mat-dialog-content>

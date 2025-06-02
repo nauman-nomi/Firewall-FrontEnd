@@ -115,7 +115,7 @@ export const compactNavigation: FuseNavigationItem[] = [
                 title: 'Mod Security',
                 type : 'basic',
                 icon : 'mat_solid:security_update_warning',
-                link : '/geoBlock1'
+                link : '/modSec'
             },
     //         {
     //             id   : 'ns.ddos',

@@ -78,4 +78,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "malware-toggle-change";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
+
+    onDeleteWebModSec(row:any): void{
+        row.sep = "modsec-delete";
+        this.editRow.emit(row);
+    }
+
+    onEditWebModSec(row:any): void{
+        row.sep = "modsec-edit";
+        this.editRow.emit(row);
+    }
 }
