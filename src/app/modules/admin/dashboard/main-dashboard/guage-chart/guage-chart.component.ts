@@ -27,6 +27,7 @@ export class GuageChartComponent implements OnInit {
     public chartOptions: Partial<ChartOptions> = {};
     
     ngOnInit(): void {
+        //this.getUsageStats();
         if(this.category =="ram"){
             this.title = "RAM";
             this.stats = "8 / 16 GB";

@@ -30,6 +30,7 @@ export class NicService {
 
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
+    private getModSecApiUrl = environment.apiUrl + 'listDomains.py';
 
     public apiKey = environment.apiKey;
     
@@ -185,6 +186,15 @@ export class NicService {
     
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getSystemInfoApiUrl);
+    }
+
+    getModSecListAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+    
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getModSecApiUrl);
     }
     
 }

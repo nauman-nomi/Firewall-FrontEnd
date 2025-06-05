@@ -3,6 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertType } from '@fuse/components/alert';
 import { WarningDialogComponent } from '../../common/dialogs/warning-dialog/warning-dialog.component';
 import { ModSecFormComponent } from './mod-sec-form/mod-sec-form.component';
+import { NicService } from 'app/api/nic-info.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'app-mod-security',
@@ -28,21 +31,58 @@ export class ModSecurityComponent {
     displayedColumns: string[] = [
         'domain_name','ip_port', 'modSec', 'web_type','ip_whitelist', 'method_whitelist',  'modSec_action'
     ];
-    constructor(public dialog: MatDialog) 
+    constructor(public dialog: MatDialog, private getModSecService: NicService) 
+    {
+        this.getModSecInfo();
+    }
+
+    refreshTable()
     {
         this.getModSecInfo();
     }
 
     getModSecInfo(){
-        this.loading = false;
-        this.data = [{"domain_name": "abc.com","ip_port": "192.168.3.3:80","modSec": "ON","web_type": "http","ip_whitelist": "1.2.3.4/24","method_whitelist": "GET,POST"
-        },{"domain_name": "123.com","ip_port": "192.168.3.4:80","modSec": "OFF","web_type": "https","ip_whitelist": "1.2.3.4","method_whitelist": "GET,POST,DELETE"
-        }];
-    }
-
-    refreshTable()
-    {
-        this.data[0].domain_name = this.data[0].domain_name="new";
+        this.loading = true;
+        this.getModSecService.getModSecListAPI()
+            .pipe(
+                catchError(error => {
+                    //this.showTimedAlert("error", "Error Fetching Data")
+                    // this.showAlert = true;
+                    // this.alert.type="error";
+                    // this.alert.message = "Error Fetching Data";
+                    //this.loading = false;
+                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                })
+            )
+            .subscribe(response => 
+            {
+                this.showAlert = false;
+                //if (response.api_status === 'success') 
+                if (true) 
+                {
+                    // Assign values to individual variables
+                    this.data = response;
+                    console.log(response);
+                    this.loading = false;
+                    this.showAlert = true;
+                    this.showTimedAlert("success", "Updated Successfully")
+                    this.alert.message = "Updated Successfully";
+                    this.alert.type = "success";
+                } 
+                else 
+                {
+                    this.showTimedAlert("error", response.message || "Unknown error")
+                    // this.showAlert = true;
+                    // this.alert.message = response.message || "Unknown error";
+                    // this.alert.type = "error";
+                    this.loading = false;
+                }
+                
+            });
+                //this.cdr.detectChanges();
+        // this.data = [{"domain_name": "abc.com","ip_port": "192.168.3.3:80","modSec": "ON","web_type": "http","ip_whitelist": "1.2.3.4/24","method_whitelist": "GET,POST"
+        // },{"domain_name": "123.com","ip_port": "192.168.3.4:80","modSec": "OFF","web_type": "https","ip_whitelist": "1.2.3.4","method_whitelist": "GET,POST,DELETE"
+        // }];
     }
 
     addWebsiteModSec(){
