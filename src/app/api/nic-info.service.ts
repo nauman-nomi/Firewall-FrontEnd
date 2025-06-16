@@ -29,6 +29,7 @@ export class NicService {
     private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs';
 
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
+    private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
     private getModSecApiUrl = environment.apiUrl + 'listDomains.py';
 
@@ -177,6 +178,15 @@ export class NicService {
     
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getDateTimeApiUrl);
+    }
+
+    getUsageStatsAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+    
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getUsageStatsApiUrl);
     }
 
     getSystemInfoAPI(): Observable<any> {

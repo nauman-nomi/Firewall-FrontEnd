@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FuseAlertType } from '@fuse/components/alert';
+import { NicService } from 'app/api/nic-info.service';
 import {ApexChart,ApexDataLabels,ApexFill,ApexLegend,ApexNonAxisChartSeries,ApexPlotOptions,ApexResponsive,ApexStroke} from 'ng-apexcharts';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -22,12 +26,22 @@ export class GuageChartComponent implements OnInit {
     @Input() category: any; 
     title:string="";
     stats:string="";
+
+    alert: { type: FuseAlertType; message: string } = {type   : 'success',message: ''};
+    showAlert: boolean = false;
+    loading: boolean = true;
+    data:any;
     
 
     public chartOptions: Partial<ChartOptions> = {};
+
+    constructor(private getdashboardService: NicService)
+    {
+
+    }
     
     ngOnInit(): void {
-        //this.getUsageStats();
+        
         if(this.category =="ram"){
             this.title = "RAM";
             this.stats = "8 / 16 GB";
@@ -48,6 +62,56 @@ export class GuageChartComponent implements OnInit {
             this.initializeChartProcessor();
             this.startProcessorUsageSimulation();
         }
+    }
+
+    getUsageStats()
+    {
+        this.getdashboardService.getUsageStatsAPI()
+            .pipe(
+                catchError(error => {
+                    //this.showTimedAlert("error", "Error Fetching Data")
+                    // this.showAlert = true;
+                    // this.alert.type="error";
+                    // this.alert.message = "Error Fetching Data";
+                    //this.loading = false;
+                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                })
+            )
+            .subscribe(response => 
+            {
+                this.showAlert = false;
+                if (response.api_status === 'success') 
+                {
+                    // Assign values to individual variables
+                    this.data = response;
+                    console.log(this.data);
+                    //this.loading = false;
+                    //this.showAlert = true;
+                    //this.showTimedAlert("success", "Updated Successfully")
+                    // this.alert.message = "Updated Successfully";
+                    // this.alert.type = "success";
+                } 
+                else 
+                {
+                    this.showTimedAlert("error", response.message || "Unknown error")
+                    // this.showAlert = true;
+                    // this.alert.message = response.message || "Unknown error";
+                    // this.alert.type = "error";
+                    this.loading = false;
+                }
+                
+            });
+    }
+    
+    showTimedAlert(type: FuseAlertType, message: string) {
+        this.alert.type = type;
+        this.alert.message = message;
+        this.showAlert = true;
+    
+        // Automatically hide the alert after 5 seconds
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 2000);
     }
 
     private initializeChartRAM(): void {

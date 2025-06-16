@@ -129,13 +129,13 @@ export class MainDashboardComponent {
         
         this.getDateTime();
         this.getSystemInfo();
-        // this.intervalId = setInterval(() => {
-        //     this.getDateTime();
-        // }, 1000); // Every second
+        this.intervalId = setInterval(() => {
+            this.getDateTime();
+        }, 1000); // Every second
 
-        // this.intervalId = setInterval(() => {
-        //     this.getSystemInfo();
-        // }, 60000); // Every Minutes
+        this.intervalId = setInterval(() => {
+            this.getSystemInfo();
+        }, 60000); // Every Minutes
 
         
 
