@@ -117,6 +117,14 @@ export const compactNavigation: FuseNavigationItem[] = [
                 icon : 'mat_solid:security_update_warning',
                 link : '/modSec'
             },
+            
+            {
+                id   : 'ns.mailGW',
+                title: 'Email Gateway',
+                type : 'basic',
+                icon : 'mat_solid:security_update_warning',
+                link : '/emailGW'
+            },
     //         {
     //             id   : 'ns.ddos',
     //             title: 'D-DOS',

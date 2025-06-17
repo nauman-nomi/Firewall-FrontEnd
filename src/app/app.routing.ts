@@ -87,7 +87,8 @@ export const appRoutes: Route[] = [
             {path: 'nat', loadChildren: () => import('app/modules/admin/network-security/nat/nat-management/nat-management.module').then(m => m.NATManagementModule)},
             {path: 'geoBlock', loadChildren: () => import('app/modules/admin/network-security/geo-blocking/geo-blocking.module').then(m => m.GeoBlockingModule)},
             {path: 'modSec', loadChildren: () => import('app/modules/admin/network-security/mod-security/mod-security.module').then(m => m.ModSecurityModule)},
-            
+            {path: 'emailGW', loadChildren: () => import('app/modules/admin/network-security/email-gateway/email-gateway.module').then(m => m.EmailGWModule)},
+
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
         ]
     }
