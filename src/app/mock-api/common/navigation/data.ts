@@ -47,13 +47,13 @@ export const compactNavigation: FuseNavigationItem[] = [
                 link : '/networkInteface'
             },
             
-            {
-                id   : 'nic.routing',
-                title: 'Routing',
-                type : 'basic',
-                icon : 'mat_solid:compare_arrows',
-                link : '/routing'
-            },
+            // {
+            //     id   : 'nic.routing',
+            //     title: 'Routing',
+            //     type : 'basic',
+            //     icon : 'mat_solid:compare_arrows',
+            //     link : '/routing'
+            // },
             // {
             //     id   : 'nic.dhcp',
             //     title: 'DHCP Service',
@@ -96,13 +96,13 @@ export const compactNavigation: FuseNavigationItem[] = [
                 icon : 'mat_solid:settings',
                 link : '/fwManagement'
             },
-            {
-                id   : 'ns.nat',
-                title: 'NAT',
-                type : 'basic',
-                icon : 'mat_solid:transform',
-                link : '/nat'
-            },
+            // {
+            //     id   : 'ns.nat',
+            //     title: 'NAT',
+            //     type : 'basic',
+            //     icon : 'mat_solid:transform',
+            //     link : '/nat'
+            // },
             {
                 id   : 'ns.gb',
                 title: 'Geo-Blocking',

@@ -6,6 +6,7 @@ import { ModSecFormComponent } from './mod-sec-form/mod-sec-form.component';
 import { NicService } from 'app/api/nic-info.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ViewModSecDetailsComponent } from './view-mod-sec-details/view-mod-sec-details.component';
 
 @Component({
     selector: 'app-mod-security',
@@ -29,7 +30,7 @@ export class ModSecurityComponent {
     };
 
     displayedColumns: string[] = [
-        'domain_name','ip_port', 'modSec', 'web_type','ip_whitelist', 'method_whitelist',  'modSec_action'
+        'domain_name','ip_port', 'modSec', 'web_type','ip_whitelist', 'method_whitelist' ,'modSec_action'
     ];
     constructor(public dialog: MatDialog, private getModSecService: NicService) 
     {
@@ -87,7 +88,7 @@ export class ModSecurityComponent {
 
     addWebsiteModSec(){
         const dialogRef = this.dialog.open(ModSecFormComponent, {
-            width: '700px',
+            width: '900px',
             // disableClose: true,
             data: { title: 'Add Mod Security', row: "" , sep:'add'}
         });
@@ -111,8 +112,6 @@ export class ModSecurityComponent {
 
     onEditRow(row: any): void {
         if(row.sep == "modsec-delete"){
-            console.log("delete");
-            console.log(row);
             const dialogRef = this.dialog.open(WarningDialogComponent, {
                 width: '700px',
                 disableClose: true,
@@ -126,7 +125,7 @@ export class ModSecurityComponent {
         }
         else if(row.sep == "modsec-edit"){
             const dialogRef = this.dialog.open(ModSecFormComponent, {
-                width: '700px',
+                width: '900px',
                 // disableClose: true,
                 data: { title: 'Edit Mod Security', row: row, sep:'edit'}
             });
@@ -134,6 +133,18 @@ export class ModSecurityComponent {
                 // console.log('Dialog closed', result);
                  this.refreshTable()
                  this.showTimedAlert("success","Updated successfully")
+            });
+        }
+        else if(row.sep == "modsec-view"){
+            const dialogRef = this.dialog.open(ViewModSecDetailsComponent, {
+                width: '700px',
+                // disableClose: true,
+                data: { title: 'View Mod Security', row: row, sep:'view'}
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                // console.log('Dialog closed', result);
+                 //this.refreshTable()
+                 //this.showTimedAlert("success","Updated successfully")
             });
         }
     }

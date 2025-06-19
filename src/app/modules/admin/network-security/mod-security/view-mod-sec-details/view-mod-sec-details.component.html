@@ -1,0 +1,39 @@
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body ">
+        <div class="px-6 py-3">
+            <div class="bg-white shadow-lg rounded-2xl p-6  mx-auto">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                    Domain: {{ inputData.domain_name }}
+                </h2>
+            
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-md text-gray-700">
+                    <div><strong>IP & Port:</strong> {{ inputData.ip_port }}</div>
+                    <div><strong>ModSecurity:</strong> {{ inputData.modSec }}</div>
+                    <div><strong>Web Type:</strong> {{ inputData.web_type }}</div>
+                    <div><strong>IP Whitelist:</strong> {{ inputData.ip_whitelist }}</div>
+                    <div><strong>Method Whitelist:</strong> {{ inputData.method_whitelist }}</div>
+                    <div><strong>HTTP2:</strong> {{ inputData.http2 }}</div>
+                    <div><strong>SSL Session Cache:</strong> {{ inputData.ssl_session_cache }}</div>
+                    <div><strong>SSL Session Timeout:</strong> {{ inputData.ssl_session_timeout }}</div>
+                    <div><strong>SSL Protocols:</strong> {{ inputData.ssl_protocols }}</div>
+                    <div><strong>SSL Ciphers:</strong> {{ inputData.ssl_ciphers }}</div>
+                    <div><strong>SSL Prefer Server Ciphers:</strong> {{ inputData.ssl_prefer_server_ciphers }}</div>
+                    <div><strong>DNS Resolver:</strong> {{ inputData.dns_resolver }}</div>
+                    <div><strong>Resolver Timeout:</strong> {{ inputData.resolver_timeout }}</div>
+                    <div><strong>Client Max Body Size:</strong> {{ inputData.client_max_body_size }}</div>
+                    <div><strong>Proxy Buffering:</strong> {{ inputData.proxy_buffering }}</div>
+                    <div><strong>Proxy Request Buffering:</strong> {{ inputData.proxy_request_buffering }}</div>
+                </div>
+            </div>
+          </div>
+    </div>
+</mat-dialog-content>

@@ -70,12 +70,62 @@ export class WarningDialogComponent implements OnInit {
 
             this.cdr.detectChanges(); 
 
-            console.log("Deleting sub-interface:", this.data.row.nic_name);
             // Add logic to handle sub-interface deletion
         } 
         else if(this.data.action === 'delete-web-mod-sec')
         {
-            console.log("deleted action");
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            const payload = {
+                domain:this.data.row.domain_name
+            };
+            console.log(payload);
+            this.nicService.deleteModSecApi(payload).subscribe(
+                (response) => {
+                    if(response.api_status == "success")
+                    {
+                        console.log('Mod Sec removed successfully:', response);
+                    
+                        // Update the alert to show a success message
+                        this.alert = {
+                            type: response.status === 'success' ? 'success' : 'error',
+                            message: response.message 
+                        };
+                        this.showAlert = true;
+                        this.isSubmitting = false;
+                    }
+                    else
+                    {
+                        console.log('Error:', response);
+                    
+                        // Update the alert to show a success message
+                        this.alert = {
+                            type: response.status === 'success' ? 'success' : 'error',
+                            message: response.message 
+                        };
+                        this.showAlert = true;
+                        this.isSubmitting = false;
+                    }
+                   
+            
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed Mod Sec info:', error);
+            
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed Mod Sec. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+            console.log(this.data.row.domain_name);
+
         }
         else {
             console.log("Unhandled action:", this.data.action);

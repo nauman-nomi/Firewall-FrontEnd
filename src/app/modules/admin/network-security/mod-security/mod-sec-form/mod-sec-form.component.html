@@ -16,8 +16,95 @@
     
 
     <form [formGroup]="modSecForm" (ngSubmit)="onSubmit()" class="rounded-lg">
-        <div class="dialog-body mt-3">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 px-4">
+        <div class="dialog-body">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 px-4">
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">Listen IP</mat-label>
+                    <mat-select formControlName="listenIP" multiple>
+                        <mat-option *ngFor="let ip of ifConfigList" [value]="ip">
+                            {{ ip }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">Domain Name</mat-label>
+                    <input matInput type="text" formControlName="domain" placeholder="abc.com"/>
+                    <small class="error" *ngIf="modSecForm.get('domain')?.invalid && modSecForm.get('domain')?.touched">
+                        Invalid Domain Name.
+                    </small>
+                </mat-form-field>
+                    
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">Local IP & Part</mat-label>
+                    <input matInput type="text" formControlName="localip" placeholder="192.168.1.1:1234"/>
+                    <small class="error" *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
+                        Invalid IP and Port (e.g. 192.168.1.1:1234).
+                    </small>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">IP Whitelisting</mat-label>
+                    <input matInput type="text" formControlName="ipwhitelist" placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24"/>
+                    <small class="error" *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
+                        Invalid Entries.
+                    </small>
+                </mat-form-field>
+                
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">Whitelist Method</mat-label>
+                    <mat-select formControlName="whiteMethod" multiple>
+                        <mat-option *ngFor="let method of methodList" [value]="method">
+                            {{ method }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">SSL Session Cache (Seconds)</mat-label>
+                    <input matInput type="number" min = '0' formControlName="ssl_session_cache_time" placeholder="Seconds"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">SSL Session Timeout (Seconds)</mat-label>
+                    <input matInput type="number" min = '0' formControlName="ssl_session_timeout_time" placeholder="Seconds"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">SSL Protocol</mat-label>
+                    <mat-select formControlName="ssl_protocol" multiple>
+                        <mat-option *ngFor="let protocol of sslProtocolList" [value]="protocol">
+                            {{ protocol }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">SSL Cipher</mat-label>
+                    <mat-select formControlName="ssl_cipher" multiple>
+                        <mat-option *ngFor="let cipher of sslCipherList" [value]="cipher">
+                            {{ cipher }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">DNS Resolver</mat-label>
+                    <input matInput type="text" formControlName="dnsResolver" placeholder="8.8.8.8"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">DNS Resolver Timeout (Seconds)</mat-label>
+                    <input matInput type="number" min ="0" formControlName="dnsResolverTimeout" placeholder="Seconds"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold  ">Max Body Size</mat-label>
+                    <input matInput type="number" min ="0" formControlName="maxBodySize" placeholder="MB"/>
+                </mat-form-field>
+
+                <div class="border-t-2 border-gray-200 col-span-3 mb-3"></div>
+
                 <div class="form-group">
                     <div class="flex flex-row justify-start">
                         <span class="font-semibold">Website Type:</span>
@@ -36,40 +123,64 @@
                     <span class="font-semibold">MOD Security:</span>
                     <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="modSec" [value]="">
                         <mat-radio-button class="" [value]="'on'">
-                            ON
+                            On
                         </mat-radio-button>
                         <mat-radio-button class=" ml-4" [value]="'off'">
-                            OFF
+                            Off
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
-                <!-- Internal NIC -->
-                <div class="form-group">
-                    <label class="block font-semibold mb-1">Listen IP</label>
-                    <mat-select formControlName="listenIP" multiple>
-                        <mat-option *ngFor="let method of methodList" [value]="method">
-                            {{ method }}
-                        </mat-option>
-                    </mat-select>
+                
+                <div class="flex flex-row justify-start">
+                    <span class="font-semibold">HTTP2</span>
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="http2" [value]="">
+                        <mat-radio-button class="" [value]="'on'">
+                            On
+                        </mat-radio-button>
+                        <mat-radio-button class=" ml-4" [value]="'off'">
+                            Off
+                        </mat-radio-button>
+                    </mat-radio-group>
                 </div>
-                <div class="form-group">
-                    <label class="block font-semibold mb-1">Domain Name</label>
-                    <input type="text" class="input-field" formControlName="domain" placeholder="abc.com"/>
-                    <small class="error" *ngIf="modSecForm.get('domain')?.invalid && modSecForm.get('domain')?.touched">
-                        Invalid Domain Name.
-                    </small>
+                
+                <div class="flex flex-row justify-start">
+                    <span class="font-semibold">SSL Prefer Server Cipher </span>
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="sslPreferServerCipher" [value]="">
+                        <mat-radio-button class="" [value]="'on'">
+                            On
+                        </mat-radio-button>
+                        <mat-radio-button class=" ml-4" [value]="'off'">
+                            Off
+                        </mat-radio-button>
+                    </mat-radio-group>
                 </div>
 
-                <div class="form-group">
-                    <label class="block font-semibold mb-1">Local IP & Part:</label>
-                    <input type="text" class="input-field" formControlName="localip" placeholder="192.168.1.1:1234"/>
-                    <small class="error" *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
-                        Invalid IP and Port (e.g. 192.168.1.1:1234).
-                    </small>
+                <div class="flex flex-row justify-start">
+                    <span class="font-semibold">Proxy Buffering </span>
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="proxyBuffering" [value]="">
+                        <mat-radio-button class="" [value]="'on'">
+                            On
+                        </mat-radio-button>
+                        <mat-radio-button class=" ml-4" [value]="'off'">
+                            Off
+                        </mat-radio-button>
+                    </mat-radio-group>
                 </div>
 
-                
-                
+                <div class="flex flex-row justify-start">
+                    <span class="font-semibold">Proxy Request Buffering </span>
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="proxyRequestBuffering" [value]="">
+                        <mat-radio-button class="" [value]="'on'">
+                            On
+                        </mat-radio-button>
+                        <mat-radio-button class=" ml-4" [value]="'off'">
+                            Off
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="border-t-2 border-gray-200 col-span-3 my-3"></div>
+
                 <div class="form-group">
                     <label class="block font-semibold mb-1">Certificate</label>
                     <input type="file" class="input-field" formControlName="certificate" placeholder="abc.crt"/>
@@ -84,25 +195,6 @@
                     <small class="error" *ngIf="modSecForm.get('certificateKey')?.invalid && modSecForm.get('certificateKey')?.touched">
                         Invalid key.
                     </small>
-                </div>
-
-                
-                
-                <div class="form-group">
-                    <label class="block font-semibold mb-1">IP Whitelisting</label>
-                    <input type="text" class="input-field" formControlName="ipwhitelist" placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24"/>
-                    <small class="error" *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
-                        Invalid Entries.
-                    </small>
-                </div>
-
-                <div class="form-group">
-                    <label class="block font-semibold mb-1">Whitelist Method</label>
-                    <mat-select formControlName="whiteMethod" multiple>
-                        <mat-option *ngFor="let method of methodList" [value]="method">
-                            {{ method }}
-                        </mat-option>
-                    </mat-select>
                 </div>
 
             </div>

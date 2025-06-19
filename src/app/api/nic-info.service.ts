@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment.prod';
 import { Observable } from 'rxjs';
@@ -31,7 +31,8 @@ export class NicService {
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
     private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
-    private getModSecApiUrl = environment.apiUrl + 'listDomains.py';
+    private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
+    private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
 
     public apiKey = environment.apiKey;
     
@@ -205,6 +206,14 @@ export class NicService {
     
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getModSecApiUrl);
+    }
+
+    deleteModSecApi(body: any): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+          const payload = new HttpParams({ fromObject: body });
+          return this.http.post<any>(this.deleteModSecApiUrl, payload.toString(), { headers });
     }
     
 }

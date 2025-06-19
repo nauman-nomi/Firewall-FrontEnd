@@ -49,6 +49,9 @@
 
                     <ng-container *ngIf="column === 'modSec_action'">
                         <div class="flex justify-center space-x-2"> 
+                            <button mat-button (click)="onViewWebModSec(row)" matTooltip="View">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-green-500 p-0.5">visibility</i>
+                            </button>
                             <button mat-button (click)="onEditWebModSec(row)" matTooltip="Edit">
                                 <i class="material-icons text-white text-2xl rounded-2xl bg-primary p-0.5">edit</i>
                             </button>

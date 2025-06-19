@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
 import {ApexChart,ApexDataLabels,ApexFill,ApexLegend,ApexNonAxisChartSeries,ApexPlotOptions,ApexResponsive,ApexStroke} from 'ng-apexcharts';
@@ -35,7 +35,7 @@ export class GuageChartComponent implements OnInit {
 
     public chartOptions: Partial<ChartOptions> = {};
 
-    constructor(private getdashboardService: NicService)
+    constructor(private getdashboardService: NicService,private cdr: ChangeDetectorRef)
     {
 
     }
@@ -45,7 +45,9 @@ export class GuageChartComponent implements OnInit {
         if(this.category =="ram"){
             this.title = "RAM";
             this.stats = "8 / 16 GB";
+            
             this.initializeChartRAM();
+            
             this.startRamUsageSimulation();
         }
         else if(this.category == "storage")
@@ -64,44 +66,7 @@ export class GuageChartComponent implements OnInit {
         }
     }
 
-    getUsageStats()
-    {
-        this.getdashboardService.getUsageStatsAPI()
-            .pipe(
-                catchError(error => {
-                    //this.showTimedAlert("error", "Error Fetching Data")
-                    // this.showAlert = true;
-                    // this.alert.type="error";
-                    // this.alert.message = "Error Fetching Data";
-                    //this.loading = false;
-                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
-                })
-            )
-            .subscribe(response => 
-            {
-                this.showAlert = false;
-                if (response.api_status === 'success') 
-                {
-                    // Assign values to individual variables
-                    this.data = response;
-                    console.log(this.data);
-                    //this.loading = false;
-                    //this.showAlert = true;
-                    //this.showTimedAlert("success", "Updated Successfully")
-                    // this.alert.message = "Updated Successfully";
-                    // this.alert.type = "success";
-                } 
-                else 
-                {
-                    this.showTimedAlert("error", response.message || "Unknown error")
-                    // this.showAlert = true;
-                    // this.alert.message = response.message || "Unknown error";
-                    // this.alert.type = "error";
-                    this.loading = false;
-                }
-                
-            });
-    }
+    
     
     showTimedAlert(type: FuseAlertType, message: string) {
         this.alert.type = type;
@@ -165,8 +130,10 @@ export class GuageChartComponent implements OnInit {
     }
 
     private startRamUsageSimulation(): void {
+        
         setInterval(() => {
-            const simulatedUsage = this.generateRandomUsage();
+            const simulatedUsage = this.getValue("ram");
+            
             this.chartOptions.series = [simulatedUsage];
         }, 2000);
     }
@@ -223,9 +190,9 @@ export class GuageChartComponent implements OnInit {
 
     private startStorageUsageSimulation(): void {
         setInterval(() => {
-            const simulatedUsage = this.generateRandomUsage();
+            const simulatedUsage = this.getValue("storage");
             this.chartOptions.series = [simulatedUsage];
-        }, 2000);
+        }, 200000);
     }
 
     private initializeChartProcessor(): void {
@@ -280,12 +247,63 @@ export class GuageChartComponent implements OnInit {
 
     private startProcessorUsageSimulation(): void {
         setInterval(() => {
-            const simulatedUsage = this.generateRandomUsage();
+            const simulatedUsage = this.getValue("processor");
+            
             this.chartOptions.series = [simulatedUsage];
-        }, 2000);
+        }, 200000);
     }
 
-    private generateRandomUsage(): number {
-        return Math.floor(Math.random() * 101); // 0 to 100%
+    // private generateRandomUsage(): number {
+    //     return Math.floor(Math.random() * 101); // 0 to 100%
+    // }
+
+    private getValue(sep:string): number {
+        
+        if(sep == "ram")
+        {
+            return this.getUsageStats(sep);
+        }
+        else if(sep == "processor")
+        {
+            return this.getUsageStats(sep);
+        }
+        else if(sep == "storage")
+        {
+            return this.getUsageStats(sep);
+        }
+        else 
+        {
+            return 0;
+        }
+        // return Math.floor(Math.random() * 101); // 0 to 100%
+    }
+
+    private getUsageStats(sep:string): number{
+        let output = 0;
+        this.getdashboardService.getUsageStatsAPI()
+            
+            .subscribe(response => 
+            {
+                this.showAlert = false;
+                if (response.api_status === 'success') 
+                {
+                    // Assign values to individual variables
+                    if(sep == "ram")
+                    {
+                         output = 49;
+                    }
+                    else if (sep == "processor")
+                    {
+                        output = 10;
+                    }
+                    else if(sep == "storage")
+                    {
+                        output = 50;
+                    }
+
+                } 
+            });
+            console.log(output);
+        return output;
     }
 }

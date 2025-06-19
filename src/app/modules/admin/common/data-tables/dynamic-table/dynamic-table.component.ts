@@ -88,4 +88,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "modsec-edit";
         this.editRow.emit(row);
     }
+
+    onViewWebModSec(row:any): void{
+        row.sep = "modsec-view";
+        this.editRow.emit(row);
+    }
 }
