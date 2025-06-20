@@ -13,7 +13,7 @@ export class NicService {
     private deleteSubNicApiUrl = environment.apiUrl + '/deleteSubNic.php';
     private addSubNicApiUrl = environment.apiUrl + '/addSubNic.php';
     private updateMacroApiUrl = environment.apiUrl + '/updateMacros.php';
-    private updateFWOptionsApiUrl  = environment.apiUrl + '/updateFWOptions.php';
+    private updateFWOptionsApiUrl = environment.apiUrl + '/updateFWOptions.php';
 
     private getMacrosapiUrl = environment.apiUrl + '/getMacros.php';
     private apigetFWOptions = environment.apiUrl + '/getFirewallOptions.php';
@@ -33,30 +33,34 @@ export class NicService {
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
     private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
     private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
+
+    private addEmailGwApiUrl = environment.apiUrl + '/mailServer.py/addMailServer';
     private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
+    private deleteEmailGwApiUrl = environment.apiUrl + '/mailServer.py/deleteMailServer';
+
 
     public apiKey = environment.apiKey;
-    
+
     constructor(private http: HttpClient) { }
 
     UpdateMalwareData(): Observable<any> {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.updatetMalwareListApiUrl, { headers });
     }
 
     updateMalwareIPStatus(ip: string, status: string): Observable<any> {
         const headers = new HttpHeaders({
-          'X-API-KEY': this.apiKey,  // Your API Key
-          'Content-Type': 'application/x-www-form-urlencoded'
+            'X-API-KEY': this.apiKey,  // Your API Key
+            'Content-Type': 'application/x-www-form-urlencoded'
         });
-      
+
         const body = new URLSearchParams();
         body.set('ip', ip);
         body.set('status', status);
-      
+
         return this.http.post<any>(this.updateMalwareStatusApiUrl, body.toString(), { headers });
     }
 
@@ -71,7 +75,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.getMalwareListApiUrl, { headers });
     }
 
@@ -79,7 +83,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.apiUrl, { headers });
     }
 
@@ -87,7 +91,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.apigetFWOptions, { headers });
     }
 
@@ -151,7 +155,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.getRoutingtableapiUrl, { headers });
     }
 
@@ -159,7 +163,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.getMacrosapiUrl, { headers });
     }
 
@@ -169,7 +173,7 @@ export class NicService {
         const headers = new HttpHeaders({
             'X-API-KEY': this.apiKey
         });
-    
+
         return this.http.get<any>(this.getQueueDefApiUrl, { headers });
     }
 
@@ -177,7 +181,7 @@ export class NicService {
         // const headers = new HttpHeaders({
         //     'X-API-KEY': this.apiKey
         // });
-    
+
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getDateTimeApiUrl);
     }
@@ -186,7 +190,7 @@ export class NicService {
         // const headers = new HttpHeaders({
         //     'X-API-KEY': this.apiKey
         // });
-    
+
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getUsageStatsApiUrl);
     }
@@ -195,7 +199,7 @@ export class NicService {
         // const headers = new HttpHeaders({
         //     'X-API-KEY': this.apiKey
         // });
-    
+
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getSystemInfoApiUrl);
     }
@@ -204,7 +208,7 @@ export class NicService {
         // const headers = new HttpHeaders({
         //     'X-API-KEY': this.apiKey
         // });
-    
+
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getModSecApiUrl);
     }
@@ -212,18 +216,32 @@ export class NicService {
     deleteModSecApi(body: any): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded'
-          });
-          const payload = new HttpParams({ fromObject: body });
-          return this.http.post<any>(this.deleteModSecApiUrl, payload.toString(), { headers });
+        });
+        const payload = new HttpParams({ fromObject: body });
+        return this.http.post<any>(this.deleteModSecApiUrl, payload.toString(), { headers });
     }
+
+
+    addEmailGw(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addEmailGwApiUrl, data); // Don't set Content-Type
+    }
+
 
     getEmailGwListAPI(): Observable<any> {
         // const headers = new HttpHeaders({
         //     'X-API-KEY': this.apiKey
         // });
-    
+
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getEmailGwApiUrl);
     }
-    
+
+    deleteEmailGwApi(body: any): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        const payload = new HttpParams({ fromObject: body });
+        return this.http.post<any>(this.deleteEmailGwApiUrl, payload.toString(), { headers });
+    }
+
 }

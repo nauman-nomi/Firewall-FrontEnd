@@ -78,6 +78,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "malware-toggle-change";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
+    
 
     onDeleteWebModSec(row:any): void{
         row.sep = "modsec-delete";
@@ -91,6 +92,23 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
     onViewWebModSec(row:any): void{
         row.sep = "modsec-view";
+        this.editRow.emit(row);
+    }
+
+
+// Email gateway Actions
+    onDeleteEmailGw(row:any): void{
+        row.sep = "emailgw-delete";
+        this.editRow.emit(row);
+    }
+
+    onEditEmailGw(row:any): void{
+        row.sep = "emailgw-edit";
+        this.editRow.emit(row);
+    }
+
+    onViewEmailGw(row:any): void{
+        row.sep = "emailgw-view";
         this.editRow.emit(row);
     }
 }

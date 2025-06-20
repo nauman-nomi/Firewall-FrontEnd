@@ -8,6 +8,8 @@ import { EmailGwFormComponent } from './email-gw-form/email-gw-form.component';
 import { NicService } from 'app/api/nic-info.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ViewEmailGwDetailsComponent } from './view-email-gw-details/view-email-gw-details.component';
+
 
 @Component({
   selector: 'app-email-gateway',
@@ -26,12 +28,12 @@ export class EmailGatewayComponent implements OnInit {
     domain: 'Domain Name',
     ip: 'IP',
     port: 'Port',
-    type: 'Type',
+    smtptype: 'Type',
     emailgw_action: 'Action'
   };
 
   displayedColumns: string[] = [
-    'domain', 'ip', 'port', 'type', 'emailgw_action'
+    'domain', 'ip', 'port', 'smtptype', 'emailgw_action'
   ];
 
   constructor(public dialog: MatDialog, private getEmailGwService: NicService) {
@@ -117,7 +119,7 @@ export class EmailGatewayComponent implements OnInit {
       const dialogRef = this.dialog.open(WarningDialogComponent, {
         width: '700px',
         disableClose: true,
-        data: { title: 'Delete Email Gateway Security', row: row, message: "Are you sure you want to delete Email Gateway Security?", action: "delete-web-mod-sec" }
+        data: { title: 'Delete Email Gateway Security', row: row, message: "Are you sure you want to delete Email Gateway Security?", action: "delete-email-gw-sec" }
       });
       dialogRef.afterClosed().subscribe(result => {
         // console.log('Dialog closed', result);
@@ -135,6 +137,18 @@ export class EmailGatewayComponent implements OnInit {
         // console.log('Dialog closed', result);
         this.refreshTable()
         this.showTimedAlert("success", "Updated successfully")
+      });
+    }
+    else if (row.sep == "emailgw-view") {
+      const dialogRef = this.dialog.open(ViewEmailGwDetailsComponent, {
+        width: '700px',
+        // disableClose: true,
+        data: { title: 'View Email Gateway', row: row, sep: 'view' }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        // console.log('Dialog closed', result);
+        //this.refreshTable()
+        //this.showTimedAlert("success","Updated successfully")
       });
     }
   }

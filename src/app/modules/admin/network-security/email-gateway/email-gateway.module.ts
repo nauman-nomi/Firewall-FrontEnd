@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { ViewEmailGwDetailsComponent } from './view-email-gw-details/view-email-gw-details.component';
 
 
 const EmailGWtRoutes: Route[] = [
@@ -31,6 +32,7 @@ const EmailGWtRoutes: Route[] = [
     declarations: [
       EmailGatewayComponent,
       EmailGwFormComponent,
+      ViewEmailGwDetailsComponent,
       
     ],
     imports     : [
