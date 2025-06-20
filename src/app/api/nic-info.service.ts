@@ -33,6 +33,7 @@ export class NicService {
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
     private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
     private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
+    private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
 
     public apiKey = environment.apiKey;
     
@@ -214,6 +215,15 @@ export class NicService {
           });
           const payload = new HttpParams({ fromObject: body });
           return this.http.post<any>(this.deleteModSecApiUrl, payload.toString(), { headers });
+    }
+
+    getEmailGwListAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+    
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getEmailGwApiUrl);
     }
     
 }
