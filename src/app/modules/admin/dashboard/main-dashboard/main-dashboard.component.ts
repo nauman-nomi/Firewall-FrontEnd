@@ -19,12 +19,12 @@ export class MainDashboardComponent {
     dateTime :any;
     // System Information
     systemInfo = {
-        hostname: 'FreeBSD',
-        model: 'Dell PowerEdge R740',
-        serialNumber: 'ABC123XYZ456',
-        cpuTemp: '42°C',
-        cores: 16,
-        powerConsumption: '120W',
+        hostname: 'NA',
+        model: 'NA',
+        serialNumber: 'NA',
+        cpuTemp: 'NA',
+        cores: 'NA',
+        powerConsumption: 'NA',
         interfacesCount:'',
         failed_login_attempts:'',
         blocked_ip_count:'',
@@ -36,36 +36,21 @@ export class MainDashboardComponent {
         dns:'',
         open_ports:'',
         loggedInUsers: [],
-        top_processes: [],
-
-
-
-        totalStorage: '2 TB',
-        usedStorage: '1.2 TB',
-        totalMemory: '64 GB',
-        usedMemory: '42 GB',
-        fanSpeed: '2400 RPM',
-        
+        top_processes: [],       
     };
 
-    // Resource Usage
-    storage = {
-        total: 2000,
-        used: 1200,
-        percentage: 60
-    };
-
-    memory = {
-        total: 64,
-        used: 42,
-        percentage: 65.6
-    };
-
-    cpu = {
-        total: 100,
-        used: 78,
-        percentage: 78
-    };
+    systemSpec = {
+        totalRam: 'NA',
+        usedRam: 'NA',
+        totalStorage: 'NA',
+        usedStorage: 'NA',
+        totalCPU: 'NA',
+        usedCPU: 'NA',
+        fanSpeed: 'NA',
+        acceptedPackets: 'NA',
+        droppedPackets: 'NA'
+    }
+ 
 
     tasks = [
         { id: 1, schedule: '0 2 * * *', command: 'backup-db' },
@@ -87,24 +72,18 @@ export class MainDashboardComponent {
 
     // Security Information
     securityInfo = {
-        firewallRules: 42,
-        droppedPackets: 128,
-        acceptedPackets: 12542,
-        blockedIps: ['192.168.1.100', '10.0.0.15', '45.33.12.8'],
-        blockedIpCount: 3,
-        firewallStatus: 'Active',
-        antivirusStatus: 'Enabled',
-        openPorts: [22, 80, 443, 3306],
-        failedLogins: 3
+        firewallRules: 'NA',
+        droppedPackets: 'NA',
+        acceptedPackets: 'NA',
+        blockedIps: ['NA'],
+        blockedIpCount: 'NA',
+        firewallStatus: 'NA',
+        antivirusStatus: 'NA',
+        openPorts: ['NA'],
+        failedLogins: 'NA'
     };
 
-    // Processes & Services
-    topProcesses = [
-        { pid: 1234, name: 'nginx', cpu: 12.4, memory: 2.1 },
-        { pid: 5678, name: 'mysql', cpu: 8.7, memory: 5.3 },
-        { pid: 9012, name: 'node', cpu: 6.2, memory: 1.8 },
-        { pid: 3456, name: 'redis', cpu: 3.5, memory: 0.9 }
-    ];
+
 
     startupPrograms = ['nginx', 'mysql', 'redis', 'pm2', 'cron'];
     installedSoftware = ['nginx/1.18.0', 'mysql/8.0.25', 'nodejs/14.17.0', 'redis/6.2.4'];
@@ -127,15 +106,21 @@ export class MainDashboardComponent {
     getDashboard()
     {
         
-        this.getDateTime();
+        // this.getDateTime();
         this.getSystemInfo();
-        // this.intervalId = setInterval(() => {
-        //     this.getDateTime();
-        // }, 1000); // Every second
+        this.getUsageStatsInfo();
 
-        // this.intervalId = setInterval(() => {
-        //     this.getSystemInfo();
-        // }, 60000); // Every Minutes
+        this.intervalId = setInterval(() => {
+            this.getDateTime();
+        }, 1000); // Every second
+
+        this.intervalId = setInterval(() => {
+            this.getSystemInfo();
+        }, 60000); // Every Minutes
+
+        this.intervalId = setInterval(() => {
+            this.getUsageStatsInfo();
+        }, 60000); // Every Minutes
 
         
 
@@ -235,6 +220,47 @@ export class MainDashboardComponent {
                     //this.showTimedAlert("success", "Updated Successfully")
                     // this.alert.message = "Updated Successfully";
                     // this.alert.type = "success";
+                } 
+                else 
+                {
+                    this.showTimedAlert("error", response.message || "Unknown error")
+                    // this.showAlert = true;
+                    // this.alert.message = response.message || "Unknown error";
+                    // this.alert.type = "error";
+                    this.loading = false;
+                }
+                
+            });
+    }
+
+    getUsageStatsInfo()
+    {
+        this.getdashboardService.getUsageStatsAPI()
+            .pipe(
+                catchError(error => {
+                    //this.showTimedAlert("error", "Error Fetching Data")
+                    // this.showAlert = true;
+                    // this.alert.type="error";
+                    // this.alert.message = "Error Fetching Data";
+                    //this.loading = false;
+                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                })
+            )
+            .subscribe(response => 
+            {
+                this.showAlert = false;
+                if (response.api_status === 'success') 
+                {
+                    // Assign values to individual variables
+                    this.systemSpec.totalRam = response.total_ram;
+                    this.systemSpec.usedRam = response.ram_usage;
+                    this.systemSpec.totalStorage = response.total_storage;
+                    this.systemSpec.usedStorage = response.storage_usage;
+                    this.systemSpec.totalCPU = response.total_processors;
+                    this.systemSpec.usedCPU = response.cpu_usage;
+                    this.systemSpec.fanSpeed = response.fanSpeed;
+                    this.systemSpec.acceptedPackets = response.acceptedPackets;
+                    this.systemSpec.droppedPackets = response.droppedPackets;     
                 } 
                 else 
                 {

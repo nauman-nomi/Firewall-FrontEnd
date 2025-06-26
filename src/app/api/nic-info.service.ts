@@ -23,7 +23,7 @@ export class NicService {
     // Python APIs
 
     private getQueueDefApiUrl = environment.apiUrl + '/masterApi.py/getQueueDefination';
-    private getMalwareListApiUrl = environment.apiUrl + '/masterApi.py/maliciousFiles';
+    private getMalwareListApiUrl = environment.apiUrl + '/maliciousIP.py/listMaliciousIP';
     private updatetMalwareListApiUrl = environment.apiUrl + '/masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + '/masterApi.py/UpdateMalwareIPStatus';
     private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs';
@@ -33,15 +33,29 @@ export class NicService {
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
     private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
     private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
+    private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
     private addEmailGwApiUrl = environment.apiUrl + '/mailServer.py/addMailServer';
     private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
     private deleteEmailGwApiUrl = environment.apiUrl + '/mailServer.py/deleteMailServer';
+    private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
+
+    private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
 
 
     public apiKey = environment.apiKey;
 
     constructor(private http: HttpClient) { }
+
+    deleteMaliciousIP(ip: any): Observable<any> {
+
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        const payload = new HttpParams({ fromObject: ip });
+        return this.http.post<any>(this.deleteMaliciousIPApiUrl, payload.toString(), { headers });
+    }
+
 
     UpdateMalwareData(): Observable<any> {
         const headers = new HttpHeaders({
@@ -203,7 +217,7 @@ export class NicService {
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getSystemInfoApiUrl);
     }
-    
+
 
     getModSecListAPI(): Observable<any> {
         // const headers = new HttpHeaders({
@@ -243,6 +257,19 @@ export class NicService {
         });
         const payload = new HttpParams({ fromObject: body });
         return this.http.post<any>(this.deleteEmailGwApiUrl, payload.toString(), { headers });
+    }
+
+    getIPConfigListAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getIPConfigApiUrl);
+    }
+
+    addModSecAPI(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addModSecApiUrl, data); // Don't set Content-Type
     }
 
 }
