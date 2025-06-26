@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 px-4">
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold mb-1">Listen IP</mat-label>
-                    <mat-select formControlName="listenIP" multiple>
+                    <mat-select formControlName="listenIP" >
                         <mat-option *ngFor="let ip of ifConfigList" [value]="ip">
                             {{ ip }}
                         </mat-option>
@@ -40,6 +40,9 @@
                     <input matInput type="text" formControlName="localip" placeholder="192.168.1.1:1234"/>
                     <small class="error" *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
                         Invalid IP and Port (e.g. 192.168.1.1:1234).
+                    </small>
+                    <small *ngIf="modSecForm.get('listenIP')?.hasError('invalidIpPort')">
+                        Please enter a valid IP:Port (e.g., 192.168.0.1:8080)
                     </small>
                 </mat-form-field>
 
@@ -91,6 +94,9 @@
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">DNS Resolver</mat-label>
                     <input matInput type="text" formControlName="dnsResolver" placeholder="8.8.8.8"/>
+                    <small *ngIf="modSecForm.get('dnsResolver')?.hasError('multiIPv4DNSResolverValidator')">
+                        Please enter valid space-separated IPv4 addresses (e.g., 8.8.8.8 1.1.1.1)
+                    </small>
                 </mat-form-field>
 
                 <mat-form-field appearance="standard" class="w-full">
@@ -180,22 +186,24 @@
                 </div>
 
                 <div class="border-t-2 border-gray-200 col-span-3 my-3"></div>
-
-                <div class="form-group">
+                
+                <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate</label>
                     <input type="file" class="input-field" formControlName="certificate" placeholder="abc.crt"/>
                     <small class="error" *ngIf="modSecForm.get('certificate')?.invalid && modSecForm.get('certificate')?.touched">
                         Invalid certificate.
                     </small>
                 </div>
-
-                <div class="form-group">
+    
+                <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate Key</label>
                     <input type="file" class="input-field" formControlName="certificateKey" placeholder="abc.key"/>
                     <small class="error" *ngIf="modSecForm.get('certificateKey')?.invalid && modSecForm.get('certificateKey')?.touched">
                         Invalid key.
                     </small>
                 </div>
+                
+                
 
             </div>
         </div>

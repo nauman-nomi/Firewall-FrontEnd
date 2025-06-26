@@ -1,7 +1,7 @@
 <mat-dialog-content class="dialog-content">
     <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
         <div class="text-xl font-semibold leading-none tracking-tight text-white">
-            {{ data.title }}
+            {{ data.title }} -  {{ inputData.domain_name }}
         </div>
         <button mat-icon-button (click)="closeDialog()">
             <mat-icon class="text-white">close</mat-icon>
@@ -9,11 +9,11 @@
     </div>
 
     <div class="dialog-body ">
-        <div class="px-6 py-3">
-            <div class="bg-white shadow-lg rounded-2xl p-6  mx-auto">
-                <h2 class="text-2xl font-bold mb-4 text-gray-800">
+        <div>
+            <div class="bg-white p-3 mx-auto">
+                <!-- <h2 class="text-2xl font-bold mb-4 text-gray-800">
                     Domain: {{ inputData.domain_name }}
-                </h2>
+                </h2> -->
             
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-md text-gray-700">
                     <div><strong>IP & Port:</strong> {{ inputData.ip_port }}</div>

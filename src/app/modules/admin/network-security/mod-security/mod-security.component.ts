@@ -24,13 +24,13 @@ export class ModSecurityComponent {
         ip_port: 'IP',
         modSec: 'Mod Security Status',
         web_type: 'Type',
-        ip_whitelist: 'IP Whitelisting',
+        http2: 'HTTP2',
         method_whitelist: 'Method Whitelisting',
         modSec_action: 'Action'
     };
 
     displayedColumns: string[] = [
-        'domain_name','ip_port', 'modSec', 'web_type','ip_whitelist', 'method_whitelist' ,'modSec_action'
+        'domain_name','ip_port', 'modSec', 'web_type','http2', 'method_whitelist' ,'modSec_action'
     ];
     constructor(public dialog: MatDialog, private getModSecService: NicService) 
     {
@@ -89,7 +89,7 @@ export class ModSecurityComponent {
     addWebsiteModSec(){
         const dialogRef = this.dialog.open(ModSecFormComponent, {
             width: '900px',
-            // disableClose: true,
+            disableClose: true,
             data: { title: 'Add Mod Security', row: "" , sep:'add'}
         });
         dialogRef.afterClosed().subscribe(result => {

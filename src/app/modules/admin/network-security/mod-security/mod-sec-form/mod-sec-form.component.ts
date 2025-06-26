@@ -1,7 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertType } from '@fuse/components/alert';
+import { SSL_PROTOCOL_LIST,SSL_CIPHER_LIST,HTTP_METHOD_LIST, ipPortValidator, multiIPv4DNSResolverValidator } from './constants';
+import { NicService } from 'app/api/nic-info.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'app-mod-sec-form',
@@ -14,95 +18,105 @@ export class ModSecFormComponent{
     showAlert: boolean = false;
     isSubmitting: boolean = false;
     modSecForm!: FormGroup;
-    methodList:any[] = ['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS','CONNECT','TRACE'];
+    methodList:any[] = HTTP_METHOD_LIST;
     ifConfigList:any[]=['1.2.3.4','5.6.7.8','55.66.77.88'];
-    sslProtocolList:any[]=['SSLv2','SSLv3','TLSv1','TLSv1.1','TLSv1.2','TLSv1.3'];
-    sslCipherList:any[]=[
-        // TLS 1.3 cipher suites (no key exchange or MAC fields)
-        'TLS_AES_128_GCM_SHA256',
-        'TLS_AES_256_GCM_SHA384',
-        'TLS_CHACHA20_POLY1305_SHA256',
-        'TLS_AES_128_CCM_SHA256',
-        'TLS_AES_128_CCM_8_SHA256',
-      
-        // TLS 1.2 & earlier - Strong Suites
-        'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384',
-        'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384',
-        'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256',
-        'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
-        'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384',
-        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384',
-        'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256',
-        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256',
-        'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA',
-        'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA',
-        'TLS_DHE_RSA_WITH_AES_256_GCM_SHA384',
-        'TLS_DHE_RSA_WITH_AES_128_GCM_SHA256',
-        'TLS_DHE_RSA_WITH_AES_256_CBC_SHA256',
-        'TLS_DHE_RSA_WITH_AES_128_CBC_SHA256',
-        'TLS_DHE_RSA_WITH_AES_256_CBC_SHA',
-        'TLS_DHE_RSA_WITH_AES_128_CBC_SHA',
-        'TLS_RSA_WITH_AES_256_GCM_SHA384',
-        'TLS_RSA_WITH_AES_128_GCM_SHA256',
-        'TLS_RSA_WITH_AES_256_CBC_SHA256',
-        'TLS_RSA_WITH_AES_128_CBC_SHA256',
-        'TLS_RSA_WITH_AES_256_CBC_SHA',
-        'TLS_RSA_WITH_AES_128_CBC_SHA',
-      
-        // PSK variants (Pre-Shared Key)
-        'TLS_PSK_WITH_AES_128_CBC_SHA',
-        'TLS_PSK_WITH_AES_256_CBC_SHA',
-        'TLS_PSK_WITH_AES_128_GCM_SHA256',
-      
-        // Camellia cipher suites
-        'TLS_RSA_WITH_CAMELLIA_256_CBC_SHA',
-        'TLS_RSA_WITH_CAMELLIA_128_CBC_SHA',
-        'TLS_ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384',
-        'TLS_ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256',
-      
-        // ChaCha20 for non-TLS 1.3
-        'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256',
-        'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256',
-        'TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256',
-      
-        // Deprecated / Weak Ciphers — avoid in production!
-        'TLS_RSA_WITH_3DES_EDE_CBC_SHA',                 // Weak: 112-bit key
-        'TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA',
-        'TLS_RSA_WITH_RC4_128_SHA',                      // Insecure: RC4
-        'TLS_RSA_WITH_RC4_128_MD5',
-        'TLS_RSA_WITH_NULL_SHA',                         // No encryption!
-        'TLS_RSA_WITH_NULL_MD5',
-        'TLS_RSA_WITH_DES_CBC_SHA',                      // Insecure
-        'TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA',
-        'TLS_DHE_RSA_WITH_DES_CBC_SHA',
-        'TLS_ECDHE_RSA_WITH_NULL_SHA',
-      ];
+    sslProtocolList:any[]=SSL_PROTOCOL_LIST;
+    sslCipherList:any[]=SSL_CIPHER_LIST;
 
-    constructor(public dialogRef: MatDialogRef<ModSecFormComponent>,@Inject(MAT_DIALOG_DATA) public data: any ,private fb: FormBuilder) 
+
+    constructor(public dialogRef: MatDialogRef<ModSecFormComponent>,@Inject(MAT_DIALOG_DATA) public data: any ,private fb: FormBuilder, 
+        private getModSecService: NicService,  private cdr: ChangeDetectorRef) 
     {
-        console.log(this.data.row);
+        this.getIPConfigList();
+        console.log();
         this.modSecForm = this.fb.group({
             listenIP:['',[Validators.required]], 
             domain: ['', [Validators.required]],
-            localip: ['', [Validators.required, Validators.pattern(/^(\d{1,3}\.){3}\d{1,3}$/)]],
-            webtype:[],
-            modSec:[],
-            certificate: ['', [Validators.required]],
-            certificateKey: ['', [Validators.required]],
-            ipwhitelist: ['', [Validators.required]],
-            whiteMethod: ['', [Validators.required]],
-            http2:[],
+            localip: ['', [Validators.required, ipPortValidator]],
+            webtype:['http'],
+            modSec:['off'],
+            certificate: ['', ],
+            certificateKey: ['', ],
+            ipwhitelist: ['',],
+            whiteMethod: ['', ],
+            http2:['off'],
             ssl_session_cache_time:[],
             ssl_session_timeout_time:[],
             ssl_protocol:[],
             ssl_cipher:[],
-            sslPreferServerCipher:[],
-            dnsResolver:[],
+            sslPreferServerCipher:['off'],
+            dnsResolver:['',multiIPv4DNSResolverValidator],
             dnsResolverTimeout:[],
             maxBodySize:[],
-            proxyBuffering:[],
-            proxyRequestBuffering:[]
+            proxyBuffering:['off'],
+            proxyRequestBuffering:['off']
         });
+    }
+
+    ngOnInit() 
+    {
+        this.modSecForm.get('webtype')?.valueChanges.subscribe((value) => {
+            const cert = this.modSecForm.get('certificate');
+            const certKey = this.modSecForm.get('certificateKey');
+        
+            if (value === 'https') {
+              cert?.enable();
+              certKey?.enable();
+              cert?.setValidators([Validators.required]);
+              certKey?.setValidators([Validators.required]);
+            } else {
+              cert?.reset();
+              certKey?.reset();
+              cert?.clearValidators();
+              certKey?.clearValidators();
+              cert?.disable();
+              certKey?.disable();
+            }
+        
+            cert?.updateValueAndValidity();
+            certKey?.updateValueAndValidity();
+          });
+    }
+
+    getIPConfigList()
+    {
+        this.getModSecService.getIPConfigListAPI()
+            .pipe(
+                catchError(error => {
+                    //this.showTimedAlert("error", "Error Fetching Data")
+                    // this.showAlert = true;
+                    // this.alert.type="error";
+                    // this.alert.message = "Error Fetching Data";
+                    //this.loading = false;
+                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                })
+            )
+            .subscribe(response => 
+            {
+                if (response.api_status === 'success') 
+                //if (true) 
+                {
+                    // Assign values to individual variables
+                    this.ifConfigList = response.ip_list;
+                    console.log(this.ifConfigList);
+                } 
+                else 
+                {
+                    this.showTimedAlert("error", response.message || "Unknown error")
+                }
+                
+            });
+    }
+
+    showTimedAlert(type: FuseAlertType, message: string) {
+        this.alert.type = type;
+        this.alert.message = message;
+        this.showAlert = true;
+    
+        // Automatically hide the alert after 5 seconds
+        setTimeout(() => {
+          this.showAlert = false;
+        }, 2000);
     }
 
     closeDialog()
@@ -110,9 +124,70 @@ export class ModSecFormComponent{
         this.dialogRef.close('Dialog Closed');
     }
 
-    onSubmit()
+    onSubmit() 
     {
-        
+        if (this.modSecForm.invalid) {
+            this.showAlert = true;
+            this.errorAlert.message = 'Please fill all required fields correctly.';
+            this.errorAlert.type = 'error';
+            return;
+        }
+
+        this.isSubmitting = true;
+        const formValue = this.modSecForm.value;
+        const formData = new FormData();
+
+        // Append form data
+        formData.append('listenip', formValue.listenIP);
+        formData.append('domain', formValue.domain);
+        formData.append('localip', formValue.localip);
+        formData.append('Ipwhitelist', formValue.ipwhitelist);
+
+        formData.append('whiteMethod', formValue.whiteMethod);
+        formData.append('ssl_session_cache', formValue.ssl_session_cache_time);
+        formData.append('ssl_session_timeout', formValue.ssl_session_timeout_time);
+        formData.append('ssl_protocols', formValue.ssl_protocol);
+
+        formData.append('ssl_ciphers', formValue.ssl_cipher);
+        formData.append('dns_resolver', formValue.dnsResolver);
+        formData.append('resolver_timeout', formValue.dnsResolverTimeout);
+        formData.append('client_max_body_size', formValue.maxBodySize);
+
+        formData.append('webtype', formValue.webtype);
+        formData.append('modSec', formValue.modSec);
+        formData.append('http2', formValue.http2);
+        formData.append('ssl_prefer_server_ciphers', formValue.sslPreferServerCipher);
+      
+        formData.append('proxy_buffering', formValue.proxyBuffering);
+        formData.append('proxy_request_buffering', formValue.proxyRequestBuffering);
+       
+        // Only append pem_file if it exists (relevant for SMTPS)
+        if (formValue.certificate && formValue.certificateKey) {
+            formData.append('certificate', formValue.certificate);
+            formData.append('certificatekey', formValue.certificateKey);
+        }
+        console.log(formData);
+        // Call API
+        this.getModSecService.addModSecAPI(formData).subscribe(
+            (response) => {
+                this.isSubmitting = false;
+                this.showAlert = true;
+                this.alert.type = 'success';
+                this.alert.message = 'ModSec configuration saved successfully!';
+                this.cdr.detectChanges(); // Ensure UI updates
+                setTimeout(() => {
+                    this.dialogRef.close(formData); // Close dialog after showing success
+                }, 2000); // Optional delay to show success message briefly
+            },
+            (error) => {
+                this.isSubmitting = false;
+                this.showAlert = true;
+                this.alert.type = 'error';
+                this.alert.message = 'Failed to save Email Gateway configuration. Please try again.';
+                console.error('Error:', error);
+                this.cdr.detectChanges();
+            }
+        );
     }
 
 }

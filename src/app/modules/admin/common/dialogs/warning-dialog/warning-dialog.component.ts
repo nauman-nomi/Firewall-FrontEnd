@@ -19,7 +19,7 @@ export class WarningDialogComponent implements OnInit {
     isSubmitting: boolean = false;
 
     constructor(private nicService: NicService, public dialogRef: MatDialogRef<WarningDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cdr: ChangeDetectorRef) {
-
+        console.log(data);
     }
 
     ngOnInit(): void {
@@ -59,6 +59,43 @@ export class WarningDialogComponent implements OnInit {
                     this.alert = {
                         type: 'error',
                         message: 'Failed to removed Sub-NIC. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+
+            this.cdr.detectChanges();
+
+            // Add logic to handle sub-interface deletion
+        }
+        else if (this.data.action === 'malware-ip-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            
+            this.nicService.deleteMaliciousIP(this.data.row.ip).subscribe(
+                (response) => {
+                    console.log('Malicious IP removed successfully:', response);
+
+                    // Update the alert to show a success message
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed Malicous info:', error);
+
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed Malicious IP. Please try again.'
                     };
                     this.showAlert = true;
                     this.isSubmitting = false;

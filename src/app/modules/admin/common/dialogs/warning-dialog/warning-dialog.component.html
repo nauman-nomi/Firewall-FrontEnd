@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="rounded-t-lg font-semibold">{{data.title}} "{{data.row.domain_name}}{{data.row.nic_name}}"</h2>
+<h2 mat-dialog-title class="rounded-t-lg font-semibold">{{data.title}} "{{data.row.domain_name}}{{data.row.nic_name}}{{data.row.ip}}"</h2>
 <hr class="border-gray-300 -mt-3 mb-2">
 <fuse-alert class="mt-2 mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type">
     {{alert.message}}

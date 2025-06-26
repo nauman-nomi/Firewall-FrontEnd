@@ -15,9 +15,9 @@
 
     <form [formGroup]="emailGWForm" (ngSubmit)="onSubmit()" class="rounded-lg">
         <div class="dialog-body mt-3">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 px-4">
-                <div class="form-group">
-                    <div class="flex flex-row justify-start">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 px-4">
+                <div class="form-group col-span-3">
+                    <div class="flex flex-row justify-start ">
                         <span class="font-semibold">Type:</span>
                         <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="smtptype">
                             <mat-radio-button [value]="'25'">SMTP</mat-radio-button>
@@ -52,7 +52,7 @@
                     </small>
                 </div>
 
-                <div class="form-group" *ngIf="emailGWForm.get('smtptype')?.value === '443'">
+                <div class="form-group col-span-2" *ngIf="emailGWForm.get('smtptype')?.value === '443'">
                     <label class="block font-semibold mb-1">Certificate</label>
                     <input type="file" class="input-field" formControlName="pem_file" placeholder="abc.pem" />
                     <small class="error"

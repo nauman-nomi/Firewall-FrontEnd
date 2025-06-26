@@ -74,8 +74,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
 
-    onMalwareToggleChange(row: any): void {
-        row.sep = "malware-toggle-change";
+    onMalwareIpDelete(row: any): void {
+        row.sep = "malware-ip-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
     
