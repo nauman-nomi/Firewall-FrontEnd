@@ -42,6 +42,11 @@ export class NicService {
 
     private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
 
+    private countryViewUrl = environment.apiUrl + '/countryBlock.py/view';
+    private countryAddUrl = environment.apiUrl + '/countryBlock.py/add';
+    private countryDeleteUrl = environment.apiUrl + '/countryBlock.py/delete';
+
+
 
     public apiKey = environment.apiKey;
 
@@ -270,6 +275,26 @@ export class NicService {
 
     addModSecAPI(data: FormData): Observable<any> {
         return this.http.post<any>(this.addModSecApiUrl, data); // Don't set Content-Type
+    }
+
+    viewBlockedCountries(): Observable<any> {
+        return this.http.get<any>(this.countryViewUrl);
+    }
+
+    addBlockedCountry(code: string): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        const body = new HttpParams().set('countries', code);
+        return this.http.post<any>(this.countryAddUrl, body.toString(), { headers });
+    }
+
+    deleteBlockedCountry(code: string): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        const body = new HttpParams().set('countries', code);
+        return this.http.post<any>(this.countryDeleteUrl, body.toString(), { headers });
     }
 
 }
