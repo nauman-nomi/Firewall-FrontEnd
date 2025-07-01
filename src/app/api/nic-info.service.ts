@@ -36,11 +36,15 @@ export class NicService {
     private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
     private addEmailGwApiUrl = environment.apiUrl + '/mailServer.py/addMailServer';
+    private addMaliciousIPApiUrl = environment.apiUrl + '/maliciousIP.py/addMaliciousIP';
+    private addCountryBlockApiUrl = environment.apiUrl + '/countryBlock.py/add';
+
     private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
     private deleteEmailGwApiUrl = environment.apiUrl + '/mailServer.py/deleteMailServer';
     private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
 
     private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
+    private deleteCountryApiUrl = environment.apiUrl + 'countryBlock.py/delete';
 
 
     public apiKey = environment.apiKey;
@@ -54,6 +58,15 @@ export class NicService {
         });
         const payload = new HttpParams({ fromObject: ip });
         return this.http.post<any>(this.deleteMaliciousIPApiUrl, payload.toString(), { headers });
+    }
+
+    unBlockCountry(country: any): Observable<any> {
+
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+        const payload = new HttpParams({ fromObject: country });
+        return this.http.post<any>(this.deleteCountryApiUrl, payload.toString(), { headers });
     }
 
 
@@ -239,6 +252,14 @@ export class NicService {
 
     addEmailGw(data: FormData): Observable<any> {
         return this.http.post<any>(this.addEmailGwApiUrl, data); // Don't set Content-Type
+    }
+
+    addMaliciousIP(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addMaliciousIPApiUrl, data); // Don't set Content-Type
+    }
+
+    addCountryBlock(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addCountryBlockApiUrl, data); // Don't set Content-Type
     }
 
 

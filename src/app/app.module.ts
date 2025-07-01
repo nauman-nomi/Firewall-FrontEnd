@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { FuseCardModule } from '@fuse/components/card';
+import { AddMalwareIpComponent } from './modules/admin/threat-Protection/malware/add-malware-ip/add-malware-ip.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -51,6 +52,7 @@ const routerConfig: ExtraOptions = {
         DialogAddRouteComponent,
         DialogUpdateMacrosComponent,
         DialogUpdateFwOptionComponent,
+        AddMalwareIpComponent,
         
     ],
     imports     : [

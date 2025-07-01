@@ -87,7 +87,7 @@
 
                     <ng-container *ngIf="column === 'malware_status'">
                         <div class="flex justify-center space-x-2">
-                            <div class="bg-primary rounded-2xl font-bold text-on-primary px-2 py-1">   
+                            <div class="bg-primary text-sm rounded-xl font-bold text-on-primary px-2">   
                                 Active
                             </div>
 
@@ -97,6 +97,24 @@
                     <ng-container *ngIf="column === 'malware_action'">
                         <div class="flex justify-center space-x-2">
                             <button mat-button (click)="onMalwareIpDelete(row)" matTooltip="Delete IP">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="column === 'country_status'">
+                        <div class="flex justify-center space-x-2">
+                            <div class="bg-primary text-sm rounded-xl font-bold text-on-primary px-2">   
+                                Active
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="column === 'country_action'">
+                        <div class="flex justify-center space-x-2">
+                            <button mat-button (click)="onUnBlockCountry(row)" matTooltip="Unblock Country">
                                 <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
                             </button>
 

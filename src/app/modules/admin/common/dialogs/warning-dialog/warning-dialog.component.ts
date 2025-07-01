@@ -106,6 +106,44 @@ export class WarningDialogComponent implements OnInit {
 
             // Add logic to handle sub-interface deletion
         }
+        
+        else if (this.data.action === 'delete-country') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            
+            this.nicService.unBlockCountry(this.data.row.county).subscribe(
+                (response) => {
+                    console.log('Malicious IP removed successfully:', response);
+
+                    // Update the alert to show a success message
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed Malicous info:', error);
+
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed Malicious IP. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+
+            this.cdr.detectChanges();
+
+            // Add logic to handle sub-interface deletion
+        }
         else if (this.data.action === 'delete-web-mod-sec') {
             this.showAlert = false;
             this.isSubmitting = true;
