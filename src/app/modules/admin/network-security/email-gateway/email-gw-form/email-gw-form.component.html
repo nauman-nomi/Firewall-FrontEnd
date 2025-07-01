@@ -54,10 +54,10 @@
 
                 <div class="form-group col-span-2" *ngIf="emailGWForm.get('smtptype')?.value === '443'">
                     <label class="block font-semibold mb-1">Certificate</label>
-                    <input type="file" class="input-field" formControlName="pem_file" placeholder="abc.pem" />
-                    <small class="error"
-                        *ngIf="emailGWForm.get('pem_file')?.invalid && emailGWForm.get('pem_file')?.touched">
-                        Invalid certificate.
+                    <input type="file" class="input-field" (change)="onFileSelected($event)"
+                        [disabled]="emailGWForm.get('smtptype')?.value !== '443'" />
+                    <small class="error" *ngIf="!selectedFile && isSubmitting">
+                        Certificate file is required.
                     </small>
                 </div>
             </div>

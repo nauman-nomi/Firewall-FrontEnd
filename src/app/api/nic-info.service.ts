@@ -22,11 +22,11 @@ export class NicService {
 
     // Python APIs
 
-    private getQueueDefApiUrl = environment.apiUrl + '/masterApi.py/getQueueDefination';
-    private getMalwareListApiUrl = environment.apiUrl + '/maliciousIP.py/listMaliciousIP';
-    private updatetMalwareListApiUrl = environment.apiUrl + '/masterApi.py/updateMalwareFile';
-    private updateMalwareStatusApiUrl = environment.apiUrl + '/masterApi.py/UpdateMalwareIPStatus';
-    private getLogsApiUrl = environment.apiUrl + '/masterApi.py/logs';
+    private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
+    private getMalwareListApiUrl = environment.apiUrl + 'maliciousIP.py/listMaliciousIP';
+    private updatetMalwareListApiUrl = environment.apiUrl + 'masterApi.py/updateMalwareFile';
+    private updateMalwareStatusApiUrl = environment.apiUrl + 'masterApi.py/UpdateMalwareIPStatus';
+    private getLogsApiUrl = environment.apiUrl + 'masterApi.py/logs';
 
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
     private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
@@ -35,16 +35,16 @@ export class NicService {
     private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
     private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
-    private addEmailGwApiUrl = environment.apiUrl + '/mailServer.py/addMailServer';
-    private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
-    private deleteEmailGwApiUrl = environment.apiUrl + '/mailServer.py/deleteMailServer';
+    private addEmailGwApiUrl = environment.apiUrl + 'mailServer.py/addMailServer';
+    private getEmailGwApiUrl = environment.apiUrl + 'mailServer.py/viewMailServers';
+    private deleteEmailGwApiUrl = environment.apiUrl + 'mailServer.py/deleteMailServer';
     private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
 
     private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
 
-    private countryViewUrl = environment.apiUrl + '/countryBlock.py/view';
-    private countryAddUrl = environment.apiUrl + '/countryBlock.py/add';
-    private countryDeleteUrl = environment.apiUrl + '/countryBlock.py/delete';
+    private countryViewUrl = environment.apiUrl + 'countryBlock.py/view';
+    private countryAddUrl = environment.apiUrl + 'countryBlock.py/add';
+    private countryDeleteUrl = environment.apiUrl + 'countryBlock.py/delete';
 
 
 

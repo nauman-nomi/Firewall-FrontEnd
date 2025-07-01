@@ -21,6 +21,7 @@ export class GeoBlockingComponent implements OnInit {
     this.loading = true;
     this.nicService.viewBlockedCountries().subscribe({
       next: (res) => {
+        console.log('API Response:', res);
         this.countries = res.data || [];
         this.loading = false;
       },
