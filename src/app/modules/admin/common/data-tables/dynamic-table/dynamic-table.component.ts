@@ -78,6 +78,11 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "malware-ip-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
+
+    onUnBlockCountry(row: any): void {
+        row.sep = "country-unblock-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
     
 
     onDeleteWebModSec(row:any): void{
