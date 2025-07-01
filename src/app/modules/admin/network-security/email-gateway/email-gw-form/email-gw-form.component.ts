@@ -80,7 +80,7 @@ export class EmailGwFormComponent implements OnInit {
         }
 
         console.log('FormData about to be sent:');
-        for (const pair of formData.entries()) {
+        for (const pair of (formData as any).entries()) {
             console.log(pair[0], pair[1]);
         }
 

@@ -35,18 +35,15 @@ export class NicService {
     private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
     private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
-<<<<<<< HEAD
+
     private addEmailGwApiUrl = environment.apiUrl + 'mailServer.py/addMailServer';
     private getEmailGwApiUrl = environment.apiUrl + 'mailServer.py/viewMailServers';
     private deleteEmailGwApiUrl = environment.apiUrl + 'mailServer.py/deleteMailServer';
-=======
-    private addEmailGwApiUrl = environment.apiUrl + '/mailServer.py/addMailServer';
+
+
     private addMaliciousIPApiUrl = environment.apiUrl + '/maliciousIP.py/addMaliciousIP';
     private addCountryBlockApiUrl = environment.apiUrl + '/countryBlock.py/add';
 
-    private getEmailGwApiUrl = environment.apiUrl + '/mailServer.py/viewMailServers';
-    private deleteEmailGwApiUrl = environment.apiUrl + '/mailServer.py/deleteMailServer';
->>>>>>> 1c5c54ad8d0a942671740692737a6db55dc7ed73
     private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
 
     private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
