@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://192.168.0.107:443/api/', // Development
+    //apiUrl: 'http://192.168.0.107:443/api/', // Development
+    apiUrl: 'http://192.168.3.13:8080/api/',  // office Development
     // apiUrl: 'http://raonazariqbal.nayatel.net:8080/api',
     apiKey: '1234567890abcdef'
 };

@@ -81,6 +81,8 @@ export const appRoutes: Route[] = [
             {path: 'routing', loadChildren: () => import('app/modules/admin/network/routing/routing.modules').then(m => m.RoutingModule)},
             {path: 'BandwidthManagement', loadChildren: () => import('app/modules/admin/bandwidth-management/bandwidth-management.module').then(m => m.BandwidthManagementModule)},
             {path: 'malware', loadChildren: () => import('app/modules/admin/threat-Protection/malware/malware.modules').then(m => m.MalwareModule)},
+            {path: 'idsips', loadChildren: () => import('app/modules/admin/threat-Protection/ids-ips-component/ids-ips-component.modules').then(m => m.IDSIPSModule)},
+
             {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/system-management/log-management/log-management.modules').then(m => m.LogManagementModule)},
             {path: 'logManagement', loadChildren: () => import('app/modules/admin/system-management/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
 

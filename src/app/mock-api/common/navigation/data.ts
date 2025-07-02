@@ -197,13 +197,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon    : 'mat_solid:shield',
         children: 
         [
-            // {
-            //     id   : 'tp.ids',
-            //     title: 'IDS/ IPS',
-            //     type : 'basic',
-            //     icon : 'mat_solid:error_outline',
-            //     link : '/maintainance/IDS'
-            // },
+            {
+                id   : 'tp.ids',
+                title: 'IDS/ IPS',
+                type : 'basic',
+                icon : 'mat_solid:error_outline',
+                link : '/idsips'
+            },
             // {
             //     id   : 'tp.avp',
             //     title: 'Antivirus',
