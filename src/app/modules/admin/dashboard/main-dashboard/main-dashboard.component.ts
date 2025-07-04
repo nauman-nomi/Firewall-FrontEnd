@@ -112,15 +112,15 @@ export class MainDashboardComponent {
 
         this.intervalId = setInterval(() => {
             this.getDateTime();
-        }, 1000); // Every second
+        }, 5000); // Every second
 
         this.intervalId = setInterval(() => {
             this.getSystemInfo();
-        }, 60000); // Every Minutes
+        }, 600000); // Every Minutes
 
         this.intervalId = setInterval(() => {
             this.getUsageStatsInfo();
-        }, 60000); // Every Minutes
+        }, 600000); // Every Minutes
 
         
 

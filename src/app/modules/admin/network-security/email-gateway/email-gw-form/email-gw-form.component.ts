@@ -33,21 +33,23 @@ export class EmailGwFormComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.emailGWForm.get('smtptype')?.valueChanges.subscribe((type: string) => {
-            if (type === '25') {
-                this.emailGWForm.get('port')?.setValue('25');
-            } else if (type === '443') {
-                this.emailGWForm.get('port')?.setValue('443');
-            }
-        });
-    }
+
 
     onFileSelected(event: any): void {
         const file: File = event.target.files[0];
         if (file) {
             this.selectedFile = file;
         }
+    }
+
+    ngOnInit(): void {
+        this.emailGWForm.get('smtptype')?.valueChanges.subscribe((type: string) => {
+            if (type === 'smtp') {
+                this.emailGWForm.get('port')?.setValue('25');
+            } else if (type === 'smtps') {
+                this.emailGWForm.get('port')?.setValue('443');
+            }
+        });
     }
 
     onSubmit() {
@@ -58,7 +60,7 @@ export class EmailGwFormComponent implements OnInit {
             return;
         }
 
-        if (this.emailGWForm.get('smtptype')?.value === '443' && !this.selectedFile) {
+        if (this.emailGWForm.get('smtptype')?.value === 'smtps' && !this.selectedFile) {
             this.showAlert = true;
             this.errorAlert.message = 'Certificate file is required for SMTPS.';
             this.errorAlert.type = 'error';
@@ -75,7 +77,7 @@ export class EmailGwFormComponent implements OnInit {
         formData.append('ip_address', formValue.ip_address);
         formData.append('port', formValue.port);
 
-        if (formValue.smtptype === '443' && this.selectedFile) {
+        if (formValue.smtptype === 'smtps' && this.selectedFile) {
             formData.append('pem_file', this.selectedFile, this.selectedFile.name);
         }
 

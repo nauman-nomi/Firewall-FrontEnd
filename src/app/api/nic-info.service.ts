@@ -59,14 +59,36 @@ export class NicService {
 
     constructor(private http: HttpClient) { }
 
-    deleteMaliciousIP(ip: any): Observable<any> {
+    // deleteMaliciousIP(ip: any): Observable<any> {
 
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-        });
-        const payload = new HttpParams({ fromObject: ip });
-        return this.http.post<any>(this.deleteMaliciousIPApiUrl, payload.toString(), { headers });
-    }
+    //     const headers = new HttpHeaders({
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     });
+    //     const payload = new HttpParams({ fromObject: ip });
+    //     return this.http.post<any>(this.deleteMaliciousIPApiUrl, payload.toString(), { headers });
+    // }
+
+deleteMaliciousIP(payloadObj: any): Observable<any> {
+    console.log("deleteMaliciousIP() received:", payloadObj);
+
+    const payload = new HttpParams().set('ip_address', payloadObj);
+
+    console.log("Payload:", payload.toString());
+
+    return this.http.post<any>(
+        this.deleteMaliciousIPApiUrl,
+        payload.toString(),
+        {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        }
+    );
+}
+
+
+
+
 
     unBlockCountry(country: any): Observable<any> {
 
