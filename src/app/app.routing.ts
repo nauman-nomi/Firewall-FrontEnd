@@ -91,6 +91,9 @@ export const appRoutes: Route[] = [
             {path: 'modSec', loadChildren: () => import('app/modules/admin/network-security/mod-security/mod-security.module').then(m => m.ModSecurityModule)},
             {path: 'emailGW', loadChildren: () => import('app/modules/admin/network-security/email-gateway/email-gateway.module').then(m => m.EmailGWModule)},
 
+            {path: 'blockIps', loadChildren: () => import('app/modules/admin/network-security/block-ips/block-ips.modules').then(m => m.BlockIpsModule)},
+            {path: 'whitelistIPs', loadChildren: () => import('app/modules/admin/network-security/whitelist-ips/whitelist-ips.modules').then(m => m.WhitelistIpsModule)},
+
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
         ]
     }

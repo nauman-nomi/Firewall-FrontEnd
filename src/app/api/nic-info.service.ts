@@ -55,36 +55,43 @@ export class NicService {
 
 
 
+
+    private listBlockIpUrl = environment.apiUrl + 'blockIP.py/listBlockIP';
+    private addBlockIpUrl = environment.apiUrl + 'blockIP.py/addBlockIP';
+    private deleteBlockIpUrl = environment.apiUrl + 'blockIP.py/deleteBlockIP';
+
+    private listWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/listWhitelistIP';
+    private addWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/addWhitelistIP';
+    private deleteWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/deleteWhitelistIP';
+
+    private listGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/listGeoBlockIP';
+    private addGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/addGeoBlockIP';
+    private deleteGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/deleteGeoBlockIP';
+
+
+
     public apiKey = environment.apiKey;
 
     constructor(private http: HttpClient) { }
 
-    // deleteMaliciousIP(ip: any): Observable<any> {
 
-    //     const headers = new HttpHeaders({
-    //         'Content-Type': 'application/x-www-form-urlencoded'
-    //     });
-    //     const payload = new HttpParams({ fromObject: ip });
-    //     return this.http.post<any>(this.deleteMaliciousIPApiUrl, payload.toString(), { headers });
-    // }
+    deleteMaliciousIP(payloadObj: any): Observable<any> {
+        console.log("deleteMaliciousIP() received:", payloadObj);
 
-deleteMaliciousIP(payloadObj: any): Observable<any> {
-    console.log("deleteMaliciousIP() received:", payloadObj);
+        const payload = new HttpParams().set('ip_address', payloadObj);
 
-    const payload = new HttpParams().set('ip_address', payloadObj);
+        console.log("Payload:", payload.toString());
 
-    console.log("Payload:", payload.toString());
-
-    return this.http.post<any>(
-        this.deleteMaliciousIPApiUrl,
-        payload.toString(),
-        {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        }
-    );
-}
+        return this.http.post<any>(
+            this.deleteMaliciousIPApiUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+    }
 
 
 
@@ -341,6 +348,93 @@ deleteMaliciousIP(payloadObj: any): Observable<any> {
         });
         const body = new HttpParams().set('countries', code);
         return this.http.post<any>(this.countryDeleteUrl, body.toString(), { headers });
+    }
+
+
+
+
+
+    getBlockIpListData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+        return this.http.get<any>(this.listBlockIpUrl, { headers });
+    }
+    getWhitelistIpListData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+        return this.http.get<any>(this.listWhitelistIpUrl, { headers });
+    }
+    getGeoBlockIpListData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+        return this.http.get<any>(this.listGeoBlockIpUrl, { headers });
+    }
+
+    addBlockIP(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addBlockIpUrl, data); // Don't set Content-Type
+    }
+    addWhitelistIP(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addWhitelistIpUrl, data); // Don't set Content-Type
+    }
+    addGeoBlockIP(data: FormData): Observable<any> {
+        return this.http.post<any>(this.addGeoBlockIpUrl, data); // Don't set Content-Type
+    }
+
+    deleteBlockIP(payloadObj: any): Observable<any> {
+        console.log("deleteBlockIP() received:", payloadObj);
+
+        const payload = new HttpParams().set('ip_address', payloadObj);
+
+        console.log("Payload:", payload.toString());
+
+        return this.http.post<any>(
+            this.deleteBlockIpUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+    }
+
+        deleteWhitelistIP(payloadObj: any): Observable<any> {
+        console.log("deleteWhitelistIP() received:", payloadObj);
+
+        const payload = new HttpParams().set('ip_address', payloadObj);
+
+        console.log("Payload:", payload.toString());
+
+        return this.http.post<any>(
+            this.deleteWhitelistIpUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+    }
+
+        deleteGeoBlockIP(payloadObj: any): Observable<any> {
+        console.log("deleteGeoBlockIP() received:", payloadObj);
+
+        const payload = new HttpParams().set('ip_address', payloadObj);
+
+        console.log("Payload:", payload.toString());
+
+        return this.http.post<any>(
+            this.deleteGeoBlockIpUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
     }
 
 }

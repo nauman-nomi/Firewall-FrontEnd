@@ -85,10 +85,11 @@
                         </div>
                     </ng-container>
 
+
                     <ng-container *ngIf="column === 'malware_status'">
                         <div class="flex justify-center space-x-2">
                             <div class="bg-primary text-sm rounded-xl font-bold text-on-primary px-2">   
-                                Active
+                                Block
                             </div>
 
                         </div>
@@ -102,6 +103,52 @@
 
                         </div>
                     </ng-container>
+
+
+
+
+                    <ng-container *ngIf="column === 'block_status'">
+                        <div class="flex justify-center space-x-2">
+                            <div class="bg-primary text-sm rounded-xl font-bold text-on-primary px-2">   
+                                Block
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="column === 'block_action'">
+                        <div class="flex justify-center space-x-2">
+                            <button mat-button (click)="onBlockIpDelete(row)" matTooltip="Delete IP">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+
+                        </div>
+                    </ng-container>
+
+
+
+
+
+                    <ng-container *ngIf="column === 'whitelist_status'">
+                        <div class="flex justify-center space-x-2">
+                            <div class="bg-primary text-sm rounded-xl font-bold text-on-primary px-2">   
+                                Allow
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="column === 'whitelist_action'">
+                        <div class="flex justify-center space-x-2">
+                            <button mat-button (click)="onWhitelistIpDelete(row)" matTooltip="Delete IP">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+
+                        </div>
+                    </ng-container>
+
+
+
 
                     <ng-container *ngIf="column === 'country_status'">
                         <div class="flex justify-center space-x-2">

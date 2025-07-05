@@ -79,6 +79,16 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
 
+    onBlockIpDelete(row: any): void {
+        row.sep = "block-ip-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
+
+    onWhitelistIpDelete(row: any): void {
+        row.sep = "whitelist-ip-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
+
     onUnBlockCountry(row: any): void {
         row.sep = "country-unblock-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       

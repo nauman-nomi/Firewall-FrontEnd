@@ -73,11 +73,9 @@ export class WarningDialogComponent implements OnInit {
             this.showAlert = false;
             this.isSubmitting = true;
 
-            
             this.nicService.deleteMaliciousIP(this.data.row.ip).subscribe(
                 (response) => {
                     console.log('Malicious IP removed successfully:', response);
-
                     // Update the alert to show a success message
                     this.alert = {
                         type: response.status === 'success' ? 'success' : 'error',
@@ -85,13 +83,11 @@ export class WarningDialogComponent implements OnInit {
                     };
                     this.showAlert = true;
                     this.isSubmitting = false;
-
                     // Optionally, you can close the dialog after success:
                     this.dialogRef.close(response);
                 },
                 (error) => {
-                    console.error('Failed to removed Malicous info:', error);
-
+                    console.error('Failed to removed Malicious info:', error);
                     // Update the alert to show an error message
                     this.alert = {
                         type: 'error',
@@ -101,10 +97,100 @@ export class WarningDialogComponent implements OnInit {
                     this.isSubmitting = false;
                 }
             );
-
             this.cdr.detectChanges();
+        }
 
-            // Add logic to handle sub-interface deletion
+        else if (this.data.action === 'block-ip-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            this.nicService.deleteBlockIP(this.data.row.ip).subscribe(
+                (response) => {
+                    console.log('Block IP removed successfully:', response);
+                    // Update the alert to show a success message
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed Block info:', error);
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed Block IP. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+            this.cdr.detectChanges();
+        }
+
+        else if (this.data.action === 'whitelist-ip-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            this.nicService.deleteWhitelistIP(this.data.row.ip).subscribe(
+                (response) => {
+                    console.log('Whilelist IP removed successfully:', response);
+                    // Update the alert to show a success message
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed Whilelist info:', error);
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed Whilelist IP. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+            this.cdr.detectChanges();
+        }
+
+        else if (this.data.action === 'geoblock-ip-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            this.nicService.deleteGeoBlockIP(this.data.row.ip).subscribe(
+                (response) => {
+                    console.log('GeoBlock Country IP removed successfully:', response);
+                    // Update the alert to show a success message
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                    // Optionally, you can close the dialog after success:
+                    this.dialogRef.close(response);
+                },
+                (error) => {
+                    console.error('Failed to removed GeoBlock Country IP:', error);
+                    // Update the alert to show an error message
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to removed GeoBlock Country IP. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+            this.cdr.detectChanges();
         }
         
         else if (this.data.action === 'delete-country') {

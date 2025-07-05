@@ -125,6 +125,20 @@ export const compactNavigation: FuseNavigationItem[] = [
                 icon : 'mat_solid:security_update_warning',
                 link : '/emailGW'
             },
+                        {
+                id   : 'ns.blockIPs',
+                title: 'Block Ips',
+                type : 'basic',
+                icon : 'mat_solid:security_update_warning',
+                link : '/blockIps'
+            },
+                        {
+                id   : 'ns.whitelistIPs',
+                title: 'Whitelist IPs',
+                type : 'basic',
+                icon : 'mat_solid:security_update_warning',
+                link : '/whitelistIPs'
+            },
     //         {
     //             id   : 'ns.ddos',
     //             title: 'D-DOS',
