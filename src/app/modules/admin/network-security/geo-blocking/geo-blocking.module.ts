@@ -14,11 +14,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AddGeoBlockIpComponent } from './add-geoblock-ip/add-geoblock-ip.component';
 
+
+
+
+
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FuseAlertModule } from '@fuse/components/alert';
+import { DynamicTableModule } from '../../common/data-tables/dynamic-table/dynamic-table.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -32,12 +44,14 @@ const GeoBlockingRoutes: Route[] = [
 @NgModule({
     declarations: [
         GeoBlockingComponent,
-        CountryViewComponent
+        CountryViewComponent,
+        AddGeoBlockIpComponent
     ],
     imports: [
         RouterModule.forChild(GeoBlockingRoutes),
         MatButtonModule,
         MatIconModule,
+        MatDialogModule,
         FuseCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -45,12 +59,19 @@ const GeoBlockingRoutes: Route[] = [
         CommonModule,
         FormsModule,
         MatTableModule,
-        MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
         MatIconModule,
         MatSnackBarModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+
+   
+        MatSlideToggleModule,
+        FuseAlertModule,
+        DynamicTableModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatSelectModule
     ]
 })
 export class GeoBlockingModule {

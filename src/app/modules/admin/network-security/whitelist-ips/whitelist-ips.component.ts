@@ -17,11 +17,11 @@ export class WhitelistIpsComponent implements OnInit {
 
   alert: { type: FuseAlertType; message: string } = { type: 'success', message: '' };
   showAlert: boolean = false;
-  loading: boolean = false;
+  loadingip: boolean = false;
 
   headerMapping: { [key: string]: string } = {
     ip: 'IP',
-    malware_status: 'Status',
+    whitelist_status: 'Status',
     whitelist_action: 'Action'
   };
 
@@ -52,20 +52,20 @@ export class WhitelistIpsComponent implements OnInit {
   }
 
   getWhitelistFileList(): void {
-    this.loading = true;
+    this.loadingip = true;
 
     this.apiService.getWhitelistIpListData()
       .pipe(
         catchError(error => {
           this.showTimedAlert("error", "Error Fetching Data");
-          this.loading = false;
+          this.loadingip = false;
           return of({ api_status: 'error', message: 'Failed to fetch data' });
         })
       )
       .subscribe(response => {
         this.showAlert = false;
         if (response.api_status === 'success') {
-          this.loading = false;
+          this.loadingip = false;
 
           console.log(response.data);
 
@@ -74,7 +74,7 @@ export class WhitelistIpsComponent implements OnInit {
           this.showTimedAlert("success", "Updated Successfully");
         } else {
           this.showTimedAlert("error", response.message || "Unknown error");
-          this.loading = false;
+          this.loadingip = false;
         }
       });
   }
@@ -96,7 +96,7 @@ export class WhitelistIpsComponent implements OnInit {
   }
 
   refreshTable() {
-    this.loading = true;
+    this.loadingip = true;
     this.getWhitelistFileList();
   }
 

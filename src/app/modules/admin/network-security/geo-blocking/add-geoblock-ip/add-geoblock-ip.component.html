@@ -1,0 +1,40 @@
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Alert Message -->
+    <fuse-alert *ngIf="showAlert" [type]="alert.type" [dismissible]="true" (dismissed)="showAlert = false">
+        {{ alert.message }}
+    </fuse-alert>
+
+    <form [formGroup]="addGeoBlockIPForm" (ngSubmit)="onSubmit()" class="rounded-lg">
+        <div class="dialog-body ">
+            <div class="flex justify-center px-3">
+                <mat-form-field appearance="standard" class="w-full">
+                    <mat-label class="block font-semibold mb-1">Enter IP Address</mat-label>
+                    <input matInput type="text" formControlName="ip_address" placeholder="x.x.x.x"/>
+                    <small class="error" *ngIf="addGeoBlockIPForm.get('ip_address')?.invalid && addGeoBlockIPForm.get('ip_address')?.touched">
+                        Invalid IP Address.
+                    </small>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="mt-2" align="end">
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28" [color]="'primary'"
+                [disabled]="addGeoBlockIPForm.invalid || addGeoBlockIPForm.hasError('nonUniqueSelection')">
+                <span> Submit </span>
+                <mat-progress-spinner class="ml-3" *ngIf="isSubmitting" [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+        </div>
+    </form>
+
+
+</mat-dialog-content>

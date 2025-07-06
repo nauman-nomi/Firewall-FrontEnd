@@ -74,6 +74,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
 
+
+
     onMalwareIpDelete(row: any): void {
         row.sep = "malware-ip-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
@@ -86,6 +88,11 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
     onWhitelistIpDelete(row: any): void {
         row.sep = "whitelist-ip-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
+
+    onGeoBlockIpDelete(row: any): void {
+        row.sep = "geoblock-ip-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
 

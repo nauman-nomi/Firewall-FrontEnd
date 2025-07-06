@@ -10,7 +10,7 @@
                 {{alert.message}}
             </fuse-alert>
         </div>
-        <div *ngIf="loading" class="flex justify-center items-center my-4">
+        <div *ngIf="loadingip" class="flex justify-center items-center my-4">
             <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
         </div>
                 
@@ -21,10 +21,10 @@
                 </div>
                 
                 <div class="justify-self-end m-2 mr-4">
-                    <button *ngIf="!loading" (click)="AddWhitelistIP()" [disabled]="loading" matTooltip="Add IP" class="px-2 mr-2 pt-1 bg-white text-white rounded-md">
+                    <button *ngIf="!loadingip" (click)="AddWhitelistIP()" [disabled]="loadingip" matTooltip="Add IP" class="px-2 mr-2 pt-1 bg-white text-white rounded-md">
                         <mat-icon class="text-primary">add</mat-icon>
                     </button>
-                    <button *ngIf="!loading" (click)="refreshTable()" [disabled]="loading" matTooltip="Refresh" class="px-2 pt-1 bg-white text-white rounded-md">
+                    <button *ngIf="!loadingip" (click)="refreshTable()" [disabled]="loadingip" matTooltip="Refresh" class="px-2 pt-1 bg-white text-white rounded-md">
                         <mat-icon class="text-primary">refresh</mat-icon>
                     </button>
                 </div>

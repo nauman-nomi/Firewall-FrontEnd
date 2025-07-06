@@ -52,8 +52,7 @@ export class NicService {
     private countryViewUrl = environment.apiUrl + 'countryBlock.py/view';
     private countryAddUrl = environment.apiUrl + 'countryBlock.py/add';
     private countryDeleteUrl = environment.apiUrl + 'countryBlock.py/delete';
-
-
+    private countryRunUrl = environment.apiUrl + 'countryBlock.py/run';
 
 
     private listBlockIpUrl = environment.apiUrl + 'blockIP.py/listBlockIP';
@@ -350,6 +349,16 @@ export class NicService {
         return this.http.post<any>(this.countryDeleteUrl, body.toString(), { headers });
     }
 
+    execCountryCode(): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+
+        // No body needed, just send an empty POST
+        return this.http.post<any>(this.countryRunUrl, '', { headers });
+    }
+
+
 
 
 
@@ -401,7 +410,7 @@ export class NicService {
         );
     }
 
-        deleteWhitelistIP(payloadObj: any): Observable<any> {
+    deleteWhitelistIP(payloadObj: any): Observable<any> {
         console.log("deleteWhitelistIP() received:", payloadObj);
 
         const payload = new HttpParams().set('ip_address', payloadObj);
@@ -419,7 +428,7 @@ export class NicService {
         );
     }
 
-        deleteGeoBlockIP(payloadObj: any): Observable<any> {
+    deleteGeoBlockIP(payloadObj: any): Observable<any> {
         console.log("deleteGeoBlockIP() received:", payloadObj);
 
         const payload = new HttpParams().set('ip_address', payloadObj);
