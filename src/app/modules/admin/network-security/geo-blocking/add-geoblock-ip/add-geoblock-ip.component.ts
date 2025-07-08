@@ -23,7 +23,7 @@ errorAlert: { type: FuseAlertType; message: string } = { type: 'error', message:
     { 
         console.log(this.data.row);
         this.addGeoBlockIPForm = this.fb.group({
-            ip_address: ['', [Validators.required, Validators.pattern(/^(\d{1,3}\.){3}\d{1,3}$/)]],
+            ip_address: ['', [Validators.required, Validators.pattern(/^(\d{1,3}\.){3}\d{1,3}((:\d{1,5})|(\/\d{1,2}))?$/)]]
         });
     }
 

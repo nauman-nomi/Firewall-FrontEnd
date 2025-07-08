@@ -29,6 +29,7 @@ export class EmailGwFormComponent implements OnInit {
             smtptype: ['', [Validators.required]],
             domain: ['', [Validators.required]],
             ip_address: ['', [Validators.required, Validators.pattern(/^(\d{1,3}\.){3}\d{1,3}$/)]],
+            my_network: ['', [Validators.required, Validators.pattern(/^(\d{1,3}\.){3}\d{1,3}((:\d{1,5})|(\/\d{1,2}))?$/)]],
             port: ['', [Validators.required]],
         });
     }
@@ -75,6 +76,7 @@ export class EmailGwFormComponent implements OnInit {
         formData.append('domain', formValue.domain);
         formData.append('smtptype', formValue.smtptype);
         formData.append('ip_address', formValue.ip_address);
+        formData.append('my_network', formValue.my_network);
         formData.append('port', formValue.port);
 
         if (formValue.smtptype === 'smtps' && this.selectedFile) {

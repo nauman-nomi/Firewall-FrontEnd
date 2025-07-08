@@ -288,7 +288,8 @@ export class WarningDialogComponent implements OnInit {
             this.isSubmitting = true;
 
             const payload = {
-                domain: this.data.row.domain
+                domain: this.data.row.domain,
+                my_network: this.data.row.ip
             };
             console.log(payload);
             this.nicService.deleteEmailGwApi(payload).subscribe(

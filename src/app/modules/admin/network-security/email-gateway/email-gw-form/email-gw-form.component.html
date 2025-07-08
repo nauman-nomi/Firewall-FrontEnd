@@ -52,6 +52,15 @@
                     </small>
                 </div>
 
+                <div class="form-group">
+                    <label class="block font-semibold mb-1">Network:</label>
+                    <input type="text" class="input-field" formControlName="my_network" placeholder="192.168.1.1/24" />
+                    <small class="error"
+                        *ngIf="emailGWForm.get('my_network')?.invalid && emailGWForm.get('my_network')?.touched">
+                        e.g. 192.168.1.1/24
+                    </small>
+                </div>
+
                 <div class="form-group col-span-2" *ngIf="emailGWForm.get('smtptype')?.value === 'smtps'">
                     <label class="block font-semibold mb-1">Certificate</label>
                     <input type="file" class="input-field" (change)="onFileSelected($event)"
@@ -67,7 +76,7 @@
         <div class="mt-2" align="end">
             <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28" [color]="'primary'"
                 [disabled]="emailGWForm.invalid || emailGWForm.hasError('nonUniqueSelection')">
-                <span> Update </span>
+                <span> Submit </span>
                 <mat-progress-spinner class="ml-3" *ngIf="isSubmitting" [diameter]="24"
                     [mode]="'indeterminate'"></mat-progress-spinner>
             </button>
