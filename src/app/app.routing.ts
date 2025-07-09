@@ -80,21 +80,23 @@ export const appRoutes: Route[] = [
             {path: 'fwManagement', loadChildren: () => import('app/modules/admin/network-security/firewall-management/firewall-management.module').then(m => m.FirewallManagementModule)},
             {path: 'routing', loadChildren: () => import('app/modules/admin/network/routing/routing.modules').then(m => m.RoutingModule)},
             {path: 'BandwidthManagement', loadChildren: () => import('app/modules/admin/bandwidth-management/bandwidth-management.module').then(m => m.BandwidthManagementModule)},
-            {path: 'malware', loadChildren: () => import('app/modules/admin/threat-Protection/malware/malware.modules').then(m => m.MalwareModule)},
-            {path: 'idsips', loadChildren: () => import('app/modules/admin/threat-Protection/ids-ips-component/ids-ips-component.modules').then(m => m.IDSIPSModule)},
-
-            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/system-management/log-management/log-management.modules').then(m => m.LogManagementModule)},
-            {path: 'logManagement', loadChildren: () => import('app/modules/admin/system-management/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
+            
+            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/logging-monitoring/log-management/log-management.modules').then(m => m.LogManagementModule)},
+            {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
 
             {path: 'nat', loadChildren: () => import('app/modules/admin/network-security/nat/nat-management/nat-management.module').then(m => m.NATManagementModule)},
             {path: 'geoBlock', loadChildren: () => import('app/modules/admin/network-security/geo-blocking/geo-blocking.module').then(m => m.GeoBlockingModule)},
             {path: 'modSec', loadChildren: () => import('app/modules/admin/network-security/mod-security/mod-security.module').then(m => m.ModSecurityModule)},
             {path: 'emailGW', loadChildren: () => import('app/modules/admin/network-security/email-gateway/email-gateway.module').then(m => m.EmailGWModule)},
+            {path: 'idsips', loadChildren: () => import('app/modules/admin/network-security/ids-ips-component/ids-ips-component.modules').then(m => m.IDSIPSModule)},
 
+            {path: 'malware', loadChildren: () => import('app/modules/admin/network-security/malware/malware.modules').then(m => m.MalwareModule)},
             {path: 'blockIps', loadChildren: () => import('app/modules/admin/network-security/block-ips/block-ips.modules').then(m => m.BlockIpsModule)},
             {path: 'whitelistIPs', loadChildren: () => import('app/modules/admin/network-security/whitelist-ips/whitelist-ips.modules').then(m => m.WhitelistIpsModule)},
 
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
+
+            {path: 'vpn', loadChildren: () => import('app/modules/admin/vpn/vpn.component.module').then(m => m.VPNModules)},
         ]
     }
 ];

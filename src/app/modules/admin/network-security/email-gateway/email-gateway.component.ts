@@ -29,11 +29,12 @@ export class EmailGatewayComponent implements OnInit {
     ip: 'IP',
     port: 'Port',
     smtptype: 'Type',
+    network: 'Network',
     emailgw_action: 'Action'
   };
 
   displayedColumns: string[] = [
-    'domain', 'ip', 'port', 'smtptype', 'emailgw_action'
+    'domain', 'ip', 'port', 'smtptype', 'network', 'emailgw_action'
   ];
 
   constructor(public dialog: MatDialog, private getEmailGwService: NicService) {
@@ -113,6 +114,7 @@ export class EmailGatewayComponent implements OnInit {
   }
 
   onEditRow(row: any): void {
+    
     if (row.sep == "emailgw-delete") {
       console.log("delete");
       console.log(row);
@@ -127,6 +129,7 @@ export class EmailGatewayComponent implements OnInit {
         this.showTimedAlert("success", "Updated successfully")
       });
     }
+
     else if (row.sep == "emailgw-edit") {
       const dialogRef = this.dialog.open(EmailGwFormComponent, {
         width: '700px',

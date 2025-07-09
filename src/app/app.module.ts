@@ -34,9 +34,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { FuseCardModule } from '@fuse/components/card';
-import { AddMalwareIpComponent } from './modules/admin/threat-Protection/malware/add-malware-ip/add-malware-ip.component';
+import { AddMalwareIpComponent } from './modules/admin/network-security/malware/add-malware-ip/add-malware-ip.component';
 import { AddBlockIpComponent } from './modules/admin/network-security/block-ips/add-block-ip/add-block-ip.component';
 import { AddWhitelistIpComponent } from './modules/admin/network-security/whitelist-ips/add-whitelist-ip/add-whitelist-ip.component';
+
 // import { AddGeoBlockIpComponent } from './modules/admin/network-security/geo-blocking/add-geoblock-ip/add-geoblock-ip.component';
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -57,6 +58,7 @@ const routerConfig: ExtraOptions = {
         AddMalwareIpComponent,
         AddBlockIpComponent,
         AddWhitelistIpComponent,
+
         // AddGeoBlockIpComponent,
     ],
     imports     : [

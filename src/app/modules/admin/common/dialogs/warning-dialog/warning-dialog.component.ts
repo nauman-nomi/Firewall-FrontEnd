@@ -289,7 +289,7 @@ export class WarningDialogComponent implements OnInit {
 
             const payload = {
                 domain: this.data.row.domain,
-                my_network: this.data.row.ip
+                my_network: this.data.row.network
             };
             console.log(payload);
             this.nicService.deleteEmailGwApi(payload).subscribe(

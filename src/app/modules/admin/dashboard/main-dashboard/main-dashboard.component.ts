@@ -10,6 +10,7 @@ import { catchError } from 'rxjs/operators';
     templateUrl: './main-dashboard.component.html',
     styleUrls: ['./main-dashboard.component.scss']
 })
+
 export class MainDashboardComponent {
   
     alert: { type: FuseAlertType; message: string } = {type   : 'success',message: ''};
@@ -99,6 +100,7 @@ export class MainDashboardComponent {
     {
         this.getDashboard();
     }
+    
     ngOnDestroy() {
         clearInterval(this.intervalId); // Clean up
       }
