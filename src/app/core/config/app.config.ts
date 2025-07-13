@@ -24,7 +24,23 @@ export interface AppConfig
  * FuseConfigService and its methods.
  */
 export const appConfig: AppConfig = {
-    layout: 'compact',
+    layout: 'classic',
     scheme: 'light',
     theme : 'brand'
 };
+
+// export type Layout =
+//     | 'empty'
+    // Horizontal
+    // | 'centered'
+    // | 'enterprise'
+    // | 'material'
+    // | 'modern'
+
+    // Vertical
+    // | 'classic'
+    // | 'classy'
+    // | 'compact'
+    // | 'dense'
+    // | 'futuristic'
+    // | 'thin';

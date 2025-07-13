@@ -96,7 +96,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
 
-    onUnBlockCountry(row: any): void {
+    deleteGeoCountry(row: any): void {
         row.sep = "country-unblock-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }

@@ -85,14 +85,16 @@ export const appRoutes: Route[] = [
             {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
 
             {path: 'nat', loadChildren: () => import('app/modules/admin/network-security/nat/nat-management/nat-management.module').then(m => m.NATManagementModule)},
-            {path: 'geoBlock', loadChildren: () => import('app/modules/admin/network-security/geo-blocking/geo-blocking.module').then(m => m.GeoBlockingModule)},
+
             {path: 'modSec', loadChildren: () => import('app/modules/admin/network-security/mod-security/mod-security.module').then(m => m.ModSecurityModule)},
             {path: 'emailGW', loadChildren: () => import('app/modules/admin/network-security/email-gateway/email-gateway.module').then(m => m.EmailGWModule)},
             {path: 'idsips', loadChildren: () => import('app/modules/admin/network-security/ids-ips-component/ids-ips-component.modules').then(m => m.IDSIPSModule)},
 
-            {path: 'malware', loadChildren: () => import('app/modules/admin/network-security/malware/malware.modules').then(m => m.MalwareModule)},
-            {path: 'blockIps', loadChildren: () => import('app/modules/admin/network-security/block-ips/block-ips.modules').then(m => m.BlockIpsModule)},
-            {path: 'whitelistIPs', loadChildren: () => import('app/modules/admin/network-security/whitelist-ips/whitelist-ips.modules').then(m => m.WhitelistIpsModule)},
+            {path: 'geoCountry', loadChildren: () => import('app/modules/admin/threat-protection/geo-country/geo-country.modules').then(m => m.GeoCountryModule)},
+            {path: 'geoBlock', loadChildren: () => import('app/modules/admin/threat-protection/geo-blocking/geo-blocking.module').then(m => m.GeoBlockingModule)},
+            {path: 'malware', loadChildren: () => import('app/modules/admin/threat-protection/malware/malware.modules').then(m => m.MalwareModule)},
+            {path: 'blockIps', loadChildren: () => import('app/modules/admin/threat-protection/block-ips/block-ips.modules').then(m => m.BlockIpsModule)},
+            {path: 'whitelistIPs', loadChildren: () => import('app/modules/admin/threat-protection/whitelist-ips/whitelist-ips.modules').then(m => m.WhitelistIpsModule)},
 
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
 

@@ -98,43 +98,6 @@ export const compactNavigation: FuseNavigationItem[] = [
                 },
 
                 {
-                    id: 'ns.threatPrevention',
-                    title: 'Threat Prevention',
-                    type: 'collapsable',
-                    icon: 'mat_solid:shield',
-                    children: [
-                        {
-                            id: 'tp.mal',
-                            title: 'Malware',
-                            type: 'basic',
-                            icon: 'mat_solid:bug_report',
-                            link: '/malware'
-                        },
-                        {
-                            id: 'ns.gb',
-                            title: 'Geo-Blocking',
-                            type: 'basic',
-                            icon: 'mat_solid:public_off',
-                            link: '/geoBlock'
-                        },
-                        {
-                            id: 'ns.whitelistIPs',
-                            title: 'Whitelist IPs',
-                            type: 'basic',
-                            icon: 'mat_solid:verified_user',
-                            link: '/whitelistIPs'
-                        },
-                        {
-                            id: 'ns.blockIPs',
-                            title: 'Block IPs',
-                            type: 'basic',
-                            icon: 'mat_solid:block',
-                            link: '/blockIps'
-                        },
-
-                    ]
-                },
-                {
                     id: 'tp.ids',
                     title: 'IDS/ IPS',
                     type: 'basic',
@@ -158,10 +121,44 @@ export const compactNavigation: FuseNavigationItem[] = [
         subtitle: 'threat prevention',
         type: 'aside',
         icon: 'mat_solid:shield',
-        children:
-            [
+        children: [
+            {
+                id: 'ns.gb',
+                title: 'Geo-Country',
+                type: 'basic',
+                icon: 'mat_solid:public_off',
+                link: '/geoCountry'
+            },
+            {
+                id: 'ns.gb',
+                title: 'Geo-Blocking IP',
+                type: 'basic',
+                icon: 'mat_solid:public_off',
+                link: '/geoBlock'
+            },
+            {
+                id: 'tp.mal',
+                title: 'Malware',
+                type: 'basic',
+                icon: 'mat_solid:bug_report',
+                link: '/malware'
+            },
+            {
+                id: 'ns.whitelistIPs',
+                title: 'Whitelist IPs',
+                type: 'basic',
+                icon: 'mat_solid:verified_user',
+                link: '/whitelistIPs'
+            },
+            {
+                id: 'ns.blockIPs',
+                title: 'Block IPs',
+                type: 'basic',
+                icon: 'mat_solid:block',
+                link: '/blockIps'
+            },
 
-            ]
+        ]
     },
 
     {

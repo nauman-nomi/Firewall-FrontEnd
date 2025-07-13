@@ -23,7 +23,6 @@ export class NicService {
     // Python APIs
 
     private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
-    private getMalwareListApiUrl = environment.apiUrl + 'maliciousIP.py/listMaliciousIP';
     private updatetMalwareListApiUrl = environment.apiUrl + 'masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + 'masterApi.py/UpdateMalwareIPStatus';
     private getLogsApiUrl = environment.apiUrl + 'masterApi.py/logs';
@@ -41,31 +40,69 @@ export class NicService {
     private deleteEmailGwApiUrl = environment.apiUrl + 'mailServer.py/deleteMailServer';
 
 
-    private addMaliciousIPApiUrl = environment.apiUrl + '/maliciousIP.py/addMaliciousIP';
+
     private addCountryBlockApiUrl = environment.apiUrl + '/countryBlock.py/add';
 
     private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
 
-    private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
-    private deleteCountryApiUrl = environment.apiUrl + 'countryBlock.py/delete';
 
-    private countryViewUrl = environment.apiUrl + 'countryBlock.py/view';
-    private countryAddUrl = environment.apiUrl + 'countryBlock.py/add';
-    private countryDeleteUrl = environment.apiUrl + 'countryBlock.py/delete';
-    private countryRunUrl = environment.apiUrl + 'countryBlock.py/run';
+    // Rest API Path
+    // private countryViewUrl = environment.apiUrl + 'countryBlock.py/view';
+    // private countryAddUrl = environment.apiUrl + 'countryBlock.py/add';
+    // private countryDeleteUrl = environment.apiUrl + 'countryBlock.py/delete';
+    // private countryRunUrl = environment.apiUrl + 'countryBlock.py/run';
+
+    // Django urls
+    private countryViewUrl = environment.apiUrl + 'countries_view';
+    private countryAddUrl = environment.apiUrl + 'countries_add';
+    private countryDeleteUrl = environment.apiUrl + 'countries_delete';
+    private countryRunUrl = environment.apiUrl + 'countries_run';
+
+    // Rest API Path
+    // private getMalwareListApiUrl = environment.apiUrl + 'maliciousIP.py/listMaliciousIP';
+    // private addMaliciousIPApiUrl = environment.apiUrl + '/maliciousIP.py/addMaliciousIP';
+    // private deleteMaliciousIPApiUrl = environment.apiUrl + 'maliciousIP.py/deleteMaliciousIP';
+
+    // Django urls
+    private getMalwareListApiUrl = environment.apiUrl + 'listMaliciousIP';
+    private addMaliciousIPApiUrl = environment.apiUrl + 'addMaliciousIP';
+    private deleteMaliciousIPApiUrl = environment.apiUrl + 'deleteMaliciousIP';
 
 
-    private listBlockIpUrl = environment.apiUrl + 'blockIP.py/listBlockIP';
-    private addBlockIpUrl = environment.apiUrl + 'blockIP.py/addBlockIP';
-    private deleteBlockIpUrl = environment.apiUrl + 'blockIP.py/deleteBlockIP';
 
-    private listWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/listWhitelistIP';
-    private addWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/addWhitelistIP';
-    private deleteWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/deleteWhitelistIP';
+    // Rest API Path
+    // private listBlockIpUrl = environment.apiUrl + 'blockIP.py/listBlockIP';
+    // private addBlockIpUrl = environment.apiUrl + 'blockIP.py/addBlockIP';
+    // private deleteBlockIpUrl = environment.apiUrl + 'blockIP.py/deleteBlockIP';
 
-    private listGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/listGeoBlockIP';
-    private addGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/addGeoBlockIP';
-    private deleteGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/deleteGeoBlockIP';
+    // Django urls
+    private listBlockIpUrl = environment.apiUrl + 'listBlockIP';
+    private addBlockIpUrl = environment.apiUrl + 'addBlockIP';
+    private deleteBlockIpUrl = environment.apiUrl + 'deleteBlockIP';
+
+
+    // Rest API Path
+    // private listWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/listWhitelistIP';
+    // private addWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/addWhitelistIP';
+    // private deleteWhitelistIpUrl = environment.apiUrl + 'whitelistIP.py/deleteWhitelistIP';
+
+    // Django urls
+    private listWhitelistIpUrl = environment.apiUrl + 'listWhitelistIP';
+    private addWhitelistIpUrl = environment.apiUrl + 'addWhitelistIP';
+    private deleteWhitelistIpUrl = environment.apiUrl + 'deleteWhitelistIP';
+
+
+
+    // Rest API Path
+    // private listGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/listGeoBlockIP';
+    // private addGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/addGeoBlockIP';
+    // private deleteGeoBlockIpUrl = environment.apiUrl + 'geoBlockIP.py/deleteGeoBlockIP';
+
+    // Django urls
+    private listGeoBlockIpUrl = environment.apiUrl + 'listGeoBlockIP';
+    private addGeoBlockIpUrl = environment.apiUrl + 'addGeoBlockIP';
+    private deleteGeoBlockIpUrl = environment.apiUrl + 'deleteGeoBlockIP';
+
 
 
 
@@ -96,14 +133,7 @@ export class NicService {
 
 
 
-    unBlockCountry(country: any): Observable<any> {
 
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-        });
-        const payload = new HttpParams({ fromObject: country });
-        return this.http.post<any>(this.deleteCountryApiUrl, payload.toString(), { headers });
-    }
 
 
     UpdateMalwareData(): Observable<any> {
@@ -329,17 +359,12 @@ export class NicService {
         return this.http.post<any>(this.addModSecApiUrl, data); // Don't set Content-Type
     }
 
-    viewBlockedCountries(): Observable<any> {
-        return this.http.get<any>(this.countryViewUrl);
-    }
 
-    addBlockedCountry(code: string): Observable<any> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded'
-        });
-        const body = new HttpParams().set('countries', code);
-        return this.http.post<any>(this.countryAddUrl, body.toString(), { headers });
-    }
+
+
+
+
+
 
     deleteBlockedCountry(code: string): Observable<any> {
         const headers = new HttpHeaders({
@@ -349,6 +374,7 @@ export class NicService {
         return this.http.post<any>(this.countryDeleteUrl, body.toString(), { headers });
     }
 
+    
     execCountryCode(): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -361,6 +387,13 @@ export class NicService {
 
 
 
+
+    getGeoCountryListData(): Observable<any> {
+        const headers = new HttpHeaders({
+            'X-API-KEY': this.apiKey
+        });
+        return this.http.get<any>(this.countryViewUrl, { headers });
+    }
 
 
     getBlockIpListData(): Observable<any> {
@@ -382,6 +415,12 @@ export class NicService {
         return this.http.get<any>(this.listGeoBlockIpUrl, { headers });
     }
 
+
+    addGeoCountry(data: FormData): Observable<any> {
+
+        return this.http.post<any>(this.countryAddUrl, data); // Don't set Content-Type
+    }
+
     addBlockIP(data: FormData): Observable<any> {
         return this.http.post<any>(this.addBlockIpUrl, data); // Don't set Content-Type
     }
@@ -391,6 +430,8 @@ export class NicService {
     addGeoBlockIP(data: FormData): Observable<any> {
         return this.http.post<any>(this.addGeoBlockIpUrl, data); // Don't set Content-Type
     }
+
+
 
     deleteBlockIP(payloadObj: any): Observable<any> {
         console.log("deleteBlockIP() received:", payloadObj);
@@ -444,6 +485,24 @@ export class NicService {
                 })
             }
         );
+    }
+
+    deleteGeoCountry(payloadObj: any): Observable<any> {
+        console.log("deleteGeoCountry() received:", payloadObj);
+
+        const payload = new HttpParams().set('countries', payloadObj);
+        console.log("Payload:", payload.toString());
+
+        return this.http.post<any>(
+            this.countryDeleteUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+
     }
 
 }

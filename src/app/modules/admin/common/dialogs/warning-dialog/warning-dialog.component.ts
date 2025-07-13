@@ -193,14 +193,13 @@ export class WarningDialogComponent implements OnInit {
             this.cdr.detectChanges();
         }
         
-        else if (this.data.action === 'delete-country') {
+        else if (this.data.action === 'country-unblock-delete') {
             this.showAlert = false;
             this.isSubmitting = true;
-
             
-            this.nicService.unBlockCountry(this.data.row.county).subscribe(
+            this.nicService.deleteGeoCountry(this.data.row.country_code).subscribe(
                 (response) => {
-                    console.log('Malicious IP removed successfully:', response);
+                    console.log('Geo Country Unblocked:', response);
 
                     // Update the alert to show a success message
                     this.alert = {
@@ -219,7 +218,7 @@ export class WarningDialogComponent implements OnInit {
                     // Update the alert to show an error message
                     this.alert = {
                         type: 'error',
-                        message: 'Failed to removed Malicious IP. Please try again.'
+                        message: 'Failed to removed Geo Country. Please try again.'
                     };
                     this.showAlert = true;
                     this.isSubmitting = false;
