@@ -20,6 +20,8 @@ export class NicService {
 
     private getRoutingtableapiUrl = environment.apiUrl + '/getRoutingTable.php';
 
+    
+
     // Python APIs
 
     private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
@@ -30,20 +32,31 @@ export class NicService {
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
     private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
     private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
-    private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
-    private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
-    private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
+    // Rest API
+    // private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
+    // private getModSecApiUrl = environment.apiUrl + 'modSec.py/listDomain';
+    // private deleteModSecApiUrl = environment.apiUrl + 'modSec.py/deleteDomain';
+    // private getIPConfigApiUrl = environment.apiUrl + 'modSec.py/listip';
 
-    private addEmailGwApiUrl = environment.apiUrl + 'mailServer.py/addMailServer';
-    private getEmailGwApiUrl = environment.apiUrl + 'mailServer.py/viewMailServers';
-    private deleteEmailGwApiUrl = environment.apiUrl + 'mailServer.py/deleteMailServer';
+    // Django urls
+    private addModSecApiUrl = environment.apiUrl + 'addWapDomain';
+    private getModSecApiUrl = environment.apiUrl + 'listWapDomain';
+    private deleteModSecApiUrl = environment.apiUrl + 'deleteWapDomain';
+    private getIPConfigApiUrl = environment.apiUrl + 'listWapIps';
 
+    // Rest API
+    // private addEmailGwApiUrl = environment.apiUrl + 'mailServer.py/addMailServer';
+    // private getEmailGwApiUrl = environment.apiUrl + 'mailServer.py/viewMailServers';
+    // private deleteEmailGwApiUrl = environment.apiUrl + 'mailServer.py/deleteMailServer';
+
+    // Django urls
+    private addEmailGwApiUrl = environment.apiUrl + 'addMailServer';
+    private getEmailGwApiUrl = environment.apiUrl + 'viewMailServers';
+    private deleteEmailGwApiUrl = environment.apiUrl + 'deleteMailServer';
 
 
     private addCountryBlockApiUrl = environment.apiUrl + '/countryBlock.py/add';
-
-    private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
 
 
     // Rest API Path
