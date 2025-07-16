@@ -18,7 +18,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
     dataSource = new MatTableDataSource<any>();
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef) {
+        
+    }
 
     get isDataEmpty(): boolean {
         return !this.dataSource || !this.dataSource.data || this.dataSource.data.length === 0;
@@ -106,6 +108,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "modsec-delete";
         this.editRow.emit(row);
     }
+
 
     onEditWebModSec(row:any): void{
         row.sep = "modsec-edit";

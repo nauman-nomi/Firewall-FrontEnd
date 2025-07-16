@@ -126,10 +126,12 @@ export class ModSecurityComponent {
                  this.showTimedAlert("success","Updated successfully")
             });
         }
+
         else if(row.sep == "modsec-edit"){
             const dialogRef = this.dialog.open(ModSecFormComponent, {
                 width: '900px',
                 // disableClose: true,
+                
                 data: { title: 'Edit Mod Security', row: row, sep:'edit'}
             });
             dialogRef.afterClosed().subscribe(result => {
@@ -138,6 +140,7 @@ export class ModSecurityComponent {
                  this.showTimedAlert("success","Updated successfully")
             });
         }
+
         else if(row.sep == "modsec-view"){
             const dialogRef = this.dialog.open(ViewModSecDetailsComponent, {
                 width: '700px',

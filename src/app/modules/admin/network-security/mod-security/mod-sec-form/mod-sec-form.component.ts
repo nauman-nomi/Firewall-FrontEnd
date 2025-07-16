@@ -22,6 +22,7 @@ export class ModSecFormComponent {
     ifConfigList: any[] = ['1.2.3.4', '5.6.7.8', '55.66.77.88'];
     sslProtocolList: any[] = SSL_PROTOCOL_LIST;
     sslCipherList: any[] = SSL_CIPHER_LIST;
+    isEdit = false;
 
 
     constructor(public dialogRef: MatDialogRef<ModSecFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
@@ -53,6 +54,15 @@ export class ModSecFormComponent {
     }
 
     ngOnInit() {
+        if (this.data?.domain_name) {
+            this.isEdit = true;
+
+            // Patch webtype first so subscription triggers
+            this.modSecForm.patchValue({
+                webtype: this.data.web_type,
+            });
+        }
+
         this.modSecForm.get('webtype')?.valueChanges.subscribe((value) => {
             const cert = this.modSecForm.get('certificate');
             const certKey = this.modSecForm.get('certificateKey');
@@ -74,7 +84,54 @@ export class ModSecFormComponent {
             cert?.updateValueAndValidity();
             certKey?.updateValueAndValidity();
         });
+
+        if (this.data?.domain_name) {
+            this.modSecForm.patchValue({
+                listenIP: this.data.listenip,
+                domain: this.data.domain_name,
+                localip: this.data.localip,
+                ipwhitelist: this.data.ip_whitelist,
+                whiteMethod: this.data.method_whitelist
+                    ? this.data.method_whitelist.split(",").filter((m) => m.trim() !== "")
+                    : [],
+                ssl_session_cache_time: this.data.ssl_session_cache
+                    ? Number(this.data.ssl_session_cache)
+                    : null,
+                ssl_session_timeout_time: this.data.ssl_session_timeout
+                    ? Number(this.data.ssl_session_timeout)
+                    : null,
+                ssl_protocol: this.data.ssl_protocols
+                    ? this.data.ssl_protocols.split(",").filter((p) => p.trim() !== "")
+                    : [],
+                ssl_cipher: this.data.ssl_ciphers
+                    ? this.data.ssl_ciphers.split(",").filter((c) => c.trim() !== "")
+                    : [],
+                sslPreferServerCipher: this.data.ssl_prefer_server_ciphers,
+                dnsResolver: this.data.dns_resolver,
+                dnsResolverTimeout: this.data.resolver_timeout
+                    ? Number(this.data.resolver_timeout)
+                    : null,
+                maxBodySize: this.data.client_max_body_size
+                    ? Number(this.data.client_max_body_size)
+                    : null,
+                modSec: this.data.modSec,
+                http2: this.data.http2,
+                proxyBuffering: this.data.proxy_buffering,
+                proxyRequestBuffering: this.data.proxy_request_buffering
+            });
+
+            // Ensure HTTPS fields enabled if needed
+            const webtype = this.modSecForm.get('webtype')?.value;
+            if (webtype === 'https') {
+                this.modSecForm.get('certificate')?.enable();
+                this.modSecForm.get('certificateKey')?.enable();
+            } else {
+                this.modSecForm.get('certificate')?.disable();
+                this.modSecForm.get('certificateKey')?.disable();
+            }
+        }
     }
+
 
 
     onCertificateChange(event: any) {
@@ -140,6 +197,8 @@ export class ModSecFormComponent {
     }
 
     onSubmit() {
+
+        console.log("isEdit:", this.isEdit);
         if (this.modSecForm.invalid) {
             this.showAlert = true;
             this.errorAlert.message = 'Please fill all required fields correctly.';
@@ -148,6 +207,7 @@ export class ModSecFormComponent {
         }
 
         this.isSubmitting = true;
+
         const formValue = this.modSecForm.value;
         const formData = new FormData();
 
@@ -183,28 +243,55 @@ export class ModSecFormComponent {
         }
         console.log(formData);
         // Call API
-        this.getModSecService.addModSecAPI(formData).subscribe(
-            (response) => {
-                console.log('success called')
-                this.isSubmitting = false;
-                this.showAlert = true;
-                this.alert.type = 'success';
-                this.alert.message = 'ModSec configuration saved successfully!';
-                this.cdr.detectChanges(); // Ensure UI updates
-                setTimeout(() => {
-                    this.dialogRef.close(formData); // Close dialog after showing success
-                }, 2000); // Optional delay to show success message briefly
-            },
-            (error) => {
+        if (this.isEdit) {
+            this.modSecForm.get('domain')?.disable();
+            this.getModSecService.addModSecAPI(formData).subscribe(
 
-                this.isSubmitting = false;
-                this.showAlert = true;
-                this.alert.type = 'error';
-                this.alert.message = 'Failed to save Email Gateway configuration. Please try again.';
-                console.error('Error:', error);
-                this.cdr.detectChanges();
-            }
-        );
+                (response) => {
+                    console.log('success called')
+                    this.isSubmitting = false;
+                    this.showAlert = true;
+                    this.alert.type = 'success';
+                    this.alert.message = 'ModSec configuration updated successfully!';
+                    this.cdr.detectChanges(); // Ensure UI updates
+                    setTimeout(() => {
+                        this.dialogRef.close(formData); // Close dialog after showing success
+                    }, 2000); // Optional delay to show success message briefly
+                },
+                (error) => {
+
+                    this.isSubmitting = false;
+                    this.showAlert = true;
+                    this.alert.type = 'error';
+                    this.alert.message = 'Failed to update Email Gateway configuration. Please try again.';
+                    console.error('Error:', error);
+                    this.cdr.detectChanges();
+                }
+            );
+        } else {
+            this.getModSecService.addModSecAPI(formData).subscribe(
+                (response) => {
+                    console.log('success called')
+                    this.isSubmitting = false;
+                    this.showAlert = true;
+                    this.alert.type = 'success';
+                    this.alert.message = 'ModSec configuration saved successfully!';
+                    this.cdr.detectChanges(); // Ensure UI updates
+                    setTimeout(() => {
+                        this.dialogRef.close(formData); // Close dialog after showing success
+                    }, 2000); // Optional delay to show success message briefly
+                },
+                (error) => {
+
+                    this.isSubmitting = false;
+                    this.showAlert = true;
+                    this.alert.type = 'error';
+                    this.alert.message = 'Failed to save Email Gateway configuration. Please try again.';
+                    console.error('Error:', error);
+                    this.cdr.detectChanges();
+                }
+            );
+        }
     }
 
 }

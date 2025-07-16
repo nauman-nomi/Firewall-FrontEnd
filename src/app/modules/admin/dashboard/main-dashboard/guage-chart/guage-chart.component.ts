@@ -192,7 +192,7 @@ export class GuageChartComponent implements OnInit {
         setInterval(() => {
             const simulatedUsage = this.getValue("storage");
             this.chartOptions.series = [simulatedUsage];
-        }, 200000);
+        }, 200000000);
     }
 
     private initializeChartProcessor(): void {
@@ -250,7 +250,7 @@ export class GuageChartComponent implements OnInit {
             const simulatedUsage = this.getValue("processor");
             
             this.chartOptions.series = [simulatedUsage];
-        }, 200000);
+        }, 2000000);
     }
 
     // private generateRandomUsage(): number {

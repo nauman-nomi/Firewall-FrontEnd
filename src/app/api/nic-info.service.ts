@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class NicService {
+    
     private apiUrl = environment.apiUrl + '/getNicInfo.php';
     private updateApiUrl = environment.apiUrl + '/updateNicInfo.php';
     private updateGWApiUrl = environment.apiUrl + '/updateDefaultGw.php';
@@ -20,17 +21,25 @@ export class NicService {
 
     private getRoutingtableapiUrl = environment.apiUrl + '/getRoutingTable.php';
 
-    
-
     // Python APIs
     private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
     private updatetMalwareListApiUrl = environment.apiUrl + 'masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + 'masterApi.py/UpdateMalwareIPStatus';
     private getLogsApiUrl = environment.apiUrl + 'masterApi.py/logs';
 
-    private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
-    private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
-    private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
+
+
+
+    // Rest APIs
+    // private getDateTimeApiUrl = environment.apiUrl + 'dateTime.py';
+    // private getUsageStatsApiUrl = environment.apiUrl + 'systemspec.py';
+    // private getSystemInfoApiUrl = environment.apiUrl + 'sysinfo.py';
+
+    // Django urls
+    private getSystemInfoApiUrl = environment.apiUrl + 'systemInfo';
+    private getUsageStatsApiUrl = environment.apiUrl + 'systemMetrics';
+    private getDateTimeApiUrl = environment.apiUrl + 'dateTime';
+    private getInternetSpeedUrl = environment.apiUrl + 'internetSpeed';
 
     // Rest API
     // private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
@@ -42,6 +51,7 @@ export class NicService {
     private addModSecApiUrl = environment.apiUrl + 'addWapDomain';
     private getModSecApiUrl = environment.apiUrl + 'listWapDomain';
     private deleteModSecApiUrl = environment.apiUrl + 'deleteWapDomain';
+    private updateModSecApiUrl = environment.apiUrl + 'updateWapDomain';
     private getIPConfigApiUrl = environment.apiUrl + 'listWapIps';
 
     // Rest API
