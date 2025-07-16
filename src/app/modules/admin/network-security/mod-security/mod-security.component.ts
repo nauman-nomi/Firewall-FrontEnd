@@ -21,7 +21,7 @@ export class ModSecurityComponent {
     data: any[] = [];
     headerMapping: { [key: string]: string } = {
         domain_name: 'Website Name',
-        ip_port: 'IP',
+        listenip: 'IP',
         modSec: 'Mod Security Status',
         web_type: 'Type',
         http2: 'HTTP2',
@@ -30,8 +30,9 @@ export class ModSecurityComponent {
     };
 
     displayedColumns: string[] = [
-        'domain_name','ip_port', 'modSec', 'web_type','http2', 'method_whitelist' ,'modSec_action'
+        'domain_name','listenip', 'modSec', 'web_type','http2', 'method_whitelist' ,'modSec_action'
     ];
+
     constructor(public dialog: MatDialog, private getModSecService: NicService) 
     {
         this.getModSecInfo();
@@ -61,8 +62,10 @@ export class ModSecurityComponent {
                 //if (response.api_status === 'success') 
                 if (true) 
                 {
+                    console.log(this.data);
                     // Assign values to individual variables
-                    this.data = response;
+                    this.data = response.data;
+
                     console.log(response);
                     this.loading = false;
                     this.showAlert = true;

@@ -9,18 +9,17 @@
     </div>
 
     <!-- Alert Message -->
-    <fuse-alert class="mt-2" *ngIf="showAlert"
-        [appearance]="'soft'" [showIcon]="true" [type]="errorAlert.type" >
+    <fuse-alert class="mt-2" *ngIf="showAlert" [appearance]="'soft'" [showIcon]="true" [type]="alert.type || errorAlert.type">
         {{ errorAlert.message }}
     </fuse-alert>
-    
+
 
     <form [formGroup]="modSecForm" (ngSubmit)="onSubmit()" class="rounded-lg">
         <div class="dialog-body">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 px-4">
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold mb-1">Listen IP</mat-label>
-                    <mat-select formControlName="listenIP" >
+                    <mat-select formControlName="listenIP">
                         <mat-option *ngFor="let ip of ifConfigList" [value]="ip">
                             {{ ip }}
                         </mat-option>
@@ -29,16 +28,17 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold mb-1">Domain Name</mat-label>
-                    <input matInput type="text" formControlName="domain" placeholder="abc.com"/>
+                    <input matInput type="text" formControlName="domain" placeholder="abc.com" />
                     <small class="error" *ngIf="modSecForm.get('domain')?.invalid && modSecForm.get('domain')?.touched">
                         Invalid Domain Name.
                     </small>
                 </mat-form-field>
-                    
+
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">Local IP & Part</mat-label>
-                    <input matInput type="text" formControlName="localip" placeholder="192.168.1.1:1234"/>
-                    <small class="error" *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
+                    <input matInput type="text" formControlName="localip" placeholder="192.168.1.1:1234" />
+                    <small class="error"
+                        *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
                         Invalid IP and Port (e.g. 192.168.1.1:1234).
                     </small>
                     <small *ngIf="modSecForm.get('listenIP')?.hasError('invalidIpPort')">
@@ -48,12 +48,14 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">IP Whitelisting</mat-label>
-                    <input matInput type="text" formControlName="ipwhitelist" placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24"/>
-                    <small class="error" *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
+                    <input matInput type="text" formControlName="ipwhitelist"
+                        placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24" />
+                    <small class="error"
+                        *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
                         Invalid Entries.
                     </small>
                 </mat-form-field>
-                
+
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold mb-1">Whitelist Method</mat-label>
                     <mat-select formControlName="whiteMethod" multiple>
@@ -65,12 +67,14 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">SSL Session Cache (Seconds)</mat-label>
-                    <input matInput type="number" min = '0' formControlName="ssl_session_cache_time" placeholder="Seconds"/>
+                    <input matInput type="number" min='0' formControlName="ssl_session_cache_time"
+                        placeholder="Seconds" />
                 </mat-form-field>
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">SSL Session Timeout (Seconds)</mat-label>
-                    <input matInput type="number" min = '0' formControlName="ssl_session_timeout_time" placeholder="Seconds"/>
+                    <input matInput type="number" min='0' formControlName="ssl_session_timeout_time"
+                        placeholder="Seconds" />
                 </mat-form-field>
 
                 <mat-form-field appearance="standard" class="w-full">
@@ -93,7 +97,7 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">DNS Resolver</mat-label>
-                    <input matInput type="text" formControlName="dnsResolver" placeholder="8.8.8.8"/>
+                    <input matInput type="text" formControlName="dnsResolver" placeholder="8.8.8.8" />
                     <small *ngIf="modSecForm.get('dnsResolver')?.hasError('multiIPv4DNSResolverValidator')">
                         Please enter valid space-separated IPv4 addresses (e.g., 8.8.8.8 1.1.1.1)
                     </small>
@@ -101,12 +105,12 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">DNS Resolver Timeout (Seconds)</mat-label>
-                    <input matInput type="number" min ="0" formControlName="dnsResolverTimeout" placeholder="Seconds"/>
+                    <input matInput type="number" min="0" formControlName="dnsResolverTimeout" placeholder="Seconds" />
                 </mat-form-field>
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">Max Body Size</mat-label>
-                    <input matInput type="number" min ="0" formControlName="maxBodySize" placeholder="MB"/>
+                    <input matInput type="number" min="0" formControlName="maxBodySize" placeholder="MB" />
                 </mat-form-field>
 
                 <div class="border-t-2 border-gray-200 col-span-3 mb-3"></div>
@@ -114,7 +118,8 @@
                 <div class="form-group">
                     <div class="flex flex-row justify-start">
                         <span class="font-semibold">Website Type:</span>
-                        <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="webtype" [value]="">
+                        <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="webtype"
+                            [value]="">
                             <mat-radio-button class="" [value]="'https'">
                                 HTTPS
                             </mat-radio-button>
@@ -136,7 +141,7 @@
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
-                
+
                 <div class="flex flex-row justify-start">
                     <span class="font-semibold">HTTP2</span>
                     <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="http2" [value]="">
@@ -148,10 +153,11 @@
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
-                
+
                 <div class="flex flex-row justify-start">
                     <span class="font-semibold">SSL Prefer Server Cipher </span>
-                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="sslPreferServerCipher" [value]="">
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'"
+                        formControlName="sslPreferServerCipher" [value]="">
                         <mat-radio-button class="" [value]="'on'">
                             On
                         </mat-radio-button>
@@ -163,7 +169,8 @@
 
                 <div class="flex flex-row justify-start">
                     <span class="font-semibold">Proxy Buffering </span>
-                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="proxyBuffering" [value]="">
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="proxyBuffering"
+                        [value]="">
                         <mat-radio-button class="" [value]="'on'">
                             On
                         </mat-radio-button>
@@ -175,7 +182,8 @@
 
                 <div class="flex flex-row justify-start">
                     <span class="font-semibold">Proxy Request Buffering </span>
-                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'" formControlName="proxyRequestBuffering" [value]="">
+                    <mat-radio-group class="flex flex-row mx-3" [color]="'primary'"
+                        formControlName="proxyRequestBuffering" [value]="">
                         <mat-radio-button class="" [value]="'on'">
                             On
                         </mat-radio-button>
@@ -186,43 +194,42 @@
                 </div>
 
                 <div class="border-t-2 border-gray-200 col-span-3 my-3"></div>
-                
+
                 <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate</label>
-                    <input type="file" class="input-field" formControlName="certificate" placeholder="abc.crt"/>
-                    <small class="error" *ngIf="modSecForm.get('certificate')?.invalid && modSecForm.get('certificate')?.touched">
-                        Invalid certificate.
+                    <input type="file" class="input-field" (change)="onCertificateChange($event)" />
+                    <small class="error"
+                        *ngIf="modSecForm.get('certificate')?.hasError('required') && modSecForm.get('certificate')?.touched">
+                        Certificate file is required.
                     </small>
                 </div>
-    
+
                 <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate Key</label>
-                    <input type="file" class="input-field" formControlName="certificateKey" placeholder="abc.key"/>
-                    <small class="error" *ngIf="modSecForm.get('certificateKey')?.invalid && modSecForm.get('certificateKey')?.touched">
-                        Invalid key.
+                    <input type="file" class="input-field" (change)="onCertificateKeyChange($event)" />
+                    <small class="error"
+                        *ngIf="modSecForm.get('certificateKey')?.hasError('required') && modSecForm.get('certificateKey')?.touched">
+                        Certificate key file is required.
                     </small>
                 </div>
-                
-                
+
+
 
             </div>
         </div>
 
         <!-- Submit Button -->
-      
+
         <div class="mt-2" align="end">
-            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28"
-                [color]="'primary'" 
+            <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28" [color]="'primary'"
                 [disabled]="modSecForm.invalid || modSecForm.hasError('nonUniqueSelection')">
                 <span> Update </span>
-                <mat-progress-spinner class="ml-3"
-                    *ngIf="isSubmitting"
-                    [diameter]="24"
+                <mat-progress-spinner class="ml-3" *ngIf="isSubmitting" [diameter]="24"
                     [mode]="'indeterminate'"></mat-progress-spinner>
             </button>
-           
+
         </div>
     </form>
-    
-    
+
+
 </mat-dialog-content>

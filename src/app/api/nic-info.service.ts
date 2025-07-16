@@ -23,7 +23,6 @@ export class NicService {
     
 
     // Python APIs
-
     private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
     private updatetMalwareListApiUrl = environment.apiUrl + 'masterApi.py/updateMalwareFile';
     private updateMalwareStatusApiUrl = environment.apiUrl + 'masterApi.py/UpdateMalwareIPStatus';
