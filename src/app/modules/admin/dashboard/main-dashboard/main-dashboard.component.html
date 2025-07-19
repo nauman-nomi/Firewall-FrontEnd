@@ -1,11 +1,7 @@
 <div class="flex flex-auto  sm:px-5">
     <div class="flex flex-col flex-auto w-full">
         <div class="mb-8" *ngIf="showAlert">
-            <fuse-alert
-                class="mt-0 -mb-2"
-                *ngIf="showAlert"
-                [appearance]="'outline'"
-                [showIcon]="true"
+            <fuse-alert class="mt-0 -mb-2" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="true"
                 [type]="alert.type">
                 {{alert.message}}
             </fuse-alert>
@@ -27,32 +23,32 @@
             </div>  
         </div> -->
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-6 mb-4 gap-4">
-            <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">   
+            <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-blue-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-blue-500 sm:text-4xl">
                         {{systemInfo.interfacesCount || 'N/A'}}
                     </div>
-                    <div class="text-lg text-blue-600 dark:text-blue-500"> 
+                    <div class="text-lg text-blue-600 dark:text-blue-500">
                         Interfaces
                     </div>
                 </div>
             </div>
             <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-warn-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-warn-500 sm:text-4xl">
                         {{systemInfo.failed_login_attempts || 'N/A'}}
                     </div>
-                    <div class="text-lg text-warn-600 dark:text-warn-500"> 
+                    <div class="text-lg text-warn-600 dark:text-warn-500">
                         Failed Login
                     </div>
                 </div>
             </div>
             <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-orange-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-orange-500 sm:text-4xl">
                         {{systemInfo.blocked_ip_count || 'N/A'}}
                     </div>
-                    <div class="text-lg text-orange-600 dark:text-orange-500"> 
+                    <div class="text-lg text-orange-600 dark:text-orange-500">
                         Blocked IPs
                     </div>
                 </div>
@@ -60,30 +56,30 @@
 
             <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-green-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-green-500 sm:text-4xl">
                         {{systemInfo.firewallRules || 'N/A'}}
                     </div>
-                    <div class="text-lg text-green-600 dark:text-green-500"> 
+                    <div class="text-lg text-green-600 dark:text-green-500">
                         Firewall Rules
                     </div>
                 </div>
             </div>
             <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-accent-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-accent-500 sm:text-4xl">
                         {{systemInfo.open_ports_count || 'N/A'}}
                     </div>
-                    <div class="text-lg text-accent-600 dark:text-accent-500"> 
+                    <div class="text-lg text-accent-600 dark:text-accent-500">
                         Ports
                     </div>
                 </div>
             </div>
             <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-3 shadow">
                 <div class="flex flex-col items-center">
-                    <div class="text-2xl font-medium leading-none tracking-tight text-purple-500 sm:text-4xl"> 
+                    <div class="text-2xl font-medium leading-none tracking-tight text-purple-500 sm:text-4xl">
                         {{systemInfo.cpuTemp || 'N/A'}}
                     </div>
-                    <div class="text-lg text-purple-600 dark:text-purple-500"> 
+                    <div class="text-lg text-purple-600 dark:text-purple-500">
                         Temperature
                     </div>
                 </div>
@@ -92,7 +88,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-5 mb-2 gap-4">
             <div>
                 <div class="bg-card shadow rounded-lg p-4">
-                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">System Information</h2>
+                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">System Information
+                    </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Hostname</h3>
@@ -118,20 +115,18 @@
                             <h3 class="text-sm font-medium text-gray-500">Number of Cores</h3>
                             <p class="text-sm text-gray-900">{{ systemInfo.cores || 'N/A'}}</p>
                         </div>
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-500">Power Consumption</h3>
-                            <p class="text-sm text-gray-900" [innerHTML]="systemInfo.powerConsumption || 'N/A'"></p>
-                        </div>
+
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Fan Speed</h3>
-                            <p class="text-sm text-red-900">{{ systemSpec.fanSpeed || 'N/A'}}</p>
+                            <p class="text-sm text-red-900">{{ fanPacket.fanSpeed || 'N/A'}}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
                 <div class="bg-card shadow rounded-lg p-4">
-                    <h2 class="text-lg font-medium text-gray-900 border-b-2 border-primary-200">Security Information</h2>
+                    <h2 class="text-lg font-medium text-gray-900 border-b-2 border-primary-200">Security Information
+                    </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2  mt-4">
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Firewall Status</h3>
@@ -147,11 +142,11 @@
                         </div>
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Dropped Packets</h3>
-                            <p class="text-sm text-red-900">{{ systemSpec.droppedPackets || 'N/A'}}</p>
+                            <p class="text-sm text-red-900">{{ fanPacket.droppedPackets || 'N/A'}}</p>
                         </div>
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Accepted Packets</h3>
-                            <p class="text-sm text-red-900">{{ systemSpec.acceptedPackets || 'N/A'}}</p>
+                            <p class="text-sm text-red-900">{{ fanPacket.acceptedPackets || 'N/A'}}</p>
                         </div>
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Blocked IP Count</h3>
@@ -165,22 +160,29 @@
                 </div>
             </div>
             <div>
-                <div class="bg-card shadow rounded-lg p-4 h-full">
+                <div class="bg-card shadow rounded-lg p-2 h-full">
                     <h2 class="text-lg font-medium text-gray-900 border-b-2 border-primary-200">Misc Information</h2>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div class="mt-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-1 gap-2">
+
+                        <div class="mt-2">
                             <h3 class="text-sm font-medium text-gray-500">Open Ports</h3>
                             <ul class="list-disc list-inside text-sm text-gray-900">
                                 <li *ngFor="let port of systemInfo.open_ports" class="ml-3">{{ port }}</li>
                             </ul>
                         </div>
-                        <div class="mt-4">
+
+                        <div class="mt-2">
                             <h3 class="text-sm font-medium text-gray-500">Logged In Users</h3>
                             <ul class="list-disc list-inside text-sm text-gray-900">
                                 <li *ngFor="let user of systemInfo.loggedInUsers" class="ml-3">{{ user.username }}</li>
                             </ul>
                         </div>
-                    </div> 
+
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">Power Consumption</h3>
+                            <p class="text-sm text-gray-900" [innerHTML]="systemInfo.powerConsumption || 'N/A'"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-span-2">
@@ -197,7 +199,7 @@
                             <app-guage-chart category="processor"></app-guage-chart>
                         </div>
                     </div>
-                    
+
                     <!-- <div class="space-y-7">
                       <!-- Storage --
                         <div>
@@ -241,7 +243,8 @@
             <div>
                 <!-- Network Info -->
                 <div class="bg-card shadow rounded-lg p-4">
-                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">Network Information</h2>
+                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">Network Information
+                    </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <h3 class="text-sm font-medium text-gray-500">Default Gateway</h3>
@@ -251,7 +254,7 @@
                             <h3 class="text-sm font-medium text-gray-500">DNS</h3>
                             <p class="text-sm text-gray-900">{{ systemInfo.dns }}</p>
                         </div>
-                        
+
                     </div>
                     <!-- <h3 class="text-sm font-medium text-gray-900 mb-2">Network Interfaces</h3> -->
                     <app-traffic-graph></app-traffic-graph>
@@ -286,24 +289,35 @@
             </div>
             <div class="h-full">
                 <div class="bg-card shadow rounded-lg p-4 h-full">
-                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">Processes & Services</h2>
-                    
+                    <h2 class="text-lg font-medium text-gray-900 mb-4 border-b-2 border-primary-200">Processes &
+                        Services</h2>
+
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PID</th>
-                            <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPU %</th>
-                            <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Memory</th>
-                        </tr>
+                            <tr>
+                                <th scope="col"
+                                    class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    PID</th>
+                                <th scope="col"
+                                    class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name</th>
+                                <th scope="col"
+                                    class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    CPU %</th>
+                                <th scope="col"
+                                    class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Memory</th>
+                            </tr>
                         </thead>
                         <tbody class="bg-carddivide-y divide-gray-200">
-                        <tr *ngFor="let process of systemInfo.top_processes">
-                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.pid }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900">{{ process.name }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.cpu_percent }}%</td>
-                            <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.memory_percent }} GB</td>
-                        </tr>
+                            <tr *ngFor="let process of systemInfo.top_processes">
+                                <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.pid }}</td>
+                                <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-900">{{ process.name }}</td>
+                                <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.cpu_percent }}%
+                                </td>
+                                <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-500">{{ process.memory_percent
+                                    }} GB</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

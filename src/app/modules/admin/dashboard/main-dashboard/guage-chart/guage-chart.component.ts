@@ -1,9 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
-import {ApexChart,ApexDataLabels,ApexFill,ApexLegend,ApexNonAxisChartSeries,ApexPlotOptions,ApexResponsive,ApexStroke} from 'ng-apexcharts';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+
+import { catchError, switchMap } from 'rxjs/operators';
+
+import {
+    ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries,
+    ApexPlotOptions, ApexResponsive, ApexStroke
+} from 'ng-apexcharts';
+import { Subscription, interval, of } from 'rxjs';
+
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -14,7 +20,7 @@ export type ChartOptions = {
     dataLabels?: ApexDataLabels;
     fill: ApexFill;
     responsive?: ApexResponsive[];
-    legend: ApexLegend,
+    legend: ApexLegend;
 };
 
 @Component({
@@ -22,288 +28,136 @@ export type ChartOptions = {
     templateUrl: './guage-chart.component.html',
     styleUrls: ['./guage-chart.component.scss']
 })
-export class GuageChartComponent implements OnInit {
-    @Input() category: any; 
-    title:string="";
-    stats:string="";
-
-    alert: { type: FuseAlertType; message: string } = {type   : 'success',message: ''};
+export class GuageChartComponent implements OnInit, OnDestroy {
+    @Input() category: 'ram' | 'storage' | 'processor' = 'ram';
+    title: string = '';
+    stats: string = '';
+    alert: { type: FuseAlertType; message: string } = { type: 'success', message: '' };
     showAlert: boolean = false;
-    loading: boolean = true;
-    data:any;
-    
+    chartOptions: Partial<ChartOptions> = {};
+    private pollSub!: Subscription;
 
-    public chartOptions: Partial<ChartOptions> = {};
+    constructor(private getdashboardService: NicService, private cdr: ChangeDetectorRef) { }
 
-    constructor(private getdashboardService: NicService,private cdr: ChangeDetectorRef)
-    {
-
-    }
-    
     ngOnInit(): void {
-        
-        if(this.category =="ram"){
-            this.title = "RAM";
-            this.stats = "8 / 16 GB";
-            
-            this.initializeChartRAM();
-            
-            this.startRamUsageSimulation();
-        }
-        else if(this.category == "storage")
-        {
-            this.title = "Storage";
-            this.stats = "100 / 200 TB";
-            this.initializeChartStorage();
-            this.startStorageUsageSimulation();
-        }
-        else if(this.category == "processor")
-        {
-            this.title = "Processor";
-            this.stats = "1.6 / 2.4 GHz"
-            this.initializeChartProcessor();
-            this.startProcessorUsageSimulation();
+        this.setTitle();
+        this.initializeChart();
+
+        // Poll every 10 seconds
+        this.pollSub = interval(10000).pipe(
+            switchMap(() =>
+                this.getdashboardService.getUsageStatsAPI().pipe(
+                    catchError(error => {
+                        console.error('API error occurred:', error);
+                        return of(null); // Gracefully return null to keep polling alive
+                    })
+                )
+            )
+        ).subscribe(response => {
+            if (response && response.api_status === 'success') {
+                this.updateChart(response);
+            } else {
+                console.warn('Invalid or failed response from getUsageStatsAPI');
+            }
+        });
+    }
+
+    ngOnDestroy(): void {
+        if (this.pollSub) {
+            this.pollSub.unsubscribe();
         }
     }
 
-    
-    
+    private setTitle(): void {
+        if (this.category === 'ram') {
+            this.title = 'RAM';
+        } else if (this.category === 'storage') {
+            this.title = 'Storage';
+        } else if (this.category === 'processor') {
+            this.title = 'Processor';
+        }
+    }
+
+    private initializeChart(): void {
+        let color = this.category === 'ram' ? '#00BFFF'
+            : this.category === 'storage' ? '#FFA500'
+                : '#008000';
+
+        this.chartOptions = {
+            series: [0],
+            chart: {
+                type: 'radialBar',
+                height: 200,
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout',
+                    dynamicAnimation: { speed: 1000 }
+                }
+            },
+            legend: { show: true, position: 'bottom' },
+            labels: [''],
+            plotOptions: {
+                radialBar: {
+                    startAngle: -135,
+                    endAngle: 135,
+                    hollow: { size: '60%' },
+                    track: {
+                        background: '#f0f0f0',
+                        strokeWidth: '97%',
+                        margin: 5
+                    },
+                    dataLabels: {
+                        name: {
+                            fontSize: '16px',
+                            color: '#333',
+                            offsetY: -70
+                        },
+                        value: {
+                            formatter: (val: number) => `${val}%`,
+                            fontSize: '20px',
+                            color: '#111',
+                            offsetY: 0,
+                            show: true
+                        }
+                    }
+                }
+            },
+            fill: { colors: [color] }
+        };
+    }
+
+    private updateChart(response: any): void {
+        if (this.category === 'ram') {
+            const total = this.parseGB(response.total_ram);
+            const free = this.parseMB(response.ram_usage.free);
+            const used = total > 0 ? 100 - ((free / total) * 100) : 0;
+            this.stats = `${(total - free).toFixed(1)} / ${total} GB`;
+            this.chartOptions.series = [Math.round(used)];
+        } else if (this.category === 'processor') {
+            const cpuUsage = 100 - parseFloat(response.cpu_usage.idle || '0');
+            this.stats = `${cpuUsage.toFixed(1)}%`;
+            this.chartOptions.series = [Math.round(cpuUsage)];
+        } else if (this.category === 'storage') {
+            const used = parseFloat((response.storage_usage?.capacity || '0').replace('%', ''));
+            const size = response.storage_usage?.size || '';
+            const usedSize = response.storage_usage?.used || '';
+            this.stats = `${usedSize} / ${size}`;
+            this.chartOptions.series = [used];
+        }
+        this.cdr.detectChanges();
+    }
+
+    private parseGB(str: string): number {
+        return parseFloat(str.replace('GB', '').trim());
+    }
+
+    private parseMB(str: string): number {
+        return parseFloat(str.replace('M', '').trim()) / 1024;
+    }
+
     showTimedAlert(type: FuseAlertType, message: string) {
-        this.alert.type = type;
-        this.alert.message = message;
+        this.alert = { type, message };
         this.showAlert = true;
-    
-        // Automatically hide the alert after 5 seconds
-        setTimeout(() => {
-          this.showAlert = false;
-        }, 2000);
-    }
-
-    private initializeChartRAM(): void {
-        this.chartOptions = {
-            series: [0],
-            chart: {
-                type: 'radialBar',
-                height: 200,
-                animations: {
-                    enabled: true,
-                    easing: 'easeinout',
-                    dynamicAnimation: {
-                        speed: 1000
-                    }
-                }
-            },
-            legend: { show: true, position: 'bottom' },
-            labels: [''],
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    hollow: {
-                        size: '60%'
-                    },
-                    track: {
-                        background: '#f0f0f0',
-                        strokeWidth: '97%',
-                        margin: 5
-                    },
-                    dataLabels: {
-                        name: {
-                            fontSize: '16px',
-                            color: '#333',
-                            offsetY: -70
-                        },
-                        value: {
-                            formatter: (val: number) => `${val}%`,
-                            fontSize: '20px',
-                            color: '#111',
-                            offsetY: 0,
-                            show: true
-                        }
-                    }
-                }
-            },
-            fill: {
-                colors: ['#00BFFF']
-            }
-        };
-    }
-
-    private startRamUsageSimulation(): void {
-        
-        setInterval(() => {
-            const simulatedUsage = this.getValue("ram");
-            
-            this.chartOptions.series = [simulatedUsage];
-        }, 2000);
-    }
-
-    private initializeChartStorage(): void {
-        this.chartOptions = {
-            series: [0],
-            chart: {
-                type: 'radialBar',
-                height: 200,
-                animations: {
-                    enabled: true,
-                    easing: 'easeinout',
-                    dynamicAnimation: {
-                        speed: 1000
-                    }
-                }
-            },
-            legend: { show: true, position: 'bottom' },
-            labels: [''],
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    hollow: {
-                        size: '60%'
-                    },
-                    track: {
-                        background: '#f0f0f0',
-                        strokeWidth: '97%',
-                        margin: 5
-                    },
-                    dataLabels: {
-                        name: {
-                            fontSize: '16px',
-                            color: '#333',
-                            offsetY: -70
-                        },
-                        value: {
-                            formatter: (val: number) => `${val}%`,
-                            fontSize: '20px',
-                            color: '#111',
-                            offsetY: 0,
-                            show: true
-                        }
-                    }
-                }
-            },
-            fill: {
-                colors: ['#FFA500']
-            }
-        };
-    }
-
-    private startStorageUsageSimulation(): void {
-        setInterval(() => {
-            const simulatedUsage = this.getValue("storage");
-            this.chartOptions.series = [simulatedUsage];
-        }, 200000000);
-    }
-
-    private initializeChartProcessor(): void {
-        this.chartOptions = {
-            series: [0],
-            chart: {
-                type: 'radialBar',
-                height: 200,
-                animations: {
-                    enabled: true,
-                    easing: 'easeinout',
-                    dynamicAnimation: {
-                        speed: 1000
-                    }
-                }
-            },
-            legend: { show: true, position: 'bottom' },
-            labels: [''],
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    hollow: {
-                        size: '60%'
-                    },
-                    track: {
-                        background: '#f0f0f0',
-                        strokeWidth: '97%',
-                        margin: 5
-                    },
-                    dataLabels: {
-                        name: {
-                            fontSize: '16px',
-                            color: '#333',
-                            offsetY: -70
-                        },
-                        value: {
-                            formatter: (val: number) => `${val}%`,
-                            fontSize: '20px',
-                            color: '#111',
-                            offsetY: 0,
-                            show: true
-                        }
-                    }
-                }
-            },
-            fill: {
-                colors: ['#008000']
-            }
-        };
-    }
-
-    private startProcessorUsageSimulation(): void {
-        setInterval(() => {
-            const simulatedUsage = this.getValue("processor");
-            
-            this.chartOptions.series = [simulatedUsage];
-        }, 2000000);
-    }
-
-    // private generateRandomUsage(): number {
-    //     return Math.floor(Math.random() * 101); // 0 to 100%
-    // }
-
-    private getValue(sep:string): number {
-        
-        if(sep == "ram")
-        {
-            return this.getUsageStats(sep);
-        }
-        else if(sep == "processor")
-        {
-            return this.getUsageStats(sep);
-        }
-        else if(sep == "storage")
-        {
-            return this.getUsageStats(sep);
-        }
-        else 
-        {
-            return 0;
-        }
-        // return Math.floor(Math.random() * 101); // 0 to 100%
-    }
-
-    private getUsageStats(sep:string): number{
-        let output = 0;
-        this.getdashboardService.getUsageStatsAPI()
-            
-            .subscribe(response => 
-            {
-                this.showAlert = false;
-                if (response.api_status === 'success') 
-                {
-                    // Assign values to individual variables
-                    if(sep == "ram")
-                    {
-                         output = 49;
-                    }
-                    else if (sep == "processor")
-                    {
-                        output = 10;
-                    }
-                    else if(sep == "storage")
-                    {
-                        output = 50;
-                    }
-
-                } 
-            });
-            console.log(output);
-        return output;
+        setTimeout(() => this.showAlert = false, 2000);
     }
 }

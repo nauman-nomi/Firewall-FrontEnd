@@ -15,7 +15,7 @@ import {
     ApexFill,
     ApexTooltip,
 } from 'ng-apexcharts';
-
+import { environment } from 'environments/environment.prod';
 // Backend response shape
 export interface NicTrafficResponse {
     api_status: string;
@@ -109,7 +109,7 @@ export class TrafficGraphComponent implements OnInit, OnDestroy {
 
     fetchAndUpdateData() {
         return this.http
-            .get<NicTrafficResponse>('http://127.0.0.1:8000/nicTraffic')
+            .get<NicTrafficResponse>(environment.apiUrl+'nicTraffic')
             .pipe(
                 finalize(() => {
                     // Called after API request completes

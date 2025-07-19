@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class NicService {
     
-    private apiUrl = environment.apiUrl + '/getNicInfo.php';
-    private updateApiUrl = environment.apiUrl + '/updateNicInfo.php';
-    private updateGWApiUrl = environment.apiUrl + '/updateDefaultGw.php';
-    private deleteSubNicApiUrl = environment.apiUrl + '/deleteSubNic.php';
-    private addSubNicApiUrl = environment.apiUrl + '/addSubNic.php';
+    // private apiUrl = environment.apiUrl + '/getNicInfo.php';
+    // private updateNicDataApiUrl = environment.apiUrl + '/updateNicInfo.php';
+    // private updateGWApiUrl = environment.apiUrl + '/updateDefaultGw.php';
+    // private deleteSubNicApiUrl = environment.apiUrl + '/deleteSubNic.php';
+    // private addSubNicApiUrl = environment.apiUrl + '/addSubNic.php';
     private updateMacroApiUrl = environment.apiUrl + '/updateMacros.php';
     private updateFWOptionsApiUrl = environment.apiUrl + '/updateFWOptions.php';
 
@@ -27,6 +27,13 @@ export class NicService {
     private updateMalwareStatusApiUrl = environment.apiUrl + 'masterApi.py/UpdateMalwareIPStatus';
     private getLogsApiUrl = environment.apiUrl + 'masterApi.py/logs';
 
+    // Django urls
+    private getNicDataapiUrl = environment.apiUrl + 'networkInterfaces';
+    private addSubNicApiUrl = environment.apiUrl + 'addSubNic';
+    private updateNicDataApiUrl = environment.apiUrl + 'updateNicInfo';
+    private deleteSubNicApiUrl = environment.apiUrl + 'deleteSubNic';
+    private updateGWApiUrl = environment.apiUrl + 'updateDefaultGw';
+
 
 
 
@@ -37,7 +44,8 @@ export class NicService {
 
     // Django urls
     private getSystemInfoApiUrl = environment.apiUrl + 'systemInfo';
-    private getUsageStatsApiUrl = environment.apiUrl + 'systemMetrics';
+    private getUsageStatsApiUrl = environment.apiUrl + 'systemUsage';
+    private getFanPacketApiUrl = environment.apiUrl + 'fanPackets';
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime';
     private getInternetSpeedUrl = environment.apiUrl + 'internetSpeed';
 
@@ -195,11 +203,12 @@ export class NicService {
     }
 
     getNicData(): Observable<any> {
-        const headers = new HttpHeaders({
-            'X-API-KEY': this.apiKey
-        });
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
 
-        return this.http.get<any>(this.apiUrl, { headers });
+  
+        return this.http.get<any>(this.getNicDataapiUrl);
     }
 
     getFWOPtionsData(): Observable<any> {
@@ -217,7 +226,7 @@ export class NicService {
             'Content-Type': 'application/json'
         });
 
-        return this.http.post<any>(this.updateApiUrl, data, { headers });
+        return this.http.post<any>(this.updateNicDataApiUrl, data, { headers });
     }
 
     updateDefualtGW(data: any): Observable<any> {
@@ -240,13 +249,14 @@ export class NicService {
     }
 
     addSubNic(data: any): Observable<any> {
-        const headers = new HttpHeaders({
-            'X-API-KEY': this.apiKey,
-            'Content-Type': 'application/json'
-        });
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey,
+        //     'Content-Type': 'application/json'
+        // });
 
-        return this.http.post<any>(this.addSubNicApiUrl, data, { headers });
+        return this.http.post<any>(this.addSubNicApiUrl, data);
     }
+
 
     updateMacros(data: any): Observable<any> {
         const headers = new HttpHeaders({
@@ -308,6 +318,15 @@ export class NicService {
 
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getUsageStatsApiUrl);
+    }
+
+    getFanPacketAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getFanPacketApiUrl);
     }
 
     getSystemInfoAPI(): Observable<any> {

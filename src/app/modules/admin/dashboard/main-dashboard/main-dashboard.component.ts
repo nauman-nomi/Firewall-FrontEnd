@@ -37,20 +37,11 @@ export class MainDashboardComponent {
         dns:'',
         open_ports:'',
         loggedInUsers: [],
-        top_processes: [],       
+        top_processes: [],  
+        fanSpeed:'',
+        acceptedPackets:'',
+        droppedPackets:''     
     };
-
-    systemSpec = {
-        totalRam: 'NA',
-        usedRam: 'NA',
-        totalStorage: 'NA',
-        usedStorage: 'NA',
-        totalCPU: 'NA',
-        usedCPU: 'NA',
-        fanSpeed: 'NA',
-        acceptedPackets: 'NA',
-        droppedPackets: 'NA'
-    }
  
 
     tasks = [
@@ -84,6 +75,12 @@ export class MainDashboardComponent {
         failedLogins: 'NA'
     };
 
+    fanPacket = {
+        fanSpeed: 'NA',
+        acceptedPackets: '0',
+        droppedPackets: '0',
+    };
+
 
 
     startupPrograms = ['nginx', 'mysql', 'redis', 'pm2', 'cron'];
@@ -108,9 +105,10 @@ export class MainDashboardComponent {
     getDashboard()
     {
         
-        // this.getDateTime();
+        this.getDateTime();
         this.getSystemInfo();
-        this.getUsageStatsInfo();
+        this.getFanPacketInfo
+        // this.getUsageStatsInfo();
 
         this.intervalId = setInterval(() => {
             this.getDateTime();
@@ -120,9 +118,9 @@ export class MainDashboardComponent {
             this.getSystemInfo();
         }, 6000000); // Every Minutes
 
-        this.intervalId = setInterval(() => {
-            this.getUsageStatsInfo();
-        }, 6000000); // Every Minutes
+        // this.intervalId = setInterval(() => {
+        //     this.getUsageStatsInfo();
+        // }, 6000000); // Every Minutes
 
         
 
@@ -215,7 +213,9 @@ export class MainDashboardComponent {
                     this.systemInfo.open_ports = response.open_ports;
                     this.systemInfo.loggedInUsers = response.logged_in_users;
                     this.systemInfo.top_processes = response.top_processes;
-
+                    this.systemInfo.fanSpeed = response.fanSpeed;
+                    this.systemInfo.acceptedPackets = response.acceptedPackets;
+                    this.systemInfo.droppedPackets = response.droppedPackets;
 
                     //this.loading = false;
                     //this.showAlert = true;
@@ -235,9 +235,9 @@ export class MainDashboardComponent {
             });
     }
 
-    getUsageStatsInfo()
+    getFanPacketInfo()
     {
-        this.getdashboardService.getUsageStatsAPI()
+        this.getdashboardService.getFanPacketAPI()
             .pipe(
                 catchError(error => {
                     //this.showTimedAlert("error", "Error Fetching Data")
@@ -254,15 +254,10 @@ export class MainDashboardComponent {
                 if (response.api_status === 'success') 
                 {
                     // Assign values to individual variables
-                    this.systemSpec.totalRam = response.total_ram;
-                    this.systemSpec.usedRam = response.ram_usage;
-                    this.systemSpec.totalStorage = response.total_storage;
-                    this.systemSpec.usedStorage = response.storage_usage;
-                    this.systemSpec.totalCPU = response.total_processors;
-                    this.systemSpec.usedCPU = response.cpu_usage;
-                    this.systemSpec.fanSpeed = response.fanSpeed;
-                    this.systemSpec.acceptedPackets = response.acceptedPackets;
-                    this.systemSpec.droppedPackets = response.droppedPackets;     
+                    this.fanPacket.fanSpeed = response.fanSpeed;
+                    this.fanPacket.acceptedPackets = response.acceptedPackets;
+                    this.fanPacket.droppedPackets = response.droppedPackets;
+     
                 } 
                 else 
                 {
@@ -275,4 +270,44 @@ export class MainDashboardComponent {
                 
             });
     }
+
+
+    // getUsageStatsInfo()
+    // {
+    //     this.getdashboardService.getUsageStatsAPI()
+    //         .pipe(
+    //             catchError(error => {
+    //                 //this.showTimedAlert("error", "Error Fetching Data")
+    //                 // this.showAlert = true;
+    //                 // this.alert.type="error";
+    //                 // this.alert.message = "Error Fetching Data";
+    //                 //this.loading = false;
+    //                 return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+    //             })
+    //         )
+    //         .subscribe(response => 
+    //         {
+    //             this.showAlert = false;
+    //             if (response.api_status === 'success') 
+    //             {
+    //                 // Assign values to individual variables
+    //                 this.systemSpec.totalRam = response.total_ram;
+    //                 this.systemSpec.usedRam = response.ram_usage;
+    //                 this.systemSpec.totalStorage = response.total_storage;
+    //                 this.systemSpec.usedStorage = response.storage_usage;
+    //                 this.systemSpec.totalCPU = response.total_processors;
+    //                 this.systemSpec.usedCPU = response.cpu_usage;
+     
+    //             } 
+    //             else 
+    //             {
+    //                 this.showTimedAlert("error", response.message || "Unknown error")
+    //                 // this.showAlert = true;
+    //                 // this.alert.message = response.message || "Unknown error";
+    //                 // this.alert.type = "error";
+    //                 this.loading = false;
+    //             }
+                
+    //         });
+    // }
 }
