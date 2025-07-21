@@ -13,13 +13,14 @@ export class NicService {
     // private updateGWApiUrl = environment.apiUrl + '/updateDefaultGw.php';
     // private deleteSubNicApiUrl = environment.apiUrl + '/deleteSubNic.php';
     // private addSubNicApiUrl = environment.apiUrl + '/addSubNic.php';
-    private updateMacroApiUrl = environment.apiUrl + '/updateMacros.php';
-    private updateFWOptionsApiUrl = environment.apiUrl + '/updateFWOptions.php';
+    // private updateMacroApiUrl = environment.apiUrl + '/updateMacros.php';
+    // private getMacrosapiUrl = environment.apiUrl + '/getMacros.php';
 
-    private getMacrosapiUrl = environment.apiUrl + '/getMacros.php';
-    private apigetFWOptions = environment.apiUrl + '/getFirewallOptions.php';
+    // private updateFWOptionsApiUrl = environment.apiUrl + '/updateFWOptions.php';
 
-    private getRoutingtableapiUrl = environment.apiUrl + '/getRoutingTable.php';
+    // private apigetFWOptions = environment.apiUrl + '/getFirewallOptions.php';
+
+    // private getRoutingtableapiUrl = environment.apiUrl + '/getRoutingTable.php';
 
     // Python APIs
     private getQueueDefApiUrl = environment.apiUrl + 'masterApi.py/getQueueDefination';
@@ -33,6 +34,14 @@ export class NicService {
     private updateNicDataApiUrl = environment.apiUrl + 'updateNicInfo';
     private deleteSubNicApiUrl = environment.apiUrl + 'deleteSubNic';
     private updateGWApiUrl = environment.apiUrl + 'updateDefaultGw';
+
+    private updateMacroApiUrl = environment.apiUrl + 'updateMacros';
+    private getMacrosapiUrl = environment.apiUrl + 'getMacros';
+
+    private getRoutingtableapiUrl = environment.apiUrl + 'getRoutingTable';
+
+    private updateFWOptionsApiUrl = environment.apiUrl + 'updateFirewallRules';
+    private apigetFWOptions = environment.apiUrl + 'getFirewallRules';
 
 
 
@@ -277,11 +286,11 @@ export class NicService {
     }
 
     getRoutingData(): Observable<any> {
-        const headers = new HttpHeaders({
-            'X-API-KEY': this.apiKey
-        });
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
 
-        return this.http.get<any>(this.getRoutingtableapiUrl, { headers });
+        return this.http.get<any>(this.getRoutingtableapiUrl);
     }
 
     getMacrosList(): Observable<any> {
@@ -291,6 +300,8 @@ export class NicService {
 
         return this.http.get<any>(this.getMacrosapiUrl, { headers });
     }
+
+
 
     //PythonAPI
 

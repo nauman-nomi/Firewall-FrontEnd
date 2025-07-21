@@ -13,12 +13,12 @@ import { DialogAddRouteComponent } from '../../common/dialogs/dialog-add-route/d
 })
 export class RoutingComponent implements OnInit {
 
-    alert: { type: FuseAlertType; message: string } = {type   : 'success',message: 'Message'};
+    alert: { type: FuseAlertType; message: string } = { type: 'success', message: 'Message' };
     showAlert: boolean = false;
     userData: any[] = [];
     loading: boolean = false;
-
-    allIpAddresses: any[] = [];
+    routes: any[] = [];
+    allIpAddresses: string[] = [];
 
     headerMapping: { [key: string]: string } = {
         destination: 'Destination',
@@ -32,68 +32,61 @@ export class RoutingComponent implements OnInit {
         'destination', 'gateway', 'flags', 'interface', 'routing_action'
     ];
 
-    constructor(private NicService: NicService,public dialog: MatDialog,private cdr: ChangeDetectorRef) { }
+    constructor(
+        private NicService: NicService,
+        public dialog: MatDialog,
+        private cdr: ChangeDetectorRef
+    ) {}
 
-    ngOnInit(): void 
-    {
+    ngOnInit(): void {
         this.routingData();
     }
 
-    refreshTable(): void 
-    {
-        this.loading = true; // Set loading to true before fetching new data
-        this.routingData(); // Re-fetch data
+    refreshTable(): void {
+        this.loading = true;
+        this.routingData();
     }
 
-    routingData(): void
-    {
+    routingData(): void {
         this.NicService.getRoutingData()
             .pipe(
                 catchError(error => {
                     this.showAlert = true;
-                    this.alert.type="error";
+                    this.alert.type = "error";
                     this.alert.message = "Error Fetching Data";
                     this.loading = false;
-                    return of({ api_status: 'error', message: 'Failed to fetch data' }); 
+                    return of({ routing_table: { api_status: 'error' }, message: 'Failed to fetch data' });
                 })
             )
-            .subscribe(response => 
-            {
+            .subscribe(response => {
                 this.showAlert = false;
-                if (response.routing_table.api_status === 'success') 
-                {
-                    // Assign values to individual variables
-                    this.userData = response.routing_table.routes;
-                    this.allIpAddresses = response.ip_addresses.ip_addresses;
-                    console.log(this.allIpAddresses);
+                if (response.routing_table?.api_status === 'success') {
+                    this.routes = response.routing_table.routes || [];
+                    this.allIpAddresses = response.ip_addresses?.ip_addresses || [];
                     this.loading = false;
-                } 
-                else 
-                {
+                } else {
                     this.showAlert = true;
                     this.alert.message = response.message || "Unknown error";
                     this.alert.type = "error";
                     this.loading = false;
                 }
-                
+                this.cdr.detectChanges();
             });
-            this.cdr.detectChanges(); 
     }
 
     onEditRow(row: any): void {
+        // Implement your logic here
     }
 
-    addRoute(): void
-    {
+    addRoute(): void {
         const dialogRef = this.dialog.open(DialogAddRouteComponent, {
             width: '700px',
-            data: { title: 'Add Route', old_ip:this.allIpAddresses}
-            });
-            
-            dialogRef.afterClosed().subscribe(result => {
-                console.log('Dialog closed', result);
-                this.refreshTable()
-            });
-    }
+            data: { title: 'Add Route', old_ip: this.allIpAddresses }
+        });
 
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('Dialog closed', result);
+            this.refreshTable();
+        });
+    }
 }
