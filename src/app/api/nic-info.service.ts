@@ -57,6 +57,7 @@ export class NicService {
     private getFanPacketApiUrl = environment.apiUrl + 'fanPackets';
     private getDateTimeApiUrl = environment.apiUrl + 'dateTime';
     private getInternetSpeedUrl = environment.apiUrl + 'internetSpeed';
+    private getSysInformationApiUrl = environment.apiUrl + 'sysInformation';
 
     // Rest API
     // private addModSecApiUrl = environment.apiUrl + 'modSec.py/createDomain';
@@ -80,7 +81,7 @@ export class NicService {
     private addEmailGwApiUrl = environment.apiUrl + 'addMailServer';
     private getEmailGwApiUrl = environment.apiUrl + 'viewMailServers';
     private deleteEmailGwApiUrl = environment.apiUrl + 'deleteMailServer';
-
+    private updateEmailGWApiUrl = environment.apiUrl + 'updateMailServer';
 
     private addCountryBlockApiUrl = environment.apiUrl + '/countryBlock.py/add';
 
@@ -175,26 +176,26 @@ export class NicService {
 
 
 
-    UpdateMalwareData(): Observable<any> {
-        const headers = new HttpHeaders({
-            'X-API-KEY': this.apiKey
-        });
+    // UpdateMalwareData(): Observable<any> {
+    //     const headers = new HttpHeaders({
+    //         'X-API-KEY': this.apiKey
+    //     });
 
-        return this.http.get<any>(this.updatetMalwareListApiUrl, { headers });
-    }
+    //     return this.http.get<any>(this.updatetMalwareListApiUrl, { headers });
+    // }
 
-    updateMalwareIPStatus(ip: string, status: string): Observable<any> {
-        const headers = new HttpHeaders({
-            'X-API-KEY': this.apiKey,  // Your API Key
-            'Content-Type': 'application/x-www-form-urlencoded'
-        });
+    // updateMalwareIPStatus(ip: string, status: string): Observable<any> {
+    //     const headers = new HttpHeaders({
+    //         'X-API-KEY': this.apiKey,  // Your API Key
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     });
 
-        const body = new URLSearchParams();
-        body.set('ip', ip);
-        body.set('status', status);
+    //     const body = new URLSearchParams();
+    //     body.set('ip', ip);
+    //     body.set('status', status);
 
-        return this.http.post<any>(this.updateMalwareStatusApiUrl, body.toString(), { headers });
-    }
+    //     return this.http.post<any>(this.updateMalwareStatusApiUrl, body.toString(), { headers });
+    // }
 
     getlogs(): Observable<any> {
         const headers = new HttpHeaders({
@@ -314,9 +315,7 @@ export class NicService {
     }
 
     getDateTimeAPI(): Observable<any> {
-        // const headers = new HttpHeaders({
-        //     'X-API-KEY': this.apiKey
-        // });
+
 
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getDateTimeApiUrl);
@@ -347,6 +346,15 @@ export class NicService {
 
         //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
         return this.http.get<any>(this.getSystemInfoApiUrl);
+    }
+
+    getSysInformationAPI(): Observable<any> {
+        // const headers = new HttpHeaders({
+        //     'X-API-KEY': this.apiKey
+        // });
+
+        //return this.http.get<any>(this.getDateTimeApiUrl, { headers });
+        return this.http.get<any>(this.getSysInformationApiUrl);
     }
 
 

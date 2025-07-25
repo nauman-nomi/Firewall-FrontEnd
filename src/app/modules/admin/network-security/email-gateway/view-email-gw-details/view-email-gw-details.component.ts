@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-email-gw-details',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewEmailGwDetailsComponent implements OnInit {
 
-  constructor() { }
+  inputData: any;
+  constructor(public dialogRef: MatDialogRef<ViewEmailGwDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.inputData = this.data.row;
+    console.log(this.data.row);
+  }
 
   ngOnInit(): void {
   }
 
+  closeDialog() {
+    this.dialogRef.close('Dialog Closed');
+  }
+
 }
+
+
+

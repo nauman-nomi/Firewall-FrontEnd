@@ -2,13 +2,14 @@ import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular
 import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
 
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, exhaustMap} from 'rxjs/operators';
+
 
 import {
     ApexChart, ApexDataLabels, ApexFill, ApexLegend, ApexNonAxisChartSeries,
     ApexPlotOptions, ApexResponsive, ApexStroke
 } from 'ng-apexcharts';
-import { Subscription, interval, of } from 'rxjs';
+import { Subscription, interval, of, timer} from 'rxjs';
 
 
 export type ChartOptions = {
@@ -35,21 +36,28 @@ export class GuageChartComponent implements OnInit, OnDestroy {
     alert: { type: FuseAlertType; message: string } = { type: 'success', message: '' };
     showAlert: boolean = false;
     chartOptions: Partial<ChartOptions> = {};
-    private pollSub!: Subscription;
 
     constructor(private getdashboardService: NicService, private cdr: ChangeDetectorRef) { }
 
+    pollSub!: Subscription;
+
     ngOnInit(): void {
         this.setTitle();
-        this.initializeChart();
+        this.initializeChart(); // Load initial data
+        this.startPolling();
+    }
 
-        // Poll every 10 seconds
-        this.pollSub = interval(10000).pipe(
-            switchMap(() =>
+    startPolling(): void {
+        if (this.pollSub) {
+            this.pollSub.unsubscribe(); // Ensure no previous subscription
+        }
+
+        this.pollSub = timer(0, 10000).pipe( // `timer(0, 10000)` = start immediately, then every 10s
+            exhaustMap(() =>
                 this.getdashboardService.getUsageStatsAPI().pipe(
                     catchError(error => {
                         console.error('API error occurred:', error);
-                        return of(null); // Gracefully return null to keep polling alive
+                        return of(null);
                     })
                 )
             )
@@ -125,15 +133,32 @@ export class GuageChartComponent implements OnInit, OnDestroy {
             fill: { colors: [color] }
         };
     }
+    private parseAny(val: string): number {
+        if (!val) return 0;
+        val = val.trim().toUpperCase();
+        if (val.endsWith('G')) return parseFloat(val) || 0;
+        if (val.endsWith('M')) return (parseFloat(val) || 0) / 1024;
+        if (val.endsWith('K')) return (parseFloat(val) || 0) / 1024 / 1024;
+        return 0;
+    }
 
     private updateChart(response: any): void {
         if (this.category === 'ram') {
             const total = this.parseGB(response.total_ram);
-            const free = this.parseMB(response.ram_usage.free);
-            const used = total > 0 ? 100 - ((free / total) * 100) : 0;
-            this.stats = `${(total - free).toFixed(1)} / ${total} GB`;
+
+            // Parse all parts of RAM usage
+            const free = this.parseAny(response.ram_usage.free);       // handles G/M/K
+            const cache = this.parseAny(response.ram_usage.cache);
+            const inactive = this.parseAny(response.ram_usage.inactive);
+
+            // Used = total - (free + cache + inactive)
+            const available = free + cache + inactive;
+            const used = total > 0 ? ((total - available) / total) * 100 : 0;
+
+            this.stats = `${(total - available).toFixed(1)} / ${total} GB`;
             this.chartOptions.series = [Math.round(used)];
-        } else if (this.category === 'processor') {
+        }
+        else if (this.category === 'processor') {
             const cpuUsage = 100 - parseFloat(response.cpu_usage.idle || '0');
             this.stats = `${cpuUsage.toFixed(1)}%`;
             this.chartOptions.series = [Math.round(cpuUsage)];

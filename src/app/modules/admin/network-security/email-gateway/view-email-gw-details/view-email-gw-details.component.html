@@ -1,1 +1,26 @@
-<p>view-email-gw-details works!</p>
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-header bg-primary rounded-t-2xl p-2 px-4 flex justify-between items-center">
+        <div class="text-xl font-semibold leading-none tracking-tight text-white">
+            {{ data.title }} -  {{ inputData.domain }}
+        </div>
+        <button mat-icon-button (click)="closeDialog()">
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body ">
+        <div>
+            <div class="bg-white p-3 mx-auto">
+            
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-md text-gray-700">
+                    <div><strong>IP:</strong> {{ inputData.ip }}</div>
+                    <div><strong>Port:</strong> {{ inputData.port }}</div>
+                    <div><strong>Network:</strong> {{ inputData.network }}</div>
+                    <div><strong>SMTP Type:</strong> {{ inputData.smtptype }}</div>
+                    <div><strong>Certificate:</strong> {{ inputData.certificate }}</div>
+                    
+                </div>
+            </div>
+          </div>
+    </div>
+</mat-dialog-content>
