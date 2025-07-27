@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ViewModSecDetailsComponent } from './view-mod-sec-details/view-mod-sec-details.component';
+import { ModUpdateFormComponent } from './mod-update-form/mod-update-form.component';
 
 const ModSecurityRoutes: Route[] = [
     {
@@ -28,7 +29,8 @@ const ModSecurityRoutes: Route[] = [
     declarations: [
       ModSecurityComponent,
       ModSecFormComponent,
-      ViewModSecDetailsComponent
+      ViewModSecDetailsComponent,
+      ModUpdateFormComponent,
     ],
     imports     : [
         RouterModule.forChild(ModSecurityRoutes),

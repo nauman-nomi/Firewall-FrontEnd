@@ -25,10 +25,10 @@ export class MainDashboardComponent {
     systemInfo = {
         hostname: 'NA',
         model: 'NA',
-        serialNumber: 'NA',
-        cpuTemp: 'NA',
-        cores: 'NA',
-        powerConsumption: 'NA',
+        serialNumber: 'Not Fetch',
+        cpuTemp: '0',
+        cores: '0',
+        powerConsumption: '0',
         interfacesCount: '',
         failed_login_attempts: '',
         blocked_ip_count: '',
@@ -67,19 +67,19 @@ export class MainDashboardComponent {
 
     // Security Information
     securityInfo = {
-        firewallRules: 'NA',
-        droppedPackets: 'NA',
-        acceptedPackets: 'NA',
-        blockedIps: ['NA'],
-        blockedIpCount: 'NA',
-        firewallStatus: 'NA',
+        firewallRules: '0',
+        droppedPackets: '0',
+        acceptedPackets: '0',
+        blockedIps: ['0'],
+        blockedIpCount: '0',
+        firewallStatus: '0',
         antivirusStatus: 'NA',
-        openPorts: ['NA'],
+        openPorts: ['0'],
         failedLogins: 'NA'
     };
 
     fanPacket = {
-        fanSpeed: 'NA',
+        fanSpeed: '0',
         acceptedPackets: '0',
         droppedPackets: '0',
     };
@@ -105,10 +105,22 @@ export class MainDashboardComponent {
     }
 
     getDashboard() {
-        this.getDateTime();
-        this.getSystemInfo();
+
+        // this.getSystemInfo();
         this.getFanPacketInfo();
-        this.getSysInformation();
+
+
+        setTimeout(() => {
+            this.getDateTime();
+        }, 1000); // 5000 milliseconds = 5 seconds
+
+        setTimeout(() => {
+            this.getSystemInfo();
+        }, 3000); // 5000 milliseconds = 5 seconds
+
+        setTimeout(() => {
+            this.getSysInformation();
+        }, 5000); // 5000 milliseconds = 5 seconds
 
         if (!this.datetimeInterval) {
             this.datetimeInterval = setInterval(() => this.getDateTime(), 10000);
@@ -193,10 +205,10 @@ export class MainDashboardComponent {
                     this.systemInfo.blocked_ip_count = response.blocked_ip_count;
                     this.systemInfo.firewallRules = response.firewallRules;
 
-                    this.systemInfo.AntivirusStatus = response.AntivirusStatus;
+
                     this.systemInfo.FirewallStatus = response.FirewallStatus;
-                    this.systemInfo.defaultGateway = response.defaultGateway.trim().split(/\s+/)[1];
-                    this.systemInfo.dns = response.dns.trim().split(/\s+/)[1];
+                    this.systemInfo.defaultGateway = response.defaultGateway;
+                    this.systemInfo.dns = response.dns;
 
                     //this.loading = false;
                     //this.showAlert = true;
@@ -236,6 +248,13 @@ export class MainDashboardComponent {
                     this.systemInfo.powerConsumption = response.powerConsumption;
                     this.systemInfo.open_ports_count = response.open_ports_count;
                     this.systemInfo.open_ports = response.open_ports;
+                    const clamavStatus = response.antivirus_status || '';
+
+                    if (clamavStatus.toLowerCase().includes('running')) {
+                        this.systemInfo.AntivirusStatus = 'Enabled';
+                    } else {
+                        this.systemInfo.AntivirusStatus = 'Disabled';
+                    }
 
                     //this.loading = false;
                     //this.showAlert = true;

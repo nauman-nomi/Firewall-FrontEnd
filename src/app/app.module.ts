@@ -60,7 +60,8 @@ const routerConfig: ExtraOptions = {
         AddBlockIpComponent,
         AddWhitelistIpComponent,
         // AddGeoBlockIpComponent,
-        AddGeoCountryComponent
+        AddGeoCountryComponent,
+
     ],
     imports     : [
         BrowserModule,

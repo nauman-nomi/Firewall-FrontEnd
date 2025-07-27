@@ -35,10 +35,14 @@ type XYSeries = { name: string; data: XYDataPoint[] };
   styleUrls: ['./internet-speed-graph.component.scss'],
 })
 export class InternetSpeedGraphComponent implements OnInit, OnDestroy {
+
   public series: XYSeries[] = [
     { name: 'Upload', data: [] },
     { name: 'Download', data: [] },
   ];
+
+  public connectionStatus: string = '';
+
 
   public chartOptions = {
     chart: {
@@ -100,8 +104,11 @@ export class InternetSpeedGraphComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.api_status !== 'success') {
             console.error('Speedtest API error:', response.message);
+            this.connectionStatus = 'Internet not available';
             return;
           }
+
+          this.connectionStatus = null; // Clear message if data received
 
           const upload = this.extractNumber(response.upload || '');
           const download = this.extractNumber(response.download || '');
@@ -124,6 +131,7 @@ export class InternetSpeedGraphComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('API error:', error);
+          this.connectionStatus = 'Internet not available';
         },
       });
   }

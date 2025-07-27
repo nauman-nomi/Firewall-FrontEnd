@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertType } from '@fuse/components/alert';
 import { WarningDialogComponent } from '../../common/dialogs/warning-dialog/warning-dialog.component';
 import { EmailGwFormComponent } from './email-gw-form/email-gw-form.component';
+import { EmailUpdateFormComponent } from './email-update-form/email-update-form.component';
 import { NicService } from 'app/api/nic-info.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -131,7 +132,7 @@ export class EmailGatewayComponent implements OnInit {
     }
 
     else if (row.sep == "emailgw-edit") {
-      const dialogRef = this.dialog.open(EmailGwFormComponent, {
+      const dialogRef = this.dialog.open(EmailUpdateFormComponent, {
         width: '700px',
         // disableClose: true,
         data: { title: 'Edit Email Gateway', row: row, sep: 'edit' }

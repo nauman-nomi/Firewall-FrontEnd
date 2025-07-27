@@ -14,7 +14,7 @@
     </fuse-alert>
 
 
-    <form [formGroup]="modSecForm" (ngSubmit)="onSubmit()" class="rounded-lg">
+    <form [formGroup]="modUpdateForm" (ngSubmit)="onSubmit()" class="rounded-lg">
         <div class="dialog-body">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 px-4">
                 <mat-form-field appearance="standard" class="w-full">
@@ -28,8 +28,8 @@
 
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold mb-1">Domain Name</mat-label>
-                    <input matInput type="text" formControlName="domain" placeholder="abc.com" />
-                    <small class="error" *ngIf="modSecForm.get('domain')?.invalid && modSecForm.get('domain')?.touched">
+                    <input matInput type="text" formControlName="domain" readonly  />
+                    <small class="error" *ngIf="modUpdateForm.get('domain')?.invalid && modUpdateForm.get('domain')?.touched">
                         Invalid Domain Name.
                     </small>
                 </mat-form-field>
@@ -38,10 +38,10 @@
                     <mat-label class="block font-semibold  ">Local IP & Part</mat-label>
                     <input matInput type="text" formControlName="localip" placeholder="192.168.1.1:1234" />
                     <small class="error"
-                        *ngIf="modSecForm.get('localip')?.invalid && modSecForm.get('localip')?.touched">
+                        *ngIf="modUpdateForm.get('localip')?.invalid && modUpdateForm.get('localip')?.touched">
                         Invalid IP and Port (e.g. 192.168.1.1:1234).
                     </small>
-                    <small *ngIf="modSecForm.get('listenIP')?.hasError('invalidIpPort')">
+                    <small *ngIf="modUpdateForm.get('listenIP')?.hasError('invalidIpPort')">
                         Please enter a valid IP:Port (e.g., 192.168.0.1:8080)
                     </small>
                 </mat-form-field>
@@ -51,7 +51,7 @@
                     <input matInput type="text" formControlName="ipwhitelist"
                         placeholder="1.2.3.4 , 111.222.333.444, 192.168.1.1/24" />
                     <small class="error"
-                        *ngIf="modSecForm.get('ipwhitelist')?.invalid && modSecForm.get('ipwhitelist')?.touched">
+                        *ngIf="modUpdateForm.get('ipwhitelist')?.invalid && modUpdateForm.get('ipwhitelist')?.touched">
                         Invalid Entries.
                     </small>
                 </mat-form-field>
@@ -98,7 +98,7 @@
                 <mat-form-field appearance="standard" class="w-full">
                     <mat-label class="block font-semibold  ">DNS Resolver</mat-label>
                     <input matInput type="text" formControlName="dnsResolver" placeholder="8.8.8.8" />
-                    <small *ngIf="modSecForm.get('dnsResolver')?.hasError('multiIPv4DNSResolverValidator')">
+                    <small *ngIf="modUpdateForm.get('dnsResolver')?.hasError('multiIPv4DNSResolverValidator')">
                         Please enter valid space-separated IPv4 addresses (e.g., 8.8.8.8 1.1.1.1)
                     </small>
                 </mat-form-field>
@@ -195,20 +195,20 @@
 
                 <div class="border-t-2 border-gray-200 col-span-3 my-3"></div>
 
-                <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
+                <div class="form-group" *ngIf="modUpdateForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate</label>
                     <input type="file" class="input-field" (change)="onCertificateChange($event)" />
                     <small class="error"
-                        *ngIf="modSecForm.get('certificate')?.hasError('required') && modSecForm.get('certificate')?.touched">
+                        *ngIf="modUpdateForm.get('certificate')?.hasError('required') && modUpdateForm.get('certificate')?.touched">
                         Certificate file is required.
                     </small>
                 </div>
 
-                <div class="form-group" *ngIf="modSecForm.get('webtype')?.value === 'https'">
+                <div class="form-group" *ngIf="modUpdateForm.get('webtype')?.value === 'https'">
                     <label class="block font-semibold mb-1">Certificate Key</label>
                     <input type="file" class="input-field" (change)="onCertificateKeyChange($event)" />
                     <small class="error"
-                        *ngIf="modSecForm.get('certificateKey')?.hasError('required') && modSecForm.get('certificateKey')?.touched">
+                        *ngIf="modUpdateForm.get('certificateKey')?.hasError('required') && modUpdateForm.get('certificateKey')?.touched">
                         Certificate key file is required.
                     </small>
                 </div>
@@ -222,8 +222,8 @@
 
         <div class="mt-2" align="end">
             <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28" [color]="'primary'"
-                [disabled]="modSecForm.invalid || modSecForm.hasError('nonUniqueSelection')">
-                <span> Submit </span>
+                [disabled]="modUpdateForm.invalid || modUpdateForm.hasError('nonUniqueSelection')">
+                <span> Update </span>
                 <mat-progress-spinner class="ml-3" *ngIf="isSubmitting" [diameter]="24"
                     [mode]="'indeterminate'"></mat-progress-spinner>
             </button>

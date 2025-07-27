@@ -1,13 +1,19 @@
-<apx-chart
-  [series]="series"
-  [chart]="chartOptions.chart"
-  [xaxis]="chartOptions.xaxis"
-  [stroke]="chartOptions.stroke"
-  [markers]="chartOptions.markers"
-  [legend]="chartOptions.legend"
-  [dataLabels]="chartOptions.dataLabels"
-  [yaxis]="chartOptions.yaxis"
-  [grid]="chartOptions.grid"
-  [fill]="chartOptions.fill"
-  [tooltip]="chartOptions.tooltip"
-></apx-chart>
+<div class="speed-chart-wrapper">
+  <apx-chart
+    *ngIf="!connectionStatus"
+    [series]="series"
+    [chart]="chartOptions.chart"
+    [stroke]="chartOptions.stroke"
+    [xaxis]="chartOptions.xaxis"
+    [yaxis]="chartOptions.yaxis"
+    [legend]="chartOptions.legend"
+    [dataLabels]="chartOptions.dataLabels"
+    [grid]="chartOptions.grid"
+    [fill]="chartOptions.fill"
+    [tooltip]="chartOptions.tooltip"
+  ></apx-chart>
+
+  <div *ngIf="connectionStatus" class="no-connection-message">
+    {{ connectionStatus }}
+  </div>
+</div>

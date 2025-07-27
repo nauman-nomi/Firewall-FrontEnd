@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertType } from '@fuse/components/alert';
 import { WarningDialogComponent } from '../../common/dialogs/warning-dialog/warning-dialog.component';
 import { ModSecFormComponent } from './mod-sec-form/mod-sec-form.component';
+import { ModUpdateFormComponent } from './mod-update-form/mod-update-form.component';
 import { NicService } from 'app/api/nic-info.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -128,12 +129,13 @@ export class ModSecurityComponent {
         }
 
         else if(row.sep == "modsec-edit"){
-            const dialogRef = this.dialog.open(ModSecFormComponent, {
+            const dialogRef = this.dialog.open(ModUpdateFormComponent, {
                 width: '900px',
                 // disableClose: true,
                 
                 data: { title: 'Edit Mod Security', row: row, sep:'edit'}
             });
+            
             dialogRef.afterClosed().subscribe(result => {
                 // console.log('Dialog closed', result);
                  this.refreshTable()
