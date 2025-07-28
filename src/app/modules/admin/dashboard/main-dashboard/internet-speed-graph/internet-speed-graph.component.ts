@@ -77,7 +77,11 @@ export class InternetSpeedGraphComponent implements OnInit, OnDestroy {
   private maxDataPoints = 10;
   private requestSub?: Subscription;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+        setTimeout(() => {
+            this.pollSpeedTest();
+        }, 3000); // 5000 milliseconds = 5 seconds
+  }
 
   ngOnInit() {
     this.pollSpeedTest();
