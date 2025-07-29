@@ -25,18 +25,17 @@ export class RoutingComponent implements OnInit {
         gateway: 'Gateway',
         flags: 'Flags',
         interface: 'Interface',
-        routing_action: 'Action'
     };
 
     displayedColumns: string[] = [
-        'destination', 'gateway', 'flags', 'interface', 'routing_action'
+        'destination', 'gateway', 'flags', 'interface'
     ];
 
     constructor(
         private NicService: NicService,
         public dialog: MatDialog,
         private cdr: ChangeDetectorRef
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.routingData();
@@ -45,34 +44,35 @@ export class RoutingComponent implements OnInit {
     refreshTable(): void {
         this.loading = true;
         this.routingData();
+
+        setTimeout(() => {
+            this.loading = false;
+        }, 1000); // 1000 milliseconds = 1 seconds
+
+        
     }
+
+
+    defaultRoutes = [];
+    customRoutes = [];
 
     routingData(): void {
         this.NicService.getRoutingData()
-            .pipe(
-                catchError(error => {
-                    this.showAlert = true;
-                    this.alert.type = "error";
-                    this.alert.message = "Error Fetching Data";
-                    this.loading = false;
-                    return of({ routing_table: { api_status: 'error' }, message: 'Failed to fetch data' });
-                })
-            )
+            .pipe(/* ... */)
             .subscribe(response => {
-                this.showAlert = false;
                 if (response.routing_table?.api_status === 'success') {
-                    this.routes = response.routing_table.routes || [];
+                    const allRoutes = response.routing_table.routes || [];
+                    this.routes = allRoutes;
+
+                    this.defaultRoutes = allRoutes.filter(r => r.destination === 'default');
+                    this.customRoutes = allRoutes.filter(r => r.destination !== 'default');
+
                     this.allIpAddresses = response.ip_addresses?.ip_addresses || [];
-                    this.loading = false;
-                } else {
-                    this.showAlert = true;
-                    this.alert.message = response.message || "Unknown error";
-                    this.alert.type = "error";
-                    this.loading = false;
                 }
                 this.cdr.detectChanges();
             });
     }
+
 
     onEditRow(row: any): void {
         // Implement your logic here

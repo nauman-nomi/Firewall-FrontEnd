@@ -87,7 +87,10 @@ export class DialogMainComponent implements OnInit{
                     this.isSubmitting = false;
             
                     // Optionally, you can close the dialog after success:
-                    this.dialogRef.close(response);
+                    setTimeout(() => {
+                        this.dialogRef.close(response);
+                    }, 3000); // 3000 milliseconds = 3 seconds
+                    
                 },
                 (error) => {
                     console.error('Failed to update NIC info:', error);

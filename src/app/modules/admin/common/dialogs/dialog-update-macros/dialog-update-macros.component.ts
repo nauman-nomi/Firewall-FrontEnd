@@ -78,15 +78,11 @@ export class DialogUpdateMacrosComponent implements OnInit {
             this.showAlert = false;
             this.isSubmitting = true;
 
-            // Prepare payload
             const payload = {
                 ...this.updateMacroForm.value,
                 api_key: this.nicService.apiKey
             };
 
-            console.log(payload);
-
-            // Call API
             this.nicService.updateMacros(payload).subscribe(
                 (response) => {
                     console.log('Macros Update:', response);
@@ -97,11 +93,14 @@ export class DialogUpdateMacrosComponent implements OnInit {
                     };
                     this.showAlert = true;
                     this.isSubmitting = false;
-                    this.closeDialog();
+
+                    // Return updated values to parent component
+                    if (response.status === 'success') {
+                        this.dialogRef.close(this.updateMacroForm.value);
+                    }
                 },
                 (error) => {
                     console.error('Failed to add Sub-NIC info:', error);
-
                     this.errorAlert = {
                         type: 'error',
                         message: 'Failed to update Macros. Please try again.'

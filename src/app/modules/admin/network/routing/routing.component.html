@@ -1,14 +1,9 @@
 <div class="flex flex-auto p-3 sm:p-5">
-    
+
     <div class="flex flex-col flex-auto w-full   ">
         <div class="mb-8" *ngIf="showAlert">
-            <fuse-alert
-                class="mt-0 -mb-2"
-                *ngIf="showAlert"
-                [appearance]="'outline'"
-                [showIcon]="false"
-                [type]="alert.type"
-                [@shake]="alert.type === 'error'">
+            <fuse-alert class="mt-0 -mb-2" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                [type]="alert.type" [@shake]="alert.type === 'error'">
                 {{alert.message}}
             </fuse-alert>
         </div>
@@ -18,38 +13,48 @@
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4">
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-xl bg-primary-500">
                 <div class="justify-self-start flex items-center">
-                    <div class="text-xl font-bold leading-none tracking-tight text-white pl-5"> Routing Management </div>
+                    <div class="text-xl font-bold leading-none tracking-tight text-white pl-5"> Routing Management
+                    </div>
                 </div>
-                
+
                 <div class="justify-self-end m-2 mr-4">
-                    <button *ngIf="!loading" (click)="refreshTable()" [disabled]="loading" class="px-2 pt-1 bg-white text-white rounded-md">
+                    <button *ngIf="!loading" (click)="refreshTable()" [disabled]="loading"
+                        class="px-2 pt-1 bg-white text-white rounded-md">
                         <mat-icon class="text-primary">refresh</mat-icon>
                     </button>
                 </div>
-            </div>  
-            
+            </div>
+
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4">
             <div class="col-span-2 flex flex-col px-5 pt-4 pb-5 shadow rounded-2xl overflow-hidden bg-card">
-                
-                <app-dynamic-table [data]="userData" [displayedColumns]="displayedColumns" [headerMapping]="headerMapping " (editRow)="onEditRow($event)"></app-dynamic-table>    
+
+                <!-- <app-dynamic-table [data]="userData" [displayedColumns]="displayedColumns" [headerMapping]="headerMapping " (editRow)="onEditRow($event)"></app-dynamic-table>     -->
+                <app-dynamic-table [data]="defaultRoutes" [displayedColumns]="displayedColumns"
+                    [headerMapping]="headerMapping" (editRow)="onEditRow($event)">
+                </app-dynamic-table>
             </div>
             <div class="col-span-2 flex flex-col px-5 pt-4 pb-5 shadow rounded-2xl overflow-hidden bg-card">
                 <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-xl bg-accent-500">
                     <div class="justify-self-start flex items-center">
                         <div class="text-xl font-bold leading-none tracking-tight text-white pl-5"> Custom Routes </div>
                     </div>
-                    
+
                     <div class="justify-self-end m-2 mr-4">
-                        <button *ngIf="!loading" (click)="addRoute()" [disabled]="loading" class="px-2 pt-1 bg-white rounded-md">
+                        <button *ngIf="!loading" (click)="addRoute()" [disabled]="loading"
+                            class="px-2 pt-1 bg-white rounded-md">
                             <mat-icon class="text-primary font-bold">add</mat-icon>
                         </button>
                     </div>
-                </div>  
-                <app-dynamic-table [data]="" [displayedColumns]="displayedColumns" [headerMapping]="headerMapping " (editRow)="onEditRow($event)"></app-dynamic-table>    
+                </div>
+                <!-- <app-dynamic-table [data]="" [displayedColumns]="displayedColumns" [headerMapping]="headerMapping " (editRow)="onEditRow($event)"></app-dynamic-table> -->
+                <!-- Table 2: Custom Routes -->
+                <app-dynamic-table [data]="customRoutes" [displayedColumns]="displayedColumns"
+                    [headerMapping]="headerMapping" (editRow)="onEditRow($event)">
+                </app-dynamic-table>
             </div>
         </div>
 
-        
+
     </div>
 </div>

@@ -36,9 +36,16 @@ export class MacrosManagementComponentComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('Dialog closed', result);
-            this.onUpdate([]);
+            if (result) {
+                // Optionally update your UI directly using result:
+                this.internalinterfaces = result.InternalInterface;
+                this.externalinterfaces = result.ExternalInterface;
+                this.sdWaninterfaces = result.sdWANInterface;
+                this.vpninterfaces = result.vpnInterface;
 
+                // Or trigger a fresh fetch if needed:
+                // this.fetchUpdatedData();
+            }
         });
     }
 
