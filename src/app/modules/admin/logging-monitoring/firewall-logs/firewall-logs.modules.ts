@@ -6,18 +6,18 @@ import { SharedModule } from 'app/shared/shared.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { LogManagementComponent } from './log-management.component';
+import { FirewallLogsComponent } from './firewall-logs.component';
 
 const LogsRoutes: Route[] = [
     {
         path     : '',
-        component: LogManagementComponent
+        component: FirewallLogsComponent
     }
 ];
 
 @NgModule({
     declarations: [
-      LogManagementComponent
+      FirewallLogsComponent
     ],
     imports     : [
         RouterModule.forChild(LogsRoutes),
@@ -30,6 +30,6 @@ const LogsRoutes: Route[] = [
     ]
 })
 
-export class LogManagementModule
+export class FirewallLogsModule
 {
 }

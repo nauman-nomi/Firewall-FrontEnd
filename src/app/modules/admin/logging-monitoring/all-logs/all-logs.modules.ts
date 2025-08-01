@@ -29,6 +29,7 @@ const LogsRoutes: Route[] = [
         SharedModule
     ]
 })
+
 export class AllLogsModule
 {
 }

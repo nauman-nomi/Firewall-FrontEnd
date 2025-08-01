@@ -39,6 +39,12 @@ import { AddBlockIpComponent } from './modules/admin/threat-protection/block-ips
 import { AddWhitelistIpComponent } from './modules/admin/threat-protection/whitelist-ips/add-whitelist-ip/add-whitelist-ip.component';
 import { AddGeoBlockIpComponent } from './modules/admin/threat-protection/geo-blocking/add-geoblock-ip/add-geoblock-ip.component';
 import { AddGeoCountryComponent } from './modules/admin/threat-protection/geo-country/add-geo-country/add-geo-country.component';
+import { AddIdsNetworkComponent } from './modules/admin/network-security/ids-ips-component/add-ids-network/add-ids-network.component';
+// import { FirewallLogsComponent } from './modules/admin/logging-monitoring/firewall-logs/firewall-logs.component';
+// import { SuricataLogsComponent } from './modules/admin/logging-monitoring/suricata-logs/suricata-logs.component';
+// import { WapLogsComponent } from './modules/admin/logging-monitoring/wap-logs/wap-logs.component';
+// import { MailscannerLogsComponent } from './modules/admin/logging-monitoring/mailscanner-logs/mailscanner-logs.component';
+// import { SystemLogsComponent } from './modules/admin/logging-monitoring/system-logs/system-logs.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -61,6 +67,12 @@ const routerConfig: ExtraOptions = {
         AddWhitelistIpComponent,
         // AddGeoBlockIpComponent,
         AddGeoCountryComponent,
+        AddIdsNetworkComponent,
+        // FirewallLogsComponent,
+        // SuricataLogsComponent,
+        // WapLogsComponent,
+        // MailscannerLogsComponent,
+        // SystemLogsComponent,
 
     ],
     imports     : [

@@ -227,6 +227,43 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'mat_solid:list_alt',
         children:
             [
+                {
+                    id: 'firewall.log',
+                    title: 'Firewall Logs',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/firewalllog'
+                },
+
+                {
+                    id: 'suricata.log',
+                    title: 'Suricata Alerts',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/suricatalog'
+                },
+                {
+                    id: 'wap.log',
+                    title: 'WAP Log',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/waplog'
+                },
+
+                {
+                    id: 'mailscanner.log',
+                    title: 'Mail Scanner Logs',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/mailscannerlog'
+                },
+                {
+                    id: 'system.log',
+                    title: 'System Logs',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/systemlog'
+                },
 
                 {
                     id: 'sm.log',
@@ -235,13 +272,14 @@ export const compactNavigation: FuseNavigationItem[] = [
                     icon: 'mat_solid:description',
                     link: '/rspamdlog'
                 },
+
                 {
                     id: 'sm.log',
                     title: 'Logs',
                     type: 'basic',
                     icon: 'mat_solid:description',
                     link: '/logManagement'
-                }
+                },
             ]
     },
 

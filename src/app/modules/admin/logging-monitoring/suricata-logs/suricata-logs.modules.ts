@@ -6,18 +6,18 @@ import { SharedModule } from 'app/shared/shared.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { LogManagementComponent } from './log-management.component';
+import { SuricataLogsComponent } from './suricata-logs.component';
 
 const LogsRoutes: Route[] = [
     {
         path     : '',
-        component: LogManagementComponent
+        component: SuricataLogsComponent
     }
 ];
 
 @NgModule({
     declarations: [
-      LogManagementComponent
+      SuricataLogsComponent
     ],
     imports     : [
         RouterModule.forChild(LogsRoutes),
@@ -30,6 +30,6 @@ const LogsRoutes: Route[] = [
     ]
 })
 
-export class LogManagementModule
+export class SuricataLogsModule
 {
 }

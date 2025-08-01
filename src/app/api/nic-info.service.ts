@@ -143,6 +143,17 @@ export class NicService {
     private addGeoBlockIpUrl = environment.apiUrl + 'addGeoBlockIP';
     private deleteGeoBlockIpUrl = environment.apiUrl + 'deleteGeoBlockIP';
 
+    // Django urls
+    private idsNetworkViewUrl = environment.apiUrl + 'listNetwork';
+    private idsNetworkAddUrl = environment.apiUrl + 'addNetwork';
+    private idsNetworkDeleteUrl = environment.apiUrl + 'deleteNetwork';
+    private idsNetworkSearchUrl = environment.apiUrl + 'searchNetwork';
+
+    // Django urls
+    private idsDnsViewUrl = environment.apiUrl + 'listDNS';
+    private idsDnsAddUrl = environment.apiUrl + 'addDNS';
+    private idsDnsDeleteUrl = environment.apiUrl + 'deleteDNS';
+    private idsDnsSearchUrl = environment.apiUrl + 'searchDNS';
 
 
 
@@ -565,4 +576,64 @@ export class NicService {
 
     }
 
+
+
+
+
+    // private idsNetworkSearchUrl = environment.apiUrl + 'searchNetwork';
+    // private idsDnsSearchUrl = environment.apiUrl + 'searchDNS';
+
+    getIDSNetworkListData(): Observable<any> {
+        return this.http.get<any>(this.idsNetworkViewUrl);
+    }
+    getDNSPortsListData(): Observable<any> {
+        return this.http.get<any>(this.idsDnsViewUrl);
+    }
+
+    addDNSNetwork(data: FormData): Observable<any> {
+        return this.http.post<any>(this.idsNetworkAddUrl, data); // Don't set Content-Type
+    }
+    addDNSPort(data: FormData): Observable<any> {
+        return this.http.post<any>(this.idsDnsAddUrl, data); // Don't set Content-Type
+    }
+
+    deleteDNSNetwork(payloadObj: any): Observable<any> {
+        console.log("deleteDNSNetwork() received:", payloadObj);
+        const payload = new HttpParams().set('idsip', payloadObj);
+        console.log("idsip:", payload.toString());
+        return this.http.post<any>(
+            this.idsNetworkDeleteUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+    }
+
+    deleteDNSPort(payloadObj: any): Observable<any> {
+        console.log("v() received:", payloadObj);
+        const payload = new HttpParams().set('idsport', payloadObj);
+        console.log("idsport:", payload.toString());
+        return this.http.post<any>(
+            this.idsDnsDeleteUrl,
+            payload.toString(),
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                })
+            }
+        );
+    }
+
+    searchIDSNetwork(query: string): Observable<any> {
+        const params = new HttpParams().set('q', query);
+        return this.http.get<any>(this.idsNetworkSearchUrl, { params });
+    }
+
+    searchDNSPorts(query: string): Observable<any> {
+        const params = new HttpParams().set('q', query);
+        return this.http.get<any>(this.idsDnsSearchUrl, { params });
+    }
 }

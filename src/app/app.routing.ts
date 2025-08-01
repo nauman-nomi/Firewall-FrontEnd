@@ -81,13 +81,12 @@ export const appRoutes: Route[] = [
             {path: 'routing', loadChildren: () => import('app/modules/admin/network/routing/routing.modules').then(m => m.RoutingModule)},
             {path: 'BandwidthManagement', loadChildren: () => import('app/modules/admin/bandwidth-management/bandwidth-management.module').then(m => m.BandwidthManagementModule)},
             
-            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/logging-monitoring/log-management/log-management.modules').then(m => m.LogManagementModule)},
-            {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
 
             {path: 'nat', loadChildren: () => import('app/modules/admin/network-security/nat/nat-management/nat-management.module').then(m => m.NATManagementModule)},
 
             {path: 'modSec', loadChildren: () => import('app/modules/admin/network-security/mod-security/mod-security.module').then(m => m.ModSecurityModule)},
             {path: 'emailGW', loadChildren: () => import('app/modules/admin/network-security/email-gateway/email-gateway.module').then(m => m.EmailGWModule)},
+            
             {path: 'idsips', loadChildren: () => import('app/modules/admin/network-security/ids-ips-component/ids-ips-component.modules').then(m => m.IDSIPSModule)},
 
             {path: 'geoCountry', loadChildren: () => import('app/modules/admin/threat-protection/geo-country/geo-country.modules').then(m => m.GeoCountryModule)},
@@ -99,6 +98,16 @@ export const appRoutes: Route[] = [
             {path: 'maintainance/:value', loadChildren: () => import('app/modules/misc/maintainance/maintainance.module').then(m => m.MaintainanceModule)},
 
             {path: 'vpn', loadChildren: () => import('app/modules/admin/vpn/vpn.component.module').then(m => m.VPNModules)},
+
+            {path: 'firewalllog', loadChildren: () => import('app/modules/admin/logging-monitoring/firewall-logs/firewall-logs.modules').then(m => m.FirewallLogsModule)},
+            {path: 'suricatalog', loadChildren: () => import('app/modules/admin/logging-monitoring/suricata-logs/suricata-logs.modules').then(m => m.SuricataLogsModule)},
+            {path: 'waplog', loadChildren: () => import('app/modules/admin/logging-monitoring/wap-logs/wap-logs.modules').then(m => m.WapLogsModule)},
+            {path: 'mailscannerlog', loadChildren: () => import('app/modules/admin/logging-monitoring/mailscanner-logs/mailscanner-logs.modules').then(m => m.MailscannerLogsModule)},
+            {path: 'systemlog', loadChildren: () => import('app/modules/admin/logging-monitoring/system-logs/system-logs.modules').then(m => m.SystemLogsModule)},
+            
+            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/logging-monitoring/log-management/log-management.modules').then(m => m.LogManagementModule)},
+            {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
+
         ]
     }
 ];

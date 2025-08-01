@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { staticValues } from 'app/modules/constants';
-import { environment } from 'environments/environment';
+
 
 @Component({
     selector: 'app-log-management',
