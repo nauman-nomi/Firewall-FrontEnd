@@ -40,6 +40,7 @@ import { AddWhitelistIpComponent } from './modules/admin/threat-protection/white
 import { AddGeoBlockIpComponent } from './modules/admin/threat-protection/geo-blocking/add-geoblock-ip/add-geoblock-ip.component';
 import { AddGeoCountryComponent } from './modules/admin/threat-protection/geo-country/add-geo-country/add-geo-country.component';
 import { AddIdsNetworkComponent } from './modules/admin/network-security/ids-ips-component/add-ids-network/add-ids-network.component';
+import { AddIdsPortComponent } from './modules/admin/network-security/ids-ips-component/add-ids-port/add-ids-port.component';
 // import { FirewallLogsComponent } from './modules/admin/logging-monitoring/firewall-logs/firewall-logs.component';
 // import { SuricataLogsComponent } from './modules/admin/logging-monitoring/suricata-logs/suricata-logs.component';
 // import { WapLogsComponent } from './modules/admin/logging-monitoring/wap-logs/wap-logs.component';
@@ -68,6 +69,7 @@ const routerConfig: ExtraOptions = {
         // AddGeoBlockIpComponent,
         AddGeoCountryComponent,
         AddIdsNetworkComponent,
+        AddIdsPortComponent,
         // FirewallLogsComponent,
         // SuricataLogsComponent,
         // WapLogsComponent,

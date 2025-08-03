@@ -13,14 +13,14 @@
         {{ alert.message }}
     </fuse-alert>
 
-    <form [formGroup]="addIdsNetworkForm" (ngSubmit)="onSubmit()" class="rounded-lg">
+    <form [formGroup]="addIdsPortForm" (ngSubmit)="onSubmit()" class="rounded-lg">
         <div class="dialog-body ">
             <div class="flex justify-center px-3">
                 <mat-form-field appearance="standard" class="w-full">
-                    <mat-label class="block font-semibold mb-1">Enter IDS Network</mat-label>
-                    <input matInput type="text" formControlName="ids_network" placeholder="192.168.1.16/16"/>
-                    <small class="error" *ngIf="addIdsNetworkForm.get('ids_network')?.invalid && addIdsNetworkForm.get('ids_network')?.touched">
-                        Invalid IDS Network
+                    <mat-label class="block font-semibold mb-1">Enter IDS Port</mat-label>
+                    <input matInput type="text" formControlName="http_ports" placeholder="8080"/>
+                    <small class="error" *ngIf="addIdsPortForm.get('http_ports')?.invalid && addIdsPortForm.get('http_ports')?.touched">
+                        Invalid IDS Port
                     </small>
                 </mat-form-field>
             </div>
@@ -28,7 +28,7 @@
 
         <div class="mt-2" align="end">
             <button type="submit" mat-flat-button class="fuse-mat-button-medium w-28" [color]="'primary'"
-                [disabled]="addIdsNetworkForm.invalid || addIdsNetworkForm.hasError('nonUniqueSelection')">
+                [disabled]="addIdsPortForm.invalid || addIdsPortForm.hasError('nonUniqueSelection')">
                 <span> Submit </span>
                 <mat-progress-spinner class="ml-3" *ngIf="isSubmitting" [diameter]="24"
                     [mode]="'indeterminate'"></mat-progress-spinner>

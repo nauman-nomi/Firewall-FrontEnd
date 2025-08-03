@@ -191,6 +191,24 @@
                         </div>
                     </ng-container>
 
+                    <ng-container *ngIf="column === 'idsnet_action'">
+                        <div class="flex justify-center space-x-2">
+                            <button mat-button (click)="deleteIDSNetwork(row)" matTooltip="Delete Network">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="column === 'idsport_action'">
+                        <div class="flex justify-center space-x-2">
+                            <button mat-button (click)="deleteIDSPort(row)" matTooltip="Delete Port">
+                                <i class="material-icons text-white text-2xl rounded-2xl bg-warn p-0.5">delete</i>
+                            </button>
+
+                        </div>
+                    </ng-container>
+
                 </td>
             </ng-container>
 

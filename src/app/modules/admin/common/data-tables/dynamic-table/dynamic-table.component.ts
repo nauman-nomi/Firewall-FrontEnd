@@ -102,6 +102,20 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
         row.sep = "country-unblock-delete";
         this.editRow.emit(row);  // Emit the row data to the parent       
     }
+
+
+
+    deleteIDSNetwork(row: any): void {
+        row.sep = "ids-network-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
+
+    deleteIDSPort(row: any): void {
+        row.sep = "ids-port-delete";
+        this.editRow.emit(row);  // Emit the row data to the parent       
+    }
+
+
     
 
     onDeleteWebModSec(row:any): void{

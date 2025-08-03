@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FuseCardModule } from '@fuse/components/card';
 import { IdsIpsComponentComponent } from './ids-ips-component.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const IPDIPSRoutes: Route[] = [
     {
@@ -30,10 +31,26 @@ const IPDIPSRoutes: Route[] = [
     ],
     imports     : [
         RouterModule.forChild(IPDIPSRoutes),
-        
-        SharedModule
+        MatButtonModule,
+        MatIconModule,
+        MatSlideToggleModule,
+        FuseAlertModule,
+        MatProgressBarModule,
+        DynamicTableModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        FuseCardModule,
+        MatProgressSpinnerModule,
+        MatInputModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatSelectModule,
+        SharedModule,
+        SharedModule,
+        MatSnackBarModule
     ]
 })
+
 export class IDSIPSModule
 {
 }

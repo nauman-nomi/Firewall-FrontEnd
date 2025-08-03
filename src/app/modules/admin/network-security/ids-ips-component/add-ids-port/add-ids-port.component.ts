@@ -1,32 +1,30 @@
-
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertType } from '@fuse/components/alert';
 import { NicService } from 'app/api/nic-info.service';
 
-
 @Component({
-  selector: 'app-add-ids-network',
-  templateUrl: './add-ids-network.component.html',
-  styleUrls: ['./add-ids-network.component.scss']
+  selector: 'app-add-ids-port',
+  templateUrl: './add-ids-port.component.html',
+  styleUrls: ['./add-ids-port.component.scss']
 })
-export class AddIdsNetworkComponent implements OnInit {
+export class AddIdsPortComponent implements OnInit {
 
   errorAlert: { type: FuseAlertType; message: string } = { type: 'error', message: '' };
   alert: { type: FuseAlertType; message: string } = { type: 'error', message: 'Error!' };
   showAlert: boolean = false;
   isSubmitting: boolean = false;
 
-  addIdsNetworkForm!: FormGroup;
+  addIdsPortForm!: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<AddIdsNetworkComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(public dialogRef: MatDialogRef<AddIdsPortComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     private nicService: NicService, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
     console.log(this.data.row);
-    this.addIdsNetworkForm = this.fb.group({
-      ids_network: ['', [
+    this.addIdsPortForm = this.fb.group({
+      http_ports: ['', [
         Validators.required,
-        Validators.pattern(/^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\/([0-9]|[1-2]\d|3[0-2]))?$/)
+        Validators.pattern(/^\d{1,5}$/)
       ]]
     });
   }
@@ -40,7 +38,7 @@ export class AddIdsNetworkComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.addIdsNetworkForm.invalid) {
+    if (this.addIdsPortForm.invalid) {
       this.showAlert = true;
       this.errorAlert.message = 'Please fill all required fields correctly.';
       this.errorAlert.type = 'error';
@@ -48,14 +46,14 @@ export class AddIdsNetworkComponent implements OnInit {
     }
 
     this.isSubmitting = true;
-    const formValue = this.addIdsNetworkForm.value;
+    const formValue = this.addIdsPortForm.value;
     const formData = new FormData();
 
     // Append form data
-    formData.append('ids_network', formValue.ids_network);
+    formData.append('http_ports', formValue.http_ports);
 
     // Call API
-    this.nicService.addIDSNetwork(formData).subscribe(
+    this.nicService.addIDSPort(formData).subscribe(
       (response) => {
         this.isSubmitting = false;
         this.showAlert = true;
@@ -76,5 +74,7 @@ export class AddIdsNetworkComponent implements OnInit {
       }
     );
   }
+
+
 
 }

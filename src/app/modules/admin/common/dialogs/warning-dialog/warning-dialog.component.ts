@@ -192,11 +192,11 @@ export class WarningDialogComponent implements OnInit {
             );
             this.cdr.detectChanges();
         }
-        
+
         else if (this.data.action === 'country-unblock-delete') {
             this.showAlert = false;
             this.isSubmitting = true;
-            
+
             this.nicService.deleteGeoCountry(this.data.row.country_code).subscribe(
                 (response) => {
                     console.log('Geo Country Unblocked:', response);
@@ -229,6 +229,7 @@ export class WarningDialogComponent implements OnInit {
 
             // Add logic to handle sub-interface deletion
         }
+
         else if (this.data.action === 'delete-web-mod-sec') {
             this.showAlert = false;
             this.isSubmitting = true;
@@ -334,6 +335,64 @@ export class WarningDialogComponent implements OnInit {
             );
             console.log(this.data.row.domain_name);
         }
+
+        else if (this.data.action === 'ids-network-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            const payload = this.data.row.ids_network; // ✅ FIXED
+
+            this.nicService.deleteIDSNetwork(payload).subscribe(
+                (response) => {
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                    this.dialogRef.close(response); // Optional
+                },
+                (error) => {
+                    console.error('Failed to remove network:', error);
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to remove network. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+        }
+
+        else if (this.data.action === 'ids-port-delete') {
+            this.showAlert = false;
+            this.isSubmitting = true;
+
+            const payload = this.data.row.http_ports; // ✅ FIXED
+
+            this.nicService.deleteIDSPort(payload).subscribe(
+                (response) => {
+                    this.alert = {
+                        type: response.status === 'success' ? 'success' : 'error',
+                        message: response.message
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                    this.dialogRef.close(response); // Optional
+                },
+                (error) => {
+                    console.error('Failed to remove port:', error);
+                    this.alert = {
+                        type: 'error',
+                        message: 'Failed to remove port. Please try again.'
+                    };
+                    this.showAlert = true;
+                    this.isSubmitting = false;
+                }
+            );
+        }
+
+
 
         else {
             console.log("Unhandled action:", this.data.action);
