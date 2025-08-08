@@ -7,6 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FirewallLogsComponent } from './firewall-logs.component';
+import { MatTableModule } from '@angular/material/table';
+import { DynamicTableModule } from '../../common/data-tables/dynamic-table/dynamic-table.module';
 
 const LogsRoutes: Route[] = [
     {
@@ -26,7 +28,9 @@ const LogsRoutes: Route[] = [
         MatSlideToggleModule,
         FuseAlertModule,
         MatProgressBarModule,
-        SharedModule
+        DynamicTableModule,
+        SharedModule,
+        MatTableModule
     ]
 })
 

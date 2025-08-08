@@ -156,6 +156,7 @@ export class NicService {
     private idsPortSearchUrl = environment.apiUrl + 'searchIDSPort';
 
 
+    private getFirewallLogsUrl = environment.apiUrl + 'firewallLogs';
 
     public apiKey = environment.apiKey;
 
@@ -657,4 +658,9 @@ searchIDSPorts(query: string): Observable < any > {
     const params = new HttpParams().set('q', query);
     return this.http.get<any>(this.idsPortSearchUrl, { params });
 }
+
+    getFirewallLogsData(): Observable<any> {
+        return this.http.get<any>(this.getFirewallLogsUrl);
+    }
+
 }

@@ -103,7 +103,7 @@ export class TrafficGraphComponent implements OnInit, OnDestroy {
 
     pollNicTraffic() {
         this.requestSub = this.fetchAndUpdateData().add(() => {
-            this.timerId = setTimeout(() => this.pollNicTraffic(), 30000);
+            this.timerId = setTimeout(() => this.pollNicTraffic(), 3000);
         });
     }
 

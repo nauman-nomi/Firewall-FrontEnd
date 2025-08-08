@@ -1,1 +1,46 @@
-<p>firewall-logs works!</p>
+<div class="flex flex-auto p-3 sm:p-5">
+    <div class="flex flex-col flex-auto w-full">
+
+        <!-- Alerts -->
+        <div class="mb-8" *ngIf="showAlert">
+            <fuse-alert
+                class="mt-0 -mb-2"
+                *ngIf="showAlert"
+                [appearance]="'outline'"
+                [showIcon]="true"
+                [type]="alert.type">
+                {{ alert.message }}
+            </fuse-alert>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div *ngIf="loading" class="flex justify-center items-center my-4">
+            <mat-progress-bar mode="indeterminate" class="w-full"></mat-progress-bar>
+        </div>
+
+        <!-- Table Card -->
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 rounded-t-xl bg-primary-500">
+                <div class="justify-self-start flex items-center">
+                    <div class="text-xl font-bold leading-none tracking-tight text-white pl-5">Firewall Logs</div>
+                </div>
+                <div class="justify-self-end m-2 mr-4">
+                    <button *ngIf="!loading" (click)="refreshTable()" matTooltip="Refresh" class="px-2 pt-1 bg-white text-white rounded-md">
+                        <mat-icon class="text-primary">refresh</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-card rounded-b-2xl grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 mb-4">
+                <div class="flex flex-col px-5 pt-4 pb-2 shadow overflow-hidden bg-card">
+                    <app-dynamic-table
+                        [data]="firewallLogs"
+                        [displayedColumns]="displayedColumns"
+                        [headerMapping]="headerMapping">
+                    </app-dynamic-table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
