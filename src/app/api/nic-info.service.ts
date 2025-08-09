@@ -157,6 +157,14 @@ export class NicService {
 
 
     private getFirewallLogsUrl = environment.apiUrl + 'firewallLogs';
+    private getModSecAuditLogsUrl = environment.apiUrl + 'modSecAuditLogs';
+
+    private getModSecCRSUpdateHistoryUrl = environment.apiUrl + 'modSecCRSUpdateHistory';
+    private getModSecCRSUpdateStatusUrl = environment.apiUrl + 'modSecCRSUpdateStatus';
+    private getModSecUpdateUrl = environment.apiUrl + 'modSecUpdate';
+
+    private getMailLogsUrl = environment.apiUrl + 'getMailLogs';
+
 
     public apiKey = environment.apiKey;
 
@@ -661,6 +669,25 @@ searchIDSPorts(query: string): Observable < any > {
 
     getFirewallLogsData(): Observable<any> {
         return this.http.get<any>(this.getFirewallLogsUrl);
+    }
+
+    getModSecAuditLogsData(): Observable<any> {
+        return this.http.get<any>(this.getModSecAuditLogsUrl);
+    }
+
+
+    getModSecCRSUpdateHistoryData(): Observable<any> {
+        return this.http.get<any>(this.getModSecCRSUpdateHistoryUrl);
+    }
+    getModSecCRSUpdateStatusData(): Observable<any> {
+        return this.http.get<any>(this.getModSecCRSUpdateStatusUrl);
+    }
+    getModSecUpdateData(): Observable<any> {
+        return this.http.get<any>(this.getModSecUpdateUrl);
+    }
+
+    getMailLogsData(): Observable<any> {
+        return this.http.get<any>(this.getMailLogsUrl);
     }
 
 }

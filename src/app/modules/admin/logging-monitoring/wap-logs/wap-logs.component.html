@@ -1,1 +1,92 @@
-<p>wap-logs works!</p>
+<div class="flex flex-col h-full w-full"> <!-- Added w-full -->
+
+    <!-- Header -->
+    <div class="flex justify-between items-center bg-primary-500 text-white px-6 py-3 rounded-t-xl shadow w-full">
+        <h2 class="text-2xl font-bold">ModSecurity Audit Logs</h2>
+        <button *ngIf="!loading"
+                matTooltip="Refresh"
+                (click)="refreshTable()"
+                class="bg-white text-primary p-2 rounded-md shadow hover:bg-gray-200 transition">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </div>
+
+    <!-- Table -->
+    <div class="flex-auto overflow-auto bg-card rounded-b-xl shadow w-full"> <!-- Added w-full -->
+        <table mat-table [dataSource]="dataSource" class="w-full min-w-full"> <!-- Added min-w-full -->
+
+            <!-- Time Stamp -->
+            <ng-container matColumnDef="time_stamp">
+                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <td mat-cell *matCellDef="let element"> {{ element.time_stamp }} </td>
+            </ng-container>
+
+            <!-- Client IP -->
+            <ng-container matColumnDef="client_ip">
+                <th mat-header-cell *matHeaderCellDef> Client IP </th>
+                <td mat-cell *matCellDef="let element"> {{ element.client_ip }} </td>
+            </ng-container>
+
+            <!-- Client Port -->
+            <ng-container matColumnDef="client_port">
+                <th mat-header-cell *matHeaderCellDef> Client Port </th>
+                <td mat-cell *matCellDef="let element"> {{ element.client_port }} </td>
+            </ng-container>
+
+            <!-- Host IP -->
+            <ng-container matColumnDef="host_ip">
+                <th mat-header-cell *matHeaderCellDef> Host IP </th>
+                <td mat-cell *matCellDef="let element"> {{ element.host_ip }} </td>
+            </ng-container>
+
+            <!-- Host Port -->
+            <ng-container matColumnDef="host_port">
+                <th mat-header-cell *matHeaderCellDef> Host Port </th>
+                <td mat-cell *matCellDef="let element"> {{ element.host_port }} </td>
+            </ng-container>
+
+            <!-- Method -->
+            <ng-container matColumnDef="method">
+                <th mat-header-cell *matHeaderCellDef> Method </th>
+                <td mat-cell *matCellDef="let element"> {{ element.method }} </td>
+            </ng-container>
+
+            <!-- URI -->
+            <ng-container matColumnDef="uri">
+                <th mat-header-cell *matHeaderCellDef> URI </th>
+                <td mat-cell *matCellDef="let element"> {{ element.uri }} </td>
+            </ng-container>
+
+            <!-- HTTP Code -->
+            <ng-container matColumnDef="http_code">
+                <th mat-header-cell *matHeaderCellDef> HTTP Code </th>
+                <td mat-cell *matCellDef="let element"> {{ element.http_code }} </td>
+            </ng-container>
+
+            <!-- Message -->
+            <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef> Message </th>
+                <td mat-cell *matCellDef="let element"> {{ element.message || '-' }} </td>
+            </ng-container>
+
+            <!-- Severity -->
+            <ng-container matColumnDef="severity">
+                <th mat-header-cell *matHeaderCellDef> Severity </th>
+                <td mat-cell *matCellDef="let element"> {{ element.severity || '-' }} </td>
+            </ng-container>
+
+            <!-- Rule ID -->
+            <ng-container matColumnDef="ruleId">
+                <th mat-header-cell *matHeaderCellDef> Rule ID </th>
+                <td mat-cell *matCellDef="let element"> {{ element.ruleId || '-' }} </td>
+            </ng-container>
+
+            <!-- Header and Row -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+    <!-- Paginator -->
+    <mat-paginator class="w-full" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

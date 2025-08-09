@@ -1,8 +1,8 @@
 <div class="logs-container">
   <div class="logs-section">
-    <h3>Mail Logs</h3>
-    <div class="table-container" [class.scrollable]="dataSourceAll.data.length > 5">
-      <table mat-table [dataSource]="dataSourceAll" class="mat-elevation-z2">
+    <h3>CRS Update History</h3>
+    <div class="table-container" [class.scrollable]="dataSourceHistory.data.length > 5">
+      <table mat-table [dataSource]="dataSourceHistory" class="mat-elevation-z2">
 
         <ng-container matColumnDef="log">
           <td mat-cell *matCellDef="let log">{{ log }}</td>
@@ -14,9 +14,9 @@
   </div>
 
   <div class="logs-section">
-    <h3>Mail Rejected Logs</h3>
-    <div class="table-container" [class.scrollable]="dataSourceReject.data.length > 5">
-      <table mat-table [dataSource]="dataSourceReject" class="mat-elevation-z2">
+    <h3>CRS Update Status</h3>
+    <div class="table-container" [class.scrollable]="dataSourceStatus.data.length > 5">
+      <table mat-table [dataSource]="dataSourceStatus" class="mat-elevation-z2">
 
         <ng-container matColumnDef="log">
           <td mat-cell *matCellDef="let log">{{ log }}</td>
@@ -28,9 +28,9 @@
   </div>
 
   <div class="logs-section">
-    <h3>Mail Send Logs</h3>
-    <div class="table-container" [class.scrollable]="dataSourceSent.data.length > 5">
-      <table mat-table [dataSource]="dataSourceSent" class="mat-elevation-z2">
+    <h3>ModSec Update</h3>
+    <div class="table-container" [class.scrollable]="dataSourceUpdate.data.length > 5">
+      <table mat-table [dataSource]="dataSourceUpdate" class="mat-elevation-z2">
 
         <ng-container matColumnDef="log">
           <td mat-cell *matCellDef="let log">{{ log }}</td>

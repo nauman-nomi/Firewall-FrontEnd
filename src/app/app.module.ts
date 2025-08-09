@@ -41,6 +41,8 @@ import { AddGeoBlockIpComponent } from './modules/admin/threat-protection/geo-bl
 import { AddGeoCountryComponent } from './modules/admin/threat-protection/geo-country/add-geo-country/add-geo-country.component';
 import { AddIdsNetworkComponent } from './modules/admin/network-security/ids-ips-component/add-ids-network/add-ids-network.component';
 import { AddIdsPortComponent } from './modules/admin/network-security/ids-ips-component/add-ids-port/add-ids-port.component';
+// import { WapupdatedLogsComponent } from './modules/admin/logging-monitoring/wapupdated-logs/wapupdated-logs.component';
+// import { WapLogsModule } from '/modules/admin/logging-monitoring/wap-logs/wap-logs.modules';
 // import { FirewallLogsComponent } from './modules/admin/logging-monitoring/firewall-logs/firewall-logs.component';
 // import { SuricataLogsComponent } from './modules/admin/logging-monitoring/suricata-logs/suricata-logs.component';
 // import { WapLogsComponent } from './modules/admin/logging-monitoring/wap-logs/wap-logs.component';
@@ -70,11 +72,13 @@ const routerConfig: ExtraOptions = {
         AddGeoCountryComponent,
         AddIdsNetworkComponent,
         AddIdsPortComponent,
+        // WapupdatedLogsComponent,
         // FirewallLogsComponent,
         // SuricataLogsComponent,
         // WapLogsComponent,
         // MailscannerLogsComponent,
         // SystemLogsComponent,
+        // WapLogsModule
 
     ],
     imports     : [

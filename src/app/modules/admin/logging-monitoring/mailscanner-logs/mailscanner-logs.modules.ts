@@ -8,6 +8,14 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MailscannerLogsComponent } from './mailscanner-logs.component';
 
+
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
+
 const LogsRoutes: Route[] = [
     {
         path     : '',
@@ -21,12 +29,18 @@ const LogsRoutes: Route[] = [
     ],
     imports     : [
         RouterModule.forChild(LogsRoutes),
-        MatButtonModule,
-        MatIconModule,
-        MatSlideToggleModule,
-        FuseAlertModule,
-        MatProgressBarModule,
-        SharedModule
+        // MatButtonModule,
+        // MatIconModule,
+        // MatSlideToggleModule,
+        // FuseAlertModule,
+        // MatProgressBarModule,
+        // SharedModule,
+
+        CommonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatTooltipModule,
+
     ]
 })
 

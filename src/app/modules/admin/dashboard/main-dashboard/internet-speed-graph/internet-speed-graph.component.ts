@@ -90,7 +90,7 @@ export class InternetSpeedGraphComponent implements OnInit, OnDestroy {
   pollSpeedTest() {
     this.requestSub = this.fetchAndUpdateData().add(() => {
       // Wait 30s, then call the API again
-      this.timerId = setTimeout(() => this.pollSpeedTest(), 30000);
+      this.timerId = setTimeout(() => this.pollSpeedTest(), 600000); // 10 minute 600 seconds
     });
   }
 

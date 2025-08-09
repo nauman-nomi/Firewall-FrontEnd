@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WapLogsComponent } from './wap-logs.component';
+import { WapupdatedLogsComponent } from './wapupdated-logs.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,13 +12,13 @@ import { Route, RouterModule } from '@angular/router';
 const LogsRoutes: Route[] = [
     {
         path     : '',
-        component: WapLogsComponent
+        component: WapupdatedLogsComponent
     }
 ];
 
 
 @NgModule({
-    declarations: [WapLogsComponent],
+    declarations: [WapupdatedLogsComponent],
     imports: [
         RouterModule.forChild(LogsRoutes),
         CommonModule,
@@ -28,6 +28,6 @@ const LogsRoutes: Route[] = [
         MatTooltipModule,
         MatButtonModule,
     ],
-    exports: [WapLogsComponent]
+    exports: [WapupdatedLogsComponent]
 })
-export class WapLogsModule {}
+export class WapUpdatedLogsModule {}

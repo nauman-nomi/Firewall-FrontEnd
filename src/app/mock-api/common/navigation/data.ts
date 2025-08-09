@@ -244,10 +244,17 @@ export const compactNavigation: FuseNavigationItem[] = [
                 },
                 {
                     id: 'wap.log',
-                    title: 'WAP Log',
+                    title: 'WAP Logs',
                     type: 'basic',
                     icon: 'mat_solid:description',
                     link: '/waplog'
+                },
+                {
+                    id: 'wapupdated.log',
+                    title: 'WAP Updated Logs',
+                    type: 'basic',
+                    icon: 'mat_solid:description',
+                    link: '/wapupdatedlog'
                 },
 
                 {

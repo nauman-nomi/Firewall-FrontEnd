@@ -102,6 +102,7 @@ export const appRoutes: Route[] = [
             {path: 'firewalllog', loadChildren: () => import('app/modules/admin/logging-monitoring/firewall-logs/firewall-logs.modules').then(m => m.FirewallLogsModule)},
             {path: 'suricatalog', loadChildren: () => import('app/modules/admin/logging-monitoring/suricata-logs/suricata-logs.modules').then(m => m.SuricataLogsModule)},
             {path: 'waplog', loadChildren: () => import('app/modules/admin/logging-monitoring/wap-logs/wap-logs.modules').then(m => m.WapLogsModule)},
+            {path: 'wapupdatedlog', loadChildren: () => import('app/modules/admin/logging-monitoring/wapupdated-logs/wapupdated-logs.modules').then(m => m.WapUpdatedLogsModule)},
             {path: 'mailscannerlog', loadChildren: () => import('app/modules/admin/logging-monitoring/mailscanner-logs/mailscanner-logs.modules').then(m => m.MailscannerLogsModule)},
             {path: 'systemlog', loadChildren: () => import('app/modules/admin/logging-monitoring/system-logs/system-logs.modules').then(m => m.SystemLogsModule)},
             
