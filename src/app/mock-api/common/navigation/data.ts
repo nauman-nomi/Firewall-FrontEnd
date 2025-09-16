@@ -272,21 +272,21 @@ export const compactNavigation: FuseNavigationItem[] = [
                     link: '/systemlog'
                 },
 
-                {
-                    id: 'sm.log',
-                    title: 'RSPAMD Log',
-                    type: 'basic',
-                    icon: 'mat_solid:description',
-                    link: '/rspamdlog'
-                },
+                // {
+                //     id: 'sm.log',
+                //     title: 'RSPAMD Log',
+                //     type: 'basic',
+                //     icon: 'mat_solid:description',
+                //     link: '/rspamdlog'
+                // },
 
-                {
-                    id: 'sm.log',
-                    title: 'Logs',
-                    type: 'basic',
-                    icon: 'mat_solid:description',
-                    link: '/logManagement'
-                },
+                // {
+                //     id: 'sm.log',
+                //     title: 'Logs',
+                //     type: 'basic',
+                //     icon: 'mat_solid:description',
+                //     link: '/logManagement'
+                // },
             ]
     },
 

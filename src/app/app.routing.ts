@@ -106,8 +106,8 @@ export const appRoutes: Route[] = [
             {path: 'mailscannerlog', loadChildren: () => import('app/modules/admin/logging-monitoring/mailscanner-logs/mailscanner-logs.modules').then(m => m.MailscannerLogsModule)},
             {path: 'systemlog', loadChildren: () => import('app/modules/admin/logging-monitoring/system-logs/system-logs.modules').then(m => m.SystemLogsModule)},
             
-            {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/logging-monitoring/log-management/log-management.modules').then(m => m.LogManagementModule)},
-            {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
+            // {path: 'rspamdlog', loadChildren: () => import('app/modules/admin/logging-monitoring/log-management/log-management.modules').then(m => m.LogManagementModule)},
+            // {path: 'logManagement', loadChildren: () => import('app/modules/admin/logging-monitoring/all-logs/all-logs.modules').then(m => m.AllLogsModule)},
 
         ]
     }
