@@ -10,7 +10,9 @@ import { InitialDataResolver } from 'app/app.resolvers';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    {path: '', pathMatch : 'full', redirectTo: 'sign-in'},
+    // {path: '', pathMatch : 'full', redirectTo: 'sign-in'},
+
+    {path: '', pathMatch : 'full', redirectTo: 'mainDashboard'},
 
     // Redirect signed in user to the '/example'
     //
@@ -99,6 +101,13 @@ export const appRoutes: Route[] = [
 
             {path: 'vpn', loadChildren: () => import('app/modules/admin/vpn/vpn.component.module').then(m => m.VPNModules)},
 
+            {path: 'dnsresolver', loadChildren: () => import('app/modules/admin/system-services/dns-resolver/dns-resolver.modules').then(m => m.DNSResolverModule)},
+            {path: 'ntpserver', loadChildren: () => import('app/modules/admin/system-services/ntp-server/ntp-server.modules').then(m => m.NTPServerModule)},
+            {path: 'snmpconfiguration', loadChildren: () => import('app/modules/admin/system-services/snmp-configuration/snmp-configuration.modules').then(m => m.SNMPConfigurationModule)},
+            {path: 'dhcpserver', loadChildren: () => import('app/modules/admin/system-services/dhcp-server/dhcp-server.modules').then(m => m.DHCPServerModule)},
+            {path: 'dynamicdns', loadChildren: () => import('app/modules/admin/system-services/dynamic-dns/dynamic-dns.modules').then(m => m.DynamicDNSModule)},
+
+            
             {path: 'firewalllog', loadChildren: () => import('app/modules/admin/logging-monitoring/firewall-logs/firewall-logs.modules').then(m => m.FirewallLogsModule)},
             {path: 'suricatalog', loadChildren: () => import('app/modules/admin/logging-monitoring/suricata-logs/suricata-logs.modules').then(m => m.SuricataLogsModule)},
             {path: 'waplog', loadChildren: () => import('app/modules/admin/logging-monitoring/wap-logs/wap-logs.modules').then(m => m.WapLogsModule)},

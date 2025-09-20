@@ -41,6 +41,11 @@ import { AddGeoBlockIpComponent } from './modules/admin/threat-protection/geo-bl
 import { AddGeoCountryComponent } from './modules/admin/threat-protection/geo-country/add-geo-country/add-geo-country.component';
 import { AddIdsNetworkComponent } from './modules/admin/network-security/ids-ips-component/add-ids-network/add-ids-network.component';
 import { AddIdsPortComponent } from './modules/admin/network-security/ids-ips-component/add-ids-port/add-ids-port.component';
+// import { DnsResolverComponent } from './modules/admin/system-services/dns-resolver/dns-resolver.component';
+// import { NtpServerComponent } from './modules/admin/system-services/ntp-server/ntp-server.component';
+// import { SnmpConfigurationComponent } from './modules/admin/system-services/snmp-configuration/snmp-configuration.component';
+// import { DhcpServerComponent } from './modules/admin/system-services/dhcp-server/dhcp-server.component';
+// import { DynamicDnsComponent } from './modules/admin/system-services/dynamic-dns/dynamic-dns.component';
 // import { WapupdatedLogsComponent } from './modules/admin/logging-monitoring/wapupdated-logs/wapupdated-logs.component';
 // import { WapLogsModule } from '/modules/admin/logging-monitoring/wap-logs/wap-logs.modules';
 // import { FirewallLogsComponent } from './modules/admin/logging-monitoring/firewall-logs/firewall-logs.component';
@@ -72,6 +77,11 @@ const routerConfig: ExtraOptions = {
         AddGeoCountryComponent,
         AddIdsNetworkComponent,
         AddIdsPortComponent,
+        // DnsResolverComponent,
+        // NtpServerComponent,
+        // SnmpConfigurationComponent,
+        // DhcpServerComponent,
+        // DynamicDnsComponent,
         // WapupdatedLogsComponent,
         // FirewallLogsComponent,
         // SuricataLogsComponent,

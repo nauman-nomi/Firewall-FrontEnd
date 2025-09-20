@@ -181,39 +181,39 @@ export const compactNavigation: FuseNavigationItem[] = [
             [
 
                 {
-                    id: 'sm.dnsResolver',
+                    id: 'sm.dnsresolver',
                     title: 'DNS Resolver',
                     type: 'basic',
                     icon: 'mat_solid:dns',
-                    link: '/'
+                    link: '/dnsresolver'
                 },
                 {
-                    id: 'sm.ntpServer',
+                    id: 'sm.ntpserver',
                     title: 'NTP Server',
                     type: 'basic',
                     icon: 'mat_solid:schedule',
-                    link: '/'
+                    link: '/ntpserver'
                 },
                 {
-                    id: 'sm.snmpConfig',
+                    id: 'sm.snmpconfiguration',
                     title: 'SNMP Configuration',
                     type: 'basic',
                     icon: 'mat_solid:device_hub',
-                    link: '/'
+                    link: '/snmpconfiguration'
                 },
                 {
-                    id: 'sm.dhcpServer',
+                    id: 'sm.dhcpserver',
                     title: 'DHCP Server',
                     type: 'basic',
                     icon: 'mat_solid:router',
-                    link: '/'
+                    link: '/dhcpserver'
                 },
                 {
-                    id: 'sm.dynamicDns',
+                    id: 'sm.dynamicdns',
                     title: 'Dynamic DNS',
                     type: 'basic',
                     icon: 'mat_solid:settings_ethernet',
-                    link: '/'
+                    link: '/dynamicdns'
                 }
             ]
     },
